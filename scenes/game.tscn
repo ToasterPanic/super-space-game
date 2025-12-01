@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=6 format=3 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bfxfkrkaebxk0" path="res://scripts/player.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://dgng5vdhn6anc" path="res://scenes/asteroid.tscn" id="3_lnu2h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwrxv"]
 radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
+radius = 20.0
 
 [node name="Game" type="Node2D"]
 
@@ -15,7 +19,7 @@ script = ExtResource("1_yqjtg")
 [node name="Sprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_uwrxv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_uwrxv")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -25,4 +29,20 @@ position_smoothing_speed = 8.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 15.0
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="Player"]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Player/Hitbox"]
+shape = SubResource("CircleShape2D_lnu2h")
+debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
+
+[node name="Asteroid" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(-42, -173)
+
+[node name="Asteroid2" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(227, 37)
+
+[node name="Asteroid3" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(-216, 134)
+
+[node name="Asteroid4" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(-192, -427)

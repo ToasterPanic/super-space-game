@@ -1,8 +1,9 @@
 extends RigidBody2D
 
 var health = 1000
+var time_since_last_collision = 0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var axis = Input.get_axis("turn_left", "turn_right")
 	
 	angular_velocity = deg_to_rad(180 * axis)
