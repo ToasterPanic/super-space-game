@@ -49,16 +49,18 @@ rotation_smoothing_speed = 15.0
 shape = SubResource("CircleShape2D_lnu2h")
 debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
 
-[node name="Asteroid" parent="." instance=ExtResource("3_lnu2h")]
+[node name="Unloadables" type="Node2D" parent="."]
+
+[node name="Asteroid" parent="Unloadables" instance=ExtResource("3_lnu2h")]
 position = Vector2(-42, -173)
 
-[node name="Asteroid2" parent="." instance=ExtResource("3_lnu2h")]
+[node name="Asteroid2" parent="Unloadables" instance=ExtResource("3_lnu2h")]
 position = Vector2(227, 37)
 
-[node name="Asteroid3" parent="." instance=ExtResource("3_lnu2h")]
+[node name="Asteroid3" parent="Unloadables" instance=ExtResource("3_lnu2h")]
 position = Vector2(-216, 134)
 
-[node name="Asteroid4" parent="." instance=ExtResource("3_lnu2h")]
+[node name="Asteroid4" parent="Unloadables" instance=ExtResource("3_lnu2h")]
 position = Vector2(-192, -427)
 
 [node name="UI" type="CanvasLayer" parent="."]
