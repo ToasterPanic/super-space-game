@@ -43,11 +43,14 @@ shape = SubResource("CircleShape2D_uwrxv")
 
 [node name="Hitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape" type="CollisionShape2D" parent="Hitbox"]
+[node name="Large" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_lnu2h")
 debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
 
 [node name="SightCast" type="RayCast2D" parent="."]
 target_position = Vector2(0, -256)
+
+[node name="FireCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, -1024)
 
 [connection signal="body_shape_entered" from="Hitbox" to="." method="_on_hitbox_body_shape_entered"]

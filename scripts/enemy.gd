@@ -72,6 +72,9 @@ func _process(delta: float) -> void:
 	modulate.g = health / 1000.0
 	modulate.b = health / 1000.0
 	
+	if health <= 0:
+		queue_free()
+	
 	ai_tick -= delta
 	
 	if boosting:
@@ -112,7 +115,7 @@ func _process(delta: float) -> void:
 		time_since_last_collision += delta
 		
 	if ai_tick < 0:
-		ai_tick = 0.1
+		ai_tick = 0.25
 		
 		movement_axis = -1
 		
@@ -130,10 +133,14 @@ func _process(delta: float) -> void:
 		$SightCast.position.x = 0
 		
 		if ai_mode == AI_MODE_ATTACK:
+			firing = false
+			
 			if !front_cast and (player_distance > 480):
 				boost_pressed = true
-			elif front_cast == player:
+			elif $FireCast.get_collider() == player:
 				if player_distance > 480: boost_pressed = true
+				
+				firing = true
 			else:
 				boost_pressed = false
 				
@@ -142,14 +149,21 @@ func _process(delta: float) -> void:
 			if ai_state == AI_STATE_TRACK_ENEMY:
 				target_rotation = direction_to_player
 				
+				if (player.linear_velocity.length() < 256) and (player_distance < 256):
+					ai_state = AI_STATE_STATIONARY_ENEMY
+				
 			if ai_state == AI_STATE_STATIONARY_ENEMY:
 				target_rotation = direction_to_player
 				movement_axis = 0
+				boost_pressed = false
+				
+				if (player.linear_velocity.length() > 256) or (player_distance > 320):
+					ai_state = AI_STATE_TRACK_ENEMY
 			
 		if front_cast:
 			var front_cast_distance = ($SightCast.get_collision_point() - position).length()
 			
-			if (front_cast_distance < 160 * (speed / 300.0)) and (front_cast_distance < player_distance):
+			if (front_cast_distance < 160 * (speed / 300.0)) and (front_cast_distance < player_distance) and (ai_state != AI_STATE_STATIONARY_ENEMY):
 				if ai_state != AI_STATE_EVADE_OBJECT: last_ai_state_before_evasion = ai_state 
 				
 				ai_state = AI_STATE_EVADE_OBJECT
@@ -157,7 +171,7 @@ func _process(delta: float) -> void:
 				
 				object_to_evade = front_cast
 				
-		target_rotation_speed = 1
+		target_rotation_speed = 0.8
 			
 		if ai_state == AI_STATE_EVADE_OBJECT:
 			if not front_cast:

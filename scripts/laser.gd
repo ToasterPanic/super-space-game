@@ -4,6 +4,12 @@ var creator = null
 var lifetime = 0
 var has_collided = false
 
+func _ready() -> void:
+	if creator.get_name() == "Player":
+		$Hitbox/Small.free()
+	else:
+		$Hitbox/Large.free()
+
 func _process(delta: float) -> void:
 	if has_collided: return
 	
@@ -20,7 +26,7 @@ func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index
 		$Trail.visible = false
 		
 		if "health" in body:
-			body.health -= 100
+			body.health -= 75
 		
 		await get_tree().create_timer(1.0).timeout
 		

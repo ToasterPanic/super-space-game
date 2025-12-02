@@ -1,10 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgj3hd5wlaoc0"]
+[gd_scene load_steps=8 format=3 uid="uid://dgj3hd5wlaoc0"]
 
 [ext_resource type="Script" uid="uid://b7te10evkqwhy" path="res://scripts/laser.gd" id="1_a7dhc"]
 [ext_resource type="Texture2D" uid="uid://bb0v0jtreyba3" path="res://textures/laser.png" id="2_jjj73"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_trtic"]
-radius = 12.0
 
 [sub_resource type="Curve" id="Curve_ir15t"]
 _data = [Vector2(0, 0.5393259), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -17,23 +14,34 @@ curve = SubResource("Curve_ir15t")
 gravity = Vector3(0, 98, 0)
 alpha_curve = SubResource("CurveTexture_ca42v")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_trtic"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7dhc"]
+radius = 2.0
+height = 20.0
+
 [node name="Laser" type="RigidBody2D"]
 linear_damp = 6.247
 script = ExtResource("1_a7dhc")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_jjj73")
-
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_trtic")
-debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="Trail" type="GPUParticles2D" parent="."]
 amount = 24
 texture = ExtResource("2_jjj73")
 lifetime = 0.05
 process_material = SubResource("ParticleProcessMaterial_rysoc")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_jjj73")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="Large" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_trtic")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="Small" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_a7dhc")
+debug_color = Color(0.77871144, 0.126396, 0.9999997, 0.41960785)
 
 [connection signal="body_shape_entered" from="Hitbox" to="." method="_on_hitbox_body_shape_entered"]

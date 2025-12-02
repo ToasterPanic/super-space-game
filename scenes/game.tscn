@@ -72,6 +72,12 @@ debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
 [node name="Enemy" parent="." instance=ExtResource("11_dinhu")]
 position = Vector2(0, -418)
 
+[node name="Enemy2" parent="." instance=ExtResource("11_dinhu")]
+position = Vector2(362, 397)
+
+[node name="Enemy3" parent="." instance=ExtResource("11_dinhu")]
+position = Vector2(362, 397)
+
 [node name="Unloadables" type="Node2D" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
