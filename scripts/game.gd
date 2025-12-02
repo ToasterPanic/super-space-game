@@ -3,6 +3,8 @@ extends Node2D
 var chunk_tick_timer = 0
 var chunks = {}
 var chunk_process_distance = 6
+var time_since_last_atmospheric_track = 999
+var current_atmospheric_track = null
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 
@@ -15,6 +17,18 @@ func chunk_to_world(position: Vector2) -> Vector2:
 func _process(delta: float) -> void:
 	$UI/Control/BoostText.text = "BOOST: " + str($Player.boost)
 	$UI/Control/Distance.text = "DIST: " + str(floori($Player.position.length()))
+	
+	if current_atmospheric_track:
+		if not current_atmospheric_track.playing:
+			time_since_last_atmospheric_track = 0
+	else:
+		time_since_last_atmospheric_track += delta
+		
+		if time_since_last_atmospheric_track > 60:
+			var tracks = [$BalladOfTheCats, $ConcreteHalls]
+			
+			current_atmospheric_track = tracks[randi_range(0, tracks.size())]
+			current_atmospheric_track.play()
 	
 	chunk_tick_timer -= delta
 	
