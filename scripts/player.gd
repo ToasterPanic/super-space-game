@@ -83,7 +83,13 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if body.linear_velocity.length() + linear_velocity.length() > 256:
+	var hit_velocity = linear_velocity.length()
+	if "linear_velocity" in body:
+		hit_velocity = body.linear_velocity.length() + linear_velocity.length()
+		
+	print(hit_velocity)
+		
+	if hit_velocity > 256:
 		camera_shake_power = 4 
 		
 		$Collision.play()

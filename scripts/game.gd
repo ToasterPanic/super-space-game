@@ -15,6 +15,8 @@ func chunk_to_world(position: Vector2) -> Vector2:
 	return Vector2(floori(position.x * 1024), floori(position.y * 1024))
 
 func _process(delta: float) -> void:
+	$Navring.position = $Player.position
+	
 	$UI/Control/BoostText.text = "BOOST: " + str($Player.boost)
 	$UI/Control/Distance.text = "DIST: " + str(floori($Player.position.length()))
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=21 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -9,13 +9,45 @@
 [ext_resource type="AudioStream" uid="uid://b6tyof2j3ytbv" path="res://sounds/concrete_halls.mp3" id="3_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_p57ef"]
 [ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="8_vtaks"]
-[ext_resource type="PackedScene" uid="uid://dy6dv2tio433m" path="res://scenes/enemy.tscn" id="11_dinhu"]
+[ext_resource type="Texture2D" uid="uid://dsdd1830ilu1" path="res://textures/navigation_ring.png" id="10_dinhu"]
+[ext_resource type="Texture2D" uid="uid://yfsqc4i52c6k" path="res://textures/space_station_1.png" id="12_dinhu"]
+[ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="12_kvuet"]
+[ext_resource type="Texture2D" uid="uid://hgfmjw6gbdnn" path="res://textures/blank.png" id="12_trtic"]
+[ext_resource type="Script" uid="uid://d0txwo63hlrsy" path="res://scripts/enterable.gd" id="13_trtic"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwrxv"]
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
 radius = 20.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trtic"]
+shader = ExtResource("12_kvuet")
+shader_parameter/shake = 0.002000000095
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0010000000475
+shader_parameter/offsetIntensity = 0.0045
+shader_parameter/colorOffsetIntensity = 0.10000000149012
+shader_parameter/pixelSize = 1024.0
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = true
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
+texture = ExtResource("12_trtic")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_ca42v"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_ir15t")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvuet"]
+size = Vector2(128, 32)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_u5sy4")
@@ -29,6 +61,9 @@ bus = &"Music"
 stream = ExtResource("3_0tnpc")
 volume_db = -10.0
 bus = &"Music"
+
+[node name="Navring" type="Sprite2D" parent="."]
+texture = ExtResource("10_dinhu")
 
 [node name="Player" type="RigidBody2D" parent="."]
 linear_damp = 6.247
@@ -69,15 +104,6 @@ rotation_smoothing_speed = 15.0
 shape = SubResource("CircleShape2D_lnu2h")
 debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
 
-[node name="Enemy" parent="." instance=ExtResource("11_dinhu")]
-position = Vector2(0, -418)
-
-[node name="Enemy2" parent="." instance=ExtResource("11_dinhu")]
-position = Vector2(362, 397)
-
-[node name="Enemy3" parent="." instance=ExtResource("11_dinhu")]
-position = Vector2(362, 397)
-
 [node name="Unloadables" type="Node2D" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -107,4 +133,34 @@ offset_bottom = 12.0
 grow_vertical = 2
 text = "DIST: 2048"
 
+[node name="Shader" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_trtic")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="SpaceStation1" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("12_dinhu")
+script = ExtResource("13_trtic")
+
+[node name="Collision" type="TileMapLayer" parent="SpaceStation1"]
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray("AAD6/wgAAAAAAAAAAAD6/wkAAAAAAAAAAAD6/woAAAAAAAAAAAD6/wsAAAAAAAAAAAD6/wwAAAAAAAAAAAD6/w0AAAAAAAAAAAD6/w4AAAAAAAAAAAD6/w8AAAAAAAAAAAD7/w8AAAAAAAAAAAD8/w8AAAAAAAAAAAD9/w8AAAAAAAAAAAD9/w4AAAAAAAAAAAD8/w4AAAAAAAAAAAD7/w4AAAAAAAAAAAD7/w0AAAAAAAAAAAD7/wwAAAAAAAAAAAD7/wsAAAAAAAAAAAD7/woAAAAAAAAAAAD7/wkAAAAAAAAAAAD7/wgAAAAAAAAAAAD8/wgAAAAAAAAAAAD9/wgAAAAAAAAAAAD9/wkAAAAAAAAAAAD9/woAAAAAAAAAAAD9/wsAAAAAAAAAAAD9/wwAAAAAAAAAAAD8/wwAAAAAAAAAAAD8/w0AAAAAAAAAAAD8/wsAAAAAAAAAAAD8/woAAAAAAAAAAAD8/wkAAAAAAAAAAAD+/wkAAAAAAAAAAAD//wkAAAAAAAAAAAAAAAkAAAAAAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAABAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAD//wgAAAAAAAAAAAD+/wgAAAAAAAAAAAD+/wcAAAAAAAAAAAD+/wYAAAAAAAAAAAD//wYAAAAAAAAAAAAAAAYAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAACAAgAAAAAAAAAAAADAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAADAAoAAAAAAAAAAAACAAoAAAAAAAAAAAACAAsAAAAAAAAAAAACAAwAAAAAAAAAAAACAA0AAAAAAAAAAAACAA4AAAAAAAAAAAACAA8AAAAAAAAAAAADAA8AAAAAAAAAAAAEAA8AAAAAAAAAAAAFAA8AAAAAAAAAAAAFAA4AAAAAAAAAAAAEAA4AAAAAAAAAAAADAA4AAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAFAAwAAAAAAAAAAAAEAAwAAAAAAAAAAAADAAwAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAFAAoAAAAAAAAAAAAEAAoAAAAAAAAAAAAFAAkAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_ca42v")
+
+[node name="EnterHitbox" type="Area2D" parent="SpaceStation1"]
+position = Vector2(0, 176)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpaceStation1/EnterHitbox"]
+shape = SubResource("RectangleShape2D_kvuet")
+
+[node name="ExitPoint" type="Node2D" parent="SpaceStation1"]
+position = Vector2(0, 245.5)
+rotation = 3.1415927
+
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
+[connection signal="area_entered" from="SpaceStation1/EnterHitbox" to="SpaceStation1" method="_on_enter_hitbox_area_entered"]
