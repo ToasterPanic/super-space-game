@@ -14,6 +14,9 @@ func _process(delta: float) -> void:
 		if Input.is_action_pressed("boost"):
 			boost -= delta * 40
 			
+			if camera_shake_power < 2:
+				camera_shake_power = 2
+			
 			if boost <= 0:
 				boost = 0
 				boosting = false
@@ -41,18 +44,20 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	var axis = Input.get_axis("turn_left", "turn_right")
+	var movement_axis = Input.get_axis("forward", "backward")
 	
 	angular_velocity = deg_to_rad(180 * axis)
 	
 	var final_speed = 512
 	
 	if boosting:
+		movement_axis = -1
 		final_speed = 1024
 	
 	# Slow down on collision and gradually speed up
-	if time_since_last_collision < 1: final_speed *= (time_since_last_collision + 0.15) * 2
+	if time_since_last_collision < 0.85: final_speed *= (time_since_last_collision + 0.15)
 	
-	var new_velocity = transform.y * Input.get_axis("forward", "backward") * final_speed
+	var new_velocity = transform.y * movement_axis * final_speed
 	
 	if (new_velocity.length() > linear_velocity.length() - 12):
 		linear_velocity = new_velocity

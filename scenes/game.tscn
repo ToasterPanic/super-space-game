@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=9 format=3 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bfxfkrkaebxk0" path="res://scripts/player.gd" id="1_yqjtg"]
 [ext_resource type="AudioStream" uid="uid://brqjxveo53kco" path="res://sounds/boost.mp3" id="2_iywne"]
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="2_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://dgng5vdhn6anc" path="res://scenes/asteroid.tscn" id="3_lnu2h"]
 [ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_p57ef"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwrxv"]
@@ -51,18 +50,6 @@ debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
 
 [node name="Unloadables" type="Node2D" parent="."]
 
-[node name="Asteroid" parent="Unloadables" instance=ExtResource("3_lnu2h")]
-position = Vector2(-42, -173)
-
-[node name="Asteroid2" parent="Unloadables" instance=ExtResource("3_lnu2h")]
-position = Vector2(227, 37)
-
-[node name="Asteroid3" parent="Unloadables" instance=ExtResource("3_lnu2h")]
-position = Vector2(-216, 134)
-
-[node name="Asteroid4" parent="Unloadables" instance=ExtResource("3_lnu2h")]
-position = Vector2(-192, -427)
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="UI"]
@@ -78,5 +65,16 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 24.0
 text = "BOOST: 100"
+
+[node name="Distance" type="Label" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 136.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "DIST: 2048"
 
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]

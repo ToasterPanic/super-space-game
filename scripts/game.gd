@@ -14,6 +14,8 @@ func chunk_to_world(position: Vector2) -> Vector2:
 
 func _process(delta: float) -> void:
 	$UI/Control/BoostText.text = "BOOST: " + str($Player.boost)
+	$UI/Control/Distance.text = "DIST: " + str(floori($Player.position.length()))
+	
 	chunk_tick_timer -= delta
 	
 	if chunk_tick_timer < 0:
@@ -39,19 +41,26 @@ func _process(delta: float) -> void:
 						"time_to_unload": 0,
 					}
 					
-					var amount = 4
-					
-					var i = 0
-					
-					while i < amount:
-						var asteroid = asteroid_scene.instantiate()
-					
-						asteroid.rotation = randf_range(-5.0, 5.0)
-						asteroid.position = chunk_to_world(chunk_position) + Vector2(randi_range(0, 1024), randi_range(0, 1024))
+					var world_position = chunk_to_world(chunk_position)
+					var orbit_zone = null
+					for n in global.orbit_zones:
 						
-						$Unloadables.add_child(asteroid)
+						if world_position.length() < n.distance:
+							continue
+						orbit_zone = n
 						
-						i += 1
+					for n in orbit_zone.spawns:
+						var i = 0
+						
+						while i < n.amount_min:
+							var asteroid = asteroid_scene.instantiate()
+						
+							asteroid.rotation = randf_range(-5.0, 5.0)
+							asteroid.position = chunk_to_world(chunk_position) + Vector2(randi_range(0, 1024), randi_range(0, 1024))
+							
+							$Unloadables.add_child(asteroid)
+							
+							i += 1
 					
 				y_mod += 1
 				
