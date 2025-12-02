@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 		if time_since_last_atmospheric_track > 60:
 			var tracks = [$BalladOfTheCats, $ConcreteHalls]
 			
-			current_atmospheric_track = tracks[randi_range(0, tracks.size())]
+			current_atmospheric_track = tracks[randi_range(0, tracks.size() - 1)]
 			current_atmospheric_track.play()
 	
 	chunk_tick_timer -= delta
