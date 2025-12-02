@@ -15,8 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://hgfmjw6gbdnn" path="res://textures/blank.png" id="12_trtic"]
 [ext_resource type="Script" uid="uid://d0txwo63hlrsy" path="res://scripts/enterable.gd" id="13_trtic"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_uwrxv"]
-radius = 16.0
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_trtic"]
+points = PackedVector2Array(-16, 16, 16, 16, 0, -16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
 radius = 20.0
@@ -89,7 +89,7 @@ stream = ExtResource("8_vtaks")
 texture = ExtResource("1_uwrxv")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CircleShape2D_uwrxv")
+shape = SubResource("ConvexPolygonShape2D_trtic")
 
 [node name="Camera" type="Camera2D" parent="Player"]
 ignore_rotation = false
@@ -133,6 +133,17 @@ offset_bottom = 12.0
 grow_vertical = 2
 text = "DIST: 2048"
 
+[node name="FadeToBlack" type="ColorRect" parent="UI"]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Shader" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_trtic")
 anchors_preset = 15
@@ -164,3 +175,4 @@ rotation = 3.1415927
 
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
 [connection signal="area_entered" from="SpaceStation1/EnterHitbox" to="SpaceStation1" method="_on_enter_hitbox_area_entered"]
+[connection signal="body_entered" from="SpaceStation1/EnterHitbox" to="SpaceStation1" method="_on_enter_hitbox_body_entered"]

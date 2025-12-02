@@ -13,8 +13,38 @@ func world_to_chunk(position: Vector2) -> Vector2:
 	
 func chunk_to_world(position: Vector2) -> Vector2:
 	return Vector2(floori(position.x * 1024), floori(position.y * 1024))
+	
+func enter_physical(map):
+	get_tree().paused = true
+	
+	var i = 0
+	while i < 5:
+		$UI/FadeToBlack.modulate.a = (i/5.0)
+		
+		await get_tree().create_timer(0.2).timeout
+		
+		i += 1
+		
+	$UI/FadeToBlack.modulate.a = 1
+	
+	await get_tree().create_timer(0.4).timeout
+	
+	get_tree().paused = false
+	
+	global.ground_location = map
+	
+	get_tree().change_scene_to_file("res://scenes/ground_test.tscn")
+		
+		
+func _ready() -> void:
+	if global.ground_location:
+		$Player.global_position = get_node(global.ground_location + "/ExitPoint").global_position
+		$Player.rotation = get_node(global.ground_location + "/ExitPoint").rotation
 
 func _process(delta: float) -> void:
+	if get_tree().paused:
+		return
+	
 	$Navring.position = $Player.position
 	
 	$UI/Control/BoostText.text = "BOOST: " + str($Player.boost)

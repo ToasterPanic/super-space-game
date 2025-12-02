@@ -1,25 +1,53 @@
-[gd_scene load_steps=9 format=3 uid="uid://crc7t4acei3hj"]
+[gd_scene load_steps=19 format=4 uid="uid://crc7t4acei3hj"]
 
 [ext_resource type="Texture2D" uid="uid://c6s5n6xqoy353" path="res://textures/player.png" id="1_s58gg"]
 [ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="1_vgnaj"]
+[ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_wky5g"]
+[ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="3_gysiw"]
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="3_jsun3"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="4_ppdof"]
+[ext_resource type="Script" uid="uid://dnagg4t7wspan" path="res://addons/awesome_input_icons/classes/InputIconTextureRect.gd" id="6_c2suo"]
+[ext_resource type="Shader" uid="uid://d3hoh7ec2w8q7" path="res://scripts/outline.gdshader" id="6_ypt7u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ppdof"]
 radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gysiw"]
+size = Vector2(40, 40)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gysiw"]
+light_mode = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gysiw"]
+polygon = PackedVector2Array(-16, -0.31863022, 0, -16, 16, 0, -0.31863022, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppdof"]
 texture = ExtResource("3_jsun3")
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_gysiw")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_gysiw"]
 tile_size = Vector2i(32, 32)
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ppdof")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gysiw"]
+[sub_resource type="LabelSettings" id="LabelSettings_c2suo"]
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jo68p"]
+shader = ExtResource("6_ypt7u")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ypt7u"]
 shader = ExtResource("4_ppdof")
 shader_parameter/shake = 0.002000000095
 shader_parameter/noiseQuality = 250.0
@@ -33,9 +61,21 @@ shader_parameter/use_lens_distortion = true
 shader_parameter/overlay_color = Color(1, 1, 1, 10)
 shader_parameter/lens_distortion_strength = 0.0
 
+[sub_resource type="Environment" id="Environment_wky5g"]
+
 [node name="GroundTest" type="Node2D"]
+script = ExtResource("1_wky5g")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(100000000, 100000000)
+offset_left = -50000000.0
+offset_top = -50000000.0
+offset_right = 50000000.0
+offset_bottom = 50000000.0
+color = Color(0.06666667, 0.06666667, 0.06666667, 1)
 
 [node name="PlayerGround" type="CharacterBody2D" parent="."]
+position = Vector2(349, -58)
 script = ExtResource("1_vgnaj")
 
 [node name="Sprite" type="Sprite2D" parent="PlayerGround"]
@@ -47,8 +87,21 @@ position_smoothing_enabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerGround"]
 shape = SubResource("CircleShape2D_ppdof")
 
+[node name="ExitShip" type="Sprite2D" parent="."]
+position = Vector2(87, 63)
+scale = Vector2(8, 8)
+texture = ExtResource("3_gysiw")
+
+[node name="InteractBox" type="Area2D" parent="ExitShip"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitShip/InteractBox"]
+shape = SubResource("RectangleShape2D_gysiw")
+
 [node name="Map" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray(0, 0, 253, 255, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 253, 255, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 253, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 253, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 253, 255, 254, 255, 0, 0, 0, 0, 0, 0, 0, 0)
+modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+material = SubResource("CanvasItemMaterial_gysiw")
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAD9/wIAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wAAAAAAAAAAAAD9////AAAAAAAAAAD9//7/AAAAAAAAAAD9/wMAAAAAAAAAAAD9/wQAAAAAAAAAAAD9/wUAAAAAAAAAAAD9/wYAAAAAAAAAAAD9/wcAAAAAAAAAAAD9/wgAAAAAAAAAAAD9/wkAAAAAAAAAAAD9/woAAAAAAAAAAAD9/wsAAAAAAAAAAAD9/wwAAAAAAAAAAAD9/w0AAAAAAAAAAAD9/w4AAAAAAAAAAAD9/w8AAAAAAAAAAAD9/xAAAAAAAAAAAAD9/xEAAAAAAAAAAAD9/xIAAAAAAAAAAAD9/xMAAAAAAAAAAAD9/xQAAAAAAAAAAAD9/xUAAAAAAAAAAAD9/xYAAAAAAAAAAAD9//3/AAAAAAAAAAD+//3/AAAAAAAAAAD///3/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP3/AAAAAAAAAAACAP3/AAAAAAAAAAADAP3/AAAAAAAAAAAHAP3/AAAAAAAAAAAIAP3/AAAAAAAAAAAJAP3/AAAAAAAAAAAKAP3/AAAAAAAAAAALAP3/AAAAAAAAAAAMAP3/AAAAAAAAAAASAP3/AAAAAAAAAAATAP3/AAAAAAAAAAAUAP3/AAAAAAAAAAAVAP3/AAAAAAAAAAAWAP3/AAAAAAAAAAAXAP3/AAAAAAAAAAAYAP3/AAAAAAAAAAAZAP3/AAAAAAAAAAAaAP3/AAAAAAAAAAAbAP3/AAAAAAAAAAAcAP3/AAAAAAAAAAAdAP3/AAAAAAAAAAAeAP3/AAAAAAAAAAAfAP3/AAAAAAAAAAAgAP3/AAAAAAAAAAAhAP3/AAAAAAAAAAAhAP7/AAAAAAAAAAAhAP//AAAAAAAAAAAhAAAAAAAAAAAAAAAhAAEAAAAAAAAAAAAhAAIAAAAAAAAAAAAhAAMAAAAAAAAAAAAhAAQAAAAAAAAAAAAhAAUAAAAAAAAAAAAhAAYAAAAAAAAAAAAhAAcAAAAAAAAAAAAhAAgAAAAAAAAAAAAhAAkAAAAAAAAAAAAhAAoAAAAAAAAAAAAhAAsAAAAAAAAAAAAhAAwAAAAAAAAAAAAhAA0AAAAAAAAAAAAhAA4AAAAAAAAAAAAhAA8AAAAAAAAAAAAhABAAAAAAAAAAAAAhABEAAAAAAAAAAAAhABIAAAAAAAAAAAAhABMAAAAAAAAAAAAhABQAAAAAAAAAAAAhABUAAAAAAAAAAAAhABYAAAAAAAAAAAANAP3/AAAAAAAAAAAOAP3/AAAAAAAAAAAPAP3/AAAAAAAAAAAQAP3/AAAAAAAAAAARAP3/AAAAAAAAAAADAPn/AAAAAAAAAAADAPr/AAAAAAAAAAADAPv/AAAAAAAAAAADAPz/AAAAAAAAAAAHAPn/AAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAD9//n/AAAAAAAAAAD+//n/AAAAAAAAAAD///n/AAAAAAAAAAAAAPn/AAAAAAAAAAABAPn/AAAAAAAAAAACAPn/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_gysiw")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -78,11 +131,43 @@ offset_bottom = 12.0
 grow_vertical = 2
 text = "DIST: 2048"
 
+[node name="LeaveInteract" type="HFlowContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Distance2" type="Label" parent="UI/Control/LeaveInteract"]
+layout_mode = 2
+text = "PRESS"
+label_settings = SubResource("LabelSettings_c2suo")
+
+[node name="InputIcon" type="TextureRect" parent="UI/Control/LeaveInteract"]
+material = SubResource("ShaderMaterial_jo68p")
+custom_minimum_size = Vector2(64, 4)
+layout_mode = 2
+texture = ExtResource("3_jsun3")
+script = ExtResource("6_c2suo")
+action_name = &"interact"
+metadata/_custom_type_script = "uid://dnagg4t7wspan"
+
+[node name="Distance3" type="Label" parent="UI/Control/LeaveInteract"]
+layout_mode = 2
+text = "TO EXIT"
+label_settings = SubResource("LabelSettings_c2suo")
+
 [node name="Shader" type="ColorRect" parent="UI"]
-material = SubResource("ShaderMaterial_gysiw")
+material = SubResource("ShaderMaterial_ypt7u")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wky5g")

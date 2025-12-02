@@ -4,7 +4,7 @@ uniform float shake: hint_range(0, 10) = 0.015;
 uniform float noiseQuality: hint_range(0.1, 250, 0.1) = 250;
 uniform float noiseIntensity: hint_range(0, 0.05, 0.001) = 0.001;
 uniform float offsetIntensity: hint_range(0, 0.05, 0.0001) = 0.0045;
-uniform float colorOffsetIntensity: hint_range(0.1, 1.5, 0.001) = 0.2;
+uniform float colorOffsetIntensity: hint_range(0.0, 1.5, 0.0) = 0.2;
 uniform float pixelSize: hint_range(1, 1024) = 200.0;
 uniform float grainIntensity: hint_range(0, 1) = 0.04; // Intensity of film grain
 
