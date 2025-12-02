@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=19 format=3 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -8,7 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="2_lbhrr"]
 [ext_resource type="AudioStream" uid="uid://b6tyof2j3ytbv" path="res://sounds/concrete_halls.mp3" id="3_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_p57ef"]
-[ext_resource type="Script" uid="uid://8d4jhy3fo32b" path="res://scripts/enemy.gd" id="9_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="8_vtaks"]
+[ext_resource type="Script" uid="uid://b7te10evkqwhy" path="res://scripts/laser.gd" id="10_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://dy6dv2tio433m" path="res://scenes/enemy.tscn" id="11_dinhu"]
+[ext_resource type="Texture2D" uid="uid://bb0v0jtreyba3" path="res://textures/laser.png" id="11_kvuet"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwrxv"]
 radius = 16.0
@@ -16,16 +19,32 @@ radius = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
 radius = 20.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_trtic"]
+radius = 12.0
+
+[sub_resource type="Curve" id="Curve_ir15t"]
+_data = [Vector2(0, 0.5393259), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ca42v"]
+curve = SubResource("Curve_ir15t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rysoc"]
+gravity = Vector3(0, 98, 0)
+alpha_curve = SubResource("CurveTexture_ca42v")
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_u5sy4")
 
 [node name="BalladOfTheCats" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_gee14")
 volume_db = -10.0
+bus = &"Music"
 
 [node name="ConcreteHalls" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_0tnpc")
 volume_db = -10.0
+bus = &"Music"
 
 [node name="Player" type="RigidBody2D" parent="."]
 linear_damp = 6.247
@@ -33,13 +52,19 @@ script = ExtResource("1_yqjtg")
 
 [node name="Boost" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_iywne")
+bus = &"Sound Effects"
 
 [node name="BoostFinish" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("3_p57ef")
 volume_db = -8.0
+bus = &"Sound Effects"
 
 [node name="Collision" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_lbhrr")
+bus = &"Sound Effects"
+
+[node name="Fire" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("8_vtaks")
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_uwrxv")
@@ -60,35 +85,28 @@ rotation_smoothing_speed = 15.0
 shape = SubResource("CircleShape2D_lnu2h")
 debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
 
-[node name="Enemy" type="RigidBody2D" parent="."]
-position = Vector2(0, -418)
+[node name="Laser" type="RigidBody2D" parent="."]
+position = Vector2(77, -428)
 linear_damp = 6.247
-script = ExtResource("9_0tnpc")
+script = ExtResource("10_kvpfn")
 
-[node name="Boost" type="AudioStreamPlayer" parent="Enemy"]
-stream = ExtResource("2_iywne")
+[node name="Sprite" type="Sprite2D" parent="Laser"]
+texture = ExtResource("11_kvuet")
 
-[node name="BoostFinish" type="AudioStreamPlayer" parent="Enemy"]
-stream = ExtResource("3_p57ef")
-volume_db = -8.0
+[node name="Hitbox" type="Area2D" parent="Laser"]
 
-[node name="Collision" type="AudioStreamPlayer" parent="Enemy"]
-stream = ExtResource("2_lbhrr")
+[node name="CollisionShape" type="CollisionShape2D" parent="Laser/Hitbox"]
+shape = SubResource("CircleShape2D_trtic")
+debug_color = Color(1, 0, 0, 0.41960785)
 
-[node name="Sprite" type="Sprite2D" parent="Enemy"]
-texture = ExtResource("1_uwrxv")
+[node name="Trail" type="GPUParticles2D" parent="Laser"]
+amount = 24
+texture = ExtResource("11_kvuet")
+lifetime = 0.05
+process_material = SubResource("ParticleProcessMaterial_rysoc")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="Enemy"]
-shape = SubResource("CircleShape2D_uwrxv")
-
-[node name="Hitbox" type="Area2D" parent="Enemy"]
-
-[node name="CollisionShape" type="CollisionShape2D" parent="Enemy/Hitbox"]
-shape = SubResource("CircleShape2D_lnu2h")
-debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
-
-[node name="SightCast" type="RayCast2D" parent="Enemy"]
-target_position = Vector2(0, -256)
+[node name="Enemy" parent="." instance=ExtResource("11_dinhu")]
+position = Vector2(0, -418)
 
 [node name="Unloadables" type="Node2D" parent="."]
 
@@ -120,4 +138,4 @@ grow_vertical = 2
 text = "DIST: 2048"
 
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
-[connection signal="body_shape_entered" from="Enemy/Hitbox" to="Enemy" method="_on_hitbox_body_shape_entered"]
+[connection signal="body_shape_entered" from="Laser/Hitbox" to="Laser" method="_on_hitbox_body_shape_entered"]

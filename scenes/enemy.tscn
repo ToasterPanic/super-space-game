@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dy6dv2tio433m"]
+
+[ext_resource type="Script" uid="uid://8d4jhy3fo32b" path="res://scripts/enemy.gd" id="1_xwavj"]
+[ext_resource type="AudioStream" uid="uid://brqjxveo53kco" path="res://sounds/boost.mp3" id="2_nenq2"]
+[ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_md484"]
+[ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="4_ipns3"]
+[ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="5_8qclf"]
+[ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="6_w8i8w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uwrxv"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
+radius = 20.0
+
+[node name="Enemy" type="RigidBody2D"]
+linear_damp = 6.247
+script = ExtResource("1_xwavj")
+
+[node name="Boost" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_nenq2")
+pitch_scale = 0.75
+bus = &"Sound Effects"
+
+[node name="BoostFinish" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_md484")
+volume_db = -80.0
+bus = &"Sound Effects"
+
+[node name="Collision" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ipns3")
+pitch_scale = 0.75
+bus = &"Sound Effects"
+
+[node name="Fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8qclf")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("6_w8i8w")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uwrxv")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_lnu2h")
+debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
+
+[node name="SightCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, -256)
+
+[connection signal="body_shape_entered" from="Hitbox" to="." method="_on_hitbox_body_shape_entered"]

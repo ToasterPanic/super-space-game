@@ -7,6 +7,8 @@ var camera_shake_power = 0
 var boosting = false
 
 func _process(delta: float) -> void:
+	modulate.g = health / 1000.0
+	modulate.b = health / 1000.0
 	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
 	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
 	

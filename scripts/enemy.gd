@@ -24,6 +24,8 @@ var ai_state = AI_STATE_TRACK_ENEMY
 var target_rotation = 0
 var target_rotation_speed = 1
 
+var boost_pressed = false
+
 var ai_tick = 0.1
 @onready var player = get_parent().get_node("Player")
 
@@ -65,7 +67,7 @@ func _process(delta: float) -> void:
 	ai_tick -= delta
 	
 	if boosting:
-		if Input.is_action_pressed("boost"):
+		if boost_pressed:
 			boost -= delta * 40
 			
 			if boost <= 0:
@@ -77,10 +79,10 @@ func _process(delta: float) -> void:
 			$BoostFinish.play()
 	else:
 		boost += delta * 25
-		if boost > 100: boost = 100
+		if boost > 75: boost = 75
 		
 		$Boost.stop()
-		if Input.is_action_just_pressed("boost") and (boost > 33):
+		if boost_pressed and (boost > 33):
 			boosting = true
 			$Boost.play()
 	
@@ -92,13 +94,8 @@ func _process(delta: float) -> void:
 		
 		movement_axis = -1
 		
-		if ai_state == AI_STATE_TRACK_ENEMY:
-			target_rotation = global_position.direction_to(player.position).angle() + deg_to_rad(270)
-			
-		if ai_state == AI_STATE_STATIONARY_ENEMY:
-			target_rotation = global_position.direction_to(player.position).angle() + deg_to_rad(270)
-			movement_axis = 0
-			
+		var player_distance = (player.position - position).length()
+		
 		var front_cast = cast(0)
 		if !front_cast:
 			$SightCast.position.x = -20
@@ -109,11 +106,26 @@ func _process(delta: float) -> void:
 				front_cast = cast(0)
 		
 		$SightCast.position.x = 0
+		
+		if ai_mode == AI_MODE_ATTACK:
+			if !front_cast and (player_distance > 480):
+				boost_pressed = true
+			elif front_cast == player:
+				if player_distance > 480: boost_pressed = true
+			else:
+				boost_pressed = false
+			
+			if ai_state == AI_STATE_TRACK_ENEMY:
+				target_rotation = global_position.direction_to(player.position).angle() + deg_to_rad(270)
+				
+			if ai_state == AI_STATE_STATIONARY_ENEMY:
+				target_rotation = global_position.direction_to(player.position).angle() + deg_to_rad(270)
+				movement_axis = 0
 			
 		if front_cast:
 			var front_cast_distance = ($SightCast.get_collision_point() - position).length()
 			
-			if (front_cast_distance < 160 * (speed / 300)) and (front_cast_distance < (player.position - position).length()):
+			if (front_cast_distance < 160 * (speed / 300.0)) and (front_cast_distance < player_distance):
 				if ai_state != AI_STATE_EVADE_OBJECT: last_ai_state_before_evasion = ai_state 
 				
 				ai_state = AI_STATE_EVADE_OBJECT
