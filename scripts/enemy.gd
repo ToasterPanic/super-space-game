@@ -4,7 +4,9 @@ var health = 1000
 var boost = 100
 var speed = 480
 var time_since_last_collision = 1
+var time_since_last_fire = 0
 var boosting = false
+var firing = true
 
 var axis = 0
 var movement_axis = -1
@@ -15,7 +17,8 @@ var ai_mode = AI_MODE_ATTACK
 
 var AI_STATE_EVADE_OBJECT = 1
 var AI_STATE_TRACK_ENEMY = 2
-var AI_STATE_STATIONARY_ENEMY = 3
+var AI_STATE_EVADE_ENEMY_AIM = 3
+var AI_STATE_STATIONARY_ENEMY = 4
 
 var object_to_evade = null
 var last_ai_state_before_evasion = AI_STATE_TRACK_ENEMY
@@ -28,6 +31,8 @@ var boost_pressed = false
 
 var ai_tick = 0.1
 @onready var player = get_parent().get_node("Player")
+
+var laser_scene = preload("res://scenes/laser.tscn")
 
 func cast(angle):
 	$SightCast.rotation_degrees = angle
@@ -64,6 +69,9 @@ func check_front():
 	return 1
 
 func _process(delta: float) -> void:
+	modulate.g = health / 1000.0
+	modulate.b = health / 1000.0
+	
 	ai_tick -= delta
 	
 	if boosting:
@@ -85,6 +93,20 @@ func _process(delta: float) -> void:
 		if boost_pressed and (boost > 33):
 			boosting = true
 			$Boost.play()
+			
+	time_since_last_fire -= delta
+	
+	if (time_since_last_fire <= 0) and firing:
+		time_since_last_fire = 0.25
+		
+		var laser = laser_scene.instantiate() 
+		
+		laser.creator = self 
+		
+		laser.position = position 
+		laser.rotation = rotation
+		
+		get_parent().get_node("Unloadables").add_child(laser)
 	
 	if time_since_last_collision <= 1:
 		time_since_last_collision += delta
@@ -114,12 +136,14 @@ func _process(delta: float) -> void:
 				if player_distance > 480: boost_pressed = true
 			else:
 				boost_pressed = false
+				
+			var direction_to_player = global_position.direction_to(player.position).angle() + deg_to_rad(270)
 			
 			if ai_state == AI_STATE_TRACK_ENEMY:
-				target_rotation = global_position.direction_to(player.position).angle() + deg_to_rad(270)
+				target_rotation = direction_to_player
 				
 			if ai_state == AI_STATE_STATIONARY_ENEMY:
-				target_rotation = global_position.direction_to(player.position).angle() + deg_to_rad(270)
+				target_rotation = direction_to_player
 				movement_axis = 0
 			
 		if front_cast:
@@ -142,8 +166,6 @@ func _process(delta: float) -> void:
 				var front_cast_distance = ($SightCast.get_collision_point() - position).length()
 				if front_cast_distance > 160 * (speed / 300):
 					ai_state = last_ai_state_before_evasion
-					
-		print(ai_state)
 
 func _physics_process(delta: float) -> void:
 	axis = 0
@@ -176,8 +198,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.linear_velocity.length() + linear_velocity.length() > 256:
-		health -= 100
-		
 		$Collision.play()
 		
 		time_since_last_collision = 0

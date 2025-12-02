@@ -2,15 +2,32 @@ extends RigidBody2D
 
 var health = 1000
 var boost = 100
+var time_since_last_fire = 0
 var time_since_last_collision = 1
 var camera_shake_power = 0
 var boosting = false
+
+var laser_scene = preload("res://scenes/laser.tscn")
 
 func _process(delta: float) -> void:
 	modulate.g = health / 1000.0
 	modulate.b = health / 1000.0
 	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
 	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
+	
+	time_since_last_fire -= delta
+	
+	if (time_since_last_fire <= 0) and Input.is_action_pressed("fire"):
+		time_since_last_fire = 0.25
+		
+		var laser = laser_scene.instantiate() 
+		
+		laser.creator = self 
+		
+		laser.position = position 
+		laser.rotation = rotation
+		
+		get_parent().get_node("Unloadables").add_child(laser)
 	
 	if boosting:
 		if Input.is_action_pressed("boost"):
@@ -67,7 +84,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.linear_velocity.length() + linear_velocity.length() > 256:
-		health -= 100
 		camera_shake_power = 4 
 		
 		$Collision.play()
