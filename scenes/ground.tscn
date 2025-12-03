@@ -1,0 +1,383 @@
+[gd_scene load_steps=41 format=4 uid="uid://by43ihcec8e8q"]
+
+[ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
+[ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="2_5vwr8"]
+[ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="3_8gbjj"]
+[ext_resource type="Texture2D" uid="uid://c0cyhybh30ogt" path="res://textures/player-ground-sheet.png" id="4_2c1ag"]
+[ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="4_8gbjj"]
+[ext_resource type="Texture2D" uid="uid://ddfp7u4a7llnr" path="res://textures/wall_side_tile_left.png" id="5_176r3"]
+[ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="5_modao"]
+[ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="6_176r3"]
+[ext_resource type="Texture2D" uid="uid://gl7rcrys46ay" path="res://textures/wall_side_tile_right.png" id="6_vuhkc"]
+[ext_resource type="Texture2D" uid="uid://c8csobncvu3f0" path="res://textures/galactamart_worker.png" id="7_2c1ag"]
+[ext_resource type="Texture2D" uid="uid://cj5sjx1jhrah6" path="res://textures/wall_side_tile_center.png" id="7_26mqe"]
+[ext_resource type="Shader" uid="uid://d3hoh7ec2w8q7" path="res://scripts/outline.gdshader" id="7_vuhkc"]
+[ext_resource type="Script" uid="uid://dnagg4t7wspan" path="res://addons/awesome_input_icons/classes/InputIconTextureRect.gd" id="8_26mqe"]
+[ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="9_257nh"]
+[ext_resource type="Script" uid="uid://dxkb8v7w4daw1" path="res://scripts/interact_area.gd" id="10_26mqe"]
+[ext_resource type="Script" uid="uid://khas1kkt2t3k" path="res://scripts/exit_ship.gd" id="14_257nh"]
+[ext_resource type="Texture2D" uid="uid://b047lku56vtve" path="res://textures/galacta_counter.png" id="15_vuhkc"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gysiw"]
+light_mode = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gysiw"]
+polygon = PackedVector2Array(-16, -0.31863022, 0, -16, 16, 0, -0.31863022, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ppdof"]
+texture = ExtResource("6_176r3")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_gysiw")
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_modao"]
+texture = ExtResource("4_8gbjj")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_257nh"]
+texture = ExtResource("5_176r3")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hby33"]
+texture = ExtResource("6_vuhkc")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e3s4u"]
+texture = ExtResource("7_26mqe")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gysiw"]
+tile_size = Vector2i(32, 32)
+occlusion_layer_0/light_mask = 1
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_ppdof")
+sources/1 = SubResource("TileSetAtlasSource_modao")
+sources/2 = SubResource("TileSetAtlasSource_257nh")
+sources/3 = SubResource("TileSetAtlasSource_hby33")
+sources/4 = SubResource("TileSetAtlasSource_e3s4u")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jo68p"]
+atlas = ExtResource("4_2c1ag")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gpfv"]
+atlas = ExtResource("4_2c1ag")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqhs4"]
+atlas = ExtResource("4_2c1ag")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd1o3"]
+atlas = ExtResource("4_2c1ag")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_176r3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_2c1ag")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqhs4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd1o3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ldj0"]
+radius = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vuhkc"]
+radius = 96.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuhkc"]
+size = Vector2(128, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aergo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd1o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqhs4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqhs4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd1o3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_176r3"]
+radius = 16.0
+height = 48.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gysiw"]
+size = Vector2(40, 40)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c2suo"]
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jo68p"]
+shader = ExtResource("7_vuhkc")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ypt7u"]
+shader = ExtResource("9_257nh")
+shader_parameter/shake = 0.002000000095
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0010000000475
+shader_parameter/offsetIntensity = 0.0045
+shader_parameter/colorOffsetIntensity = 0.10000000149012
+shader_parameter/pixelSize = 1024.0
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = true
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.0
+
+[sub_resource type="Environment" id="Environment_wky5g"]
+
+[node name="Ground" type="Node2D"]
+script = ExtResource("1_6ra5r")
+
+[node name="Uglyburger" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5vwr8")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="Map" type="TileMapLayer" parent="."]
+modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
+material = SubResource("CanvasItemMaterial_gysiw")
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAD9/wIAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wAAAAAAAAAAAAD9////AAAAAAAAAAD9//7/AAAAAAAAAAD9/wMAAAAAAAAAAAD9/wQAAAAAAAAAAAD9/wUAAAAAAAAAAAD9/wYAAAAAAAAAAAD9/wcAAAAAAAAAAAD9/wgAAAAAAAAAAAD9/wkAAAAAAAAAAAD9/woAAAAAAAAAAAD9/wsAAAAAAAAAAAD9/wwAAAAAAAAAAAD9/w0AAAAAAAAAAAD9/w4AAAAAAAAAAAD9/w8AAAAAAAAAAAD9/xAAAAAAAAAAAAD9/xEAAAAAAAAAAAD9/xIAAAAAAAAAAAD9/xMAAAAAAAAAAAD9/xQAAAAAAAAAAAD9/xUAAAAAAAAAAAD9/xYAAAAAAAAAAAD9//3/AAAAAAAAAAD+//3/AAAAAAAAAAD///3/AAAAAAAAAAAAAP3/AAAAAAAAAAABAP3/AAAAAAAAAAACAP3/AAAAAAAAAAADAP3/AAAAAAAAAAAHAP3/AAAAAAAAAAAIAP3/AAAAAAAAAAAJAP3/AAAAAAAAAAAKAP3/AAAAAAAAAAALAP3/AAAAAAAAAAAMAP3/AAAAAAAAAAASAP3/AAAAAAAAAAATAP3/AAAAAAAAAAAUAP3/AAAAAAAAAAAVAP3/AAAAAAAAAAAWAP3/AAAAAAAAAAAXAP3/AAAAAAAAAAAYAP3/AAAAAAAAAAAZAP3/AAAAAAAAAAAaAP3/AAAAAAAAAAAbAP3/AAAAAAAAAAAcAP3/AAAAAAAAAAAdAP3/AAAAAAAAAAAeAP3/AAAAAAAAAAAfAP3/AAAAAAAAAAAgAP3/AAAAAAAAAAAhAP3/AAAAAAAAAAAhAP7/AAAAAAAAAAAhAP//AAAAAAAAAAAhAAAAAAAAAAAAAAAhAAEAAAAAAAAAAAAhAAIAAAAAAAAAAAAhAAMAAAAAAAAAAAAhAAQAAAAAAAAAAAAhAAUAAAAAAAAAAAAhAAYAAAAAAAAAAAAhAAcAAAAAAAAAAAAhAAgAAAAAAAAAAAAhAAkAAAAAAAAAAAAhAAoAAAAAAAAAAAAhAAsAAAAAAAAAAAAhAAwAAAAAAAAAAAAhAA0AAAAAAAAAAAAhAA4AAAAAAAAAAAAhAA8AAAAAAAAAAAAhABAAAAAAAAAAAAAhABEAAAAAAAAAAAAhABIAAAAAAAAAAAAhABMAAAAAAAAAAAAhABQAAAAAAAAAAAAhABUAAAAAAAAAAAAhABYAAAAAAAAAAAANAP3/AAAAAAAAAAAOAP3/AAAAAAAAAAAPAP3/AAAAAAAAAAAQAP3/AAAAAAAAAAARAP3/AAAAAAAAAAADAPn/AAAAAAAAAAADAPr/AAAAAAAAAAADAPv/AAAAAAAAAAADAPz/AAAAAAAAAAAHAPn/AAAAAAAAAAAHAPr/AAAAAAAAAAAHAPv/AAAAAAAAAAAHAPz/AAAAAAAAAAD9//n/AAAAAAAAAAD+//n/AAAAAAAAAAD///n/AAAAAAAAAAAAAPn/AAAAAAAAAAABAPn/AAAAAAAAAAACAPn/AAAAAAAAAAD8//n/AAAAAAAAAAD8//j/AAAAAAAAAAD8//f/AAAAAAAAAAD8//b/AAAAAAAAAAD8//X/AAAAAAAAAAD8//T/AAAAAAAAAAD8//P/AAAAAAAAAAD8//L/AAAAAAAAAAD8//H/AAAAAAAAAAD8//D/AAAAAAAAAAD9//D/AAAAAAAAAAD+//D/AAAAAAAAAAD///D/AAAAAAAAAAAAAPD/AAAAAAAAAAABAPD/AAAAAAAAAAACAPD/AAAAAAAAAAADAPD/AAAAAAAAAAAHAPD/AAAAAAAAAAADAO//AAAAAAAAAAADAO7/AAAAAAAAAAADAO3/AAAAAAAAAAADAOz/AAAAAAAAAAAHAO//AAAAAAAAAAAHAO7/AAAAAAAAAAAHAO3/AAAAAAAAAAAHAOz/AAAAAAAAAAAHAOv/AAAAAAAAAAAHAOr/AAAAAAAAAAAHAOn/AAAAAAAAAAAHAOj/AAAAAAAAAAADAOn/AAAAAAAAAAADAOr/AAAAAAAAAAADAOv/AAAAAAAAAAD+//7/BAAAAAAAAAD///7/BAAAAAAAAAAAAP7/BAAAAAAAAAABAP7/BAAAAAAAAAACAP7/BAAAAAAAAAADAP7/AwAAAAAAAAAHAP7/AgAAAAAAAAAIAP7/BAAAAAAAAAAJAP7/BAAAAAAAAAAKAP7/BAAAAAAAAAALAP7/BAAAAAAAAAAMAP7/BAAAAAAAAAANAP7/BAAAAAAAAAAOAP7/BAAAAAAAAAAPAP7/BAAAAAAAAAAQAP7/BAAAAAAAAAARAP7/BAAAAAAAAAASAP7/BAAAAAAAAAAUAP7/BAAAAAAA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")
+tile_set = SubResource("TileSet_gysiw")
+
+[node name="GalactamartWorker" type="CharacterBody2D" parent="."]
+position = Vector2(-115, -894)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="GalactamartWorker"]
+scale = Vector2(-2, 2)
+sprite_frames = SubResource("SpriteFrames_176r3")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="GalactamartWorker"]
+shape = SubResource("CapsuleShape2D_4ldj0")
+
+[node name="InteractArea" type="Area2D" parent="GalactamartWorker"]
+script = ExtResource("10_26mqe")
+interact_text = "TALK"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="GalactamartWorker/InteractArea"]
+shape = SubResource("CircleShape2D_vuhkc")
+
+[node name="GalactaCounter" type="StaticBody2D" parent="."]
+position = Vector2(-64, -883)
+scale = Vector2(2, 2)
+
+[node name="Sprite" type="Sprite2D" parent="GalactaCounter"]
+texture = ExtResource("15_vuhkc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GalactaCounter"]
+position = Vector2(-0.5, -12)
+shape = SubResource("RectangleShape2D_vuhkc")
+
+[node name="PlayerGround" type="CharacterBody2D" parent="."]
+position = Vector2(349, -58)
+script = ExtResource("3_8gbjj")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="PlayerGround"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_aergo")
+animation = &"walk"
+frame_progress = 0.122260205
+
+[node name="Camera" type="Camera2D" parent="PlayerGround"]
+position_smoothing_enabled = true
+
+[node name="CollisionShape" type="CollisionShape2D" parent="PlayerGround"]
+position = Vector2(0, 40)
+shape = SubResource("CapsuleShape2D_176r3")
+
+[node name="ExitShip" type="Sprite2D" parent="."]
+position = Vector2(87, 63)
+scale = Vector2(8, 8)
+texture = ExtResource("5_modao")
+script = ExtResource("14_257nh")
+
+[node name="InteractArea" type="Area2D" parent="ExitShip"]
+scale = Vector2(0.125, 0.125)
+script = ExtResource("10_26mqe")
+interact_text = "LEAVE"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="ExitShip/InteractArea"]
+scale = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_gysiw")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoostText" type="Label" parent="UI/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.0
+text = "BOOST: 100"
+
+[node name="Distance" type="Label" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 136.0
+offset_bottom = 12.0
+grow_vertical = 2
+text = "DIST: 2048"
+
+[node name="LeaveInteract" type="HFlowContainer" parent="UI/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Distance2" type="Label" parent="UI/Control/LeaveInteract"]
+layout_mode = 2
+text = "PRESS"
+label_settings = SubResource("LabelSettings_c2suo")
+
+[node name="InputIcon" type="TextureRect" parent="UI/Control/LeaveInteract"]
+material = SubResource("ShaderMaterial_jo68p")
+custom_minimum_size = Vector2(64, 4)
+layout_mode = 2
+texture = ExtResource("6_176r3")
+script = ExtResource("8_26mqe")
+action_name = &"interact"
+metadata/_custom_type_script = "uid://dnagg4t7wspan"
+
+[node name="Distance3" type="Label" parent="UI/Control/LeaveInteract"]
+layout_mode = 2
+text = "TO EXIT"
+label_settings = SubResource("LabelSettings_c2suo")
+
+[node name="Interact" type="HFlowContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Start" type="Label" parent="UI/Control/Interact"]
+layout_mode = 2
+text = "PRESS"
+label_settings = SubResource("LabelSettings_c2suo")
+
+[node name="InputIcon" type="TextureRect" parent="UI/Control/Interact"]
+material = SubResource("ShaderMaterial_jo68p")
+custom_minimum_size = Vector2(64, 4)
+layout_mode = 2
+texture = ExtResource("6_176r3")
+script = ExtResource("8_26mqe")
+action_name = &"interact"
+metadata/_custom_type_script = "uid://dnagg4t7wspan"
+
+[node name="End" type="Label" parent="UI/Control/Interact"]
+layout_mode = 2
+text = "TO INTERACT"
+label_settings = SubResource("LabelSettings_c2suo")
+
+[node name="Shader" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_ypt7u")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wky5g")
+
+[connection signal="body_entered" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_entered"]
+[connection signal="body_exited" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_exited"]
+[connection signal="body_entered" from="ExitShip/InteractArea" to="ExitShip/InteractArea" method="_on_body_entered"]
+[connection signal="body_exited" from="ExitShip/InteractArea" to="ExitShip/InteractArea" method="_on_body_exited"]

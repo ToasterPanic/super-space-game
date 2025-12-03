@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=4 uid="uid://crc7t4acei3hj"]
+[gd_scene load_steps=25 format=4 uid="uid://crc7t4acei3hj"]
 
 [ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="1_vgnaj"]
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_wky5g"]
+[ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="2_jo68p"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="3_gysiw"]
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="3_jsun3"]
 [ext_resource type="Texture2D" uid="uid://c0cyhybh30ogt" path="res://textures/player-ground-sheet.png" id="3_ypt7u"]
@@ -127,6 +128,12 @@ shader_parameter/lens_distortion_strength = 0.0
 
 [node name="GroundTest" type="Node2D"]
 script = ExtResource("1_wky5g")
+
+[node name="Uglyburger" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jo68p")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(100000000, 100000000)

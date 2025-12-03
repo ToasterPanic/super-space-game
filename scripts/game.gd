@@ -33,7 +33,7 @@ func enter_physical(map):
 	
 	global.ground_location = map
 	
-	get_tree().change_scene_to_file("res://scenes/ground_test.tscn")
+	get_tree().change_scene_to_file("res://scenes/ground.tscn")
 		
 		
 func _ready() -> void:
