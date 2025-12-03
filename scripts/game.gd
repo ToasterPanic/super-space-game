@@ -8,9 +8,14 @@ var current_atmospheric_track = null
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 
+func ship_heal(health: float = 1000) -> void:
+	$Player.health = health
+
+## Takes a world coordinate and converts it to a chunk coordinate.
 func world_to_chunk(position: Vector2) -> Vector2:
 	return Vector2(floori(position.x / 1024), floori(position.y / 1024))
 	
+## Takes a chunk coordinate and converts it to a world coordinate.
 func chunk_to_world(position: Vector2) -> Vector2:
 	return Vector2(floori(position.x * 1024), floori(position.y * 1024))
 	
@@ -37,6 +42,7 @@ func enter_physical(map):
 		
 		
 func _ready() -> void:
+	LimboConsole
 	if global.ground_location:
 		$Player.global_position = get_node(global.ground_location + "/ExitPoint").global_position
 		$Player.rotation = get_node(global.ground_location + "/ExitPoint").rotation

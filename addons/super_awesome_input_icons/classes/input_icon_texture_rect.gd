@@ -42,7 +42,7 @@ func _update_icon():
 		
 		# If it's a gamepad input and we're using a gamepad, use the corresponding gamepad input icon
 			
-		elif n.is_class("InputEventMouseButton") and input_icon.using_gamepad:
+		elif n.is_class("InputEventJoypadButton") and input_icon.using_gamepad:
 			if input_icon.gamepad_type:
 				texture = load("res://addons/super_awesome_input_icons/textures/" + input_icon.gamepad_type + "/" + input_icon.button_dictionary[n.button_index] + ".png")
 				
@@ -50,6 +50,8 @@ func _update_icon():
 
 func _process(delta: float) -> void:
 	_time_until_next_check -= delta
+	
+	print(input_icon.using_gamepad)
 	
 	if _time_until_next_check < 0:
 		_time_until_next_check = 0.2
