@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://khas1kkt2t3k" path="res://scripts/exit_ship.gd" id="14_257nh"]
 [ext_resource type="Texture2D" uid="uid://b047lku56vtve" path="res://textures/galacta_counter.png" id="15_vuhkc"]
 [ext_resource type="Texture2D" uid="uid://dauoebs801ngm" path="res://addons/super_awesome_input_icons/textures/keyboard/question.png" id="16_e3s4u"]
-[ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/InputIconTextureRect.gd" id="16_hby33"]
+[ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="16_hby33"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gysiw"]
 light_mode = 1
@@ -322,14 +322,14 @@ layout_mode = 2
 text = "PRESS"
 label_settings = SubResource("LabelSettings_c2suo")
 
-[node name="InputIcon2" type="TextureRect" parent="UI/Control/Interact"]
+[node name="InputIcon" type="TextureRect" parent="UI/Control/Interact"]
 material = SubResource("ShaderMaterial_jo68p")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("16_e3s4u")
 expand_mode = 2
 script = ExtResource("16_hby33")
-action_name = &"interact"
+action_name = "interact"
 
 [node name="End" type="Label" parent="UI/Control/Interact"]
 layout_mode = 2

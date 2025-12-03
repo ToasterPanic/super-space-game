@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gkojfej7jdhl"
-path="res://.godot/imported/mouse_scroll_up.png-d3eb669687c8d8b150a86c0dd0d2d82c.ctex"
+uid="uid://cy711ee2m3eq0"
+path="res://.godot/imported/left.png-d85e45f831a06d2ba5c83824c36b51bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/super_awesome_input_icons/textures/mouse/mouse_scroll_up.png"
-dest_files=["res://.godot/imported/mouse_scroll_up.png-d3eb669687c8d8b150a86c0dd0d2d82c.ctex"]
+source_file="res://addons/super_awesome_input_icons/textures/mouse/left.png"
+dest_files=["res://.godot/imported/left.png-d85e45f831a06d2ba5c83824c36b51bf.ctex"]
 
 [params]
 

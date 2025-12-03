@@ -24,6 +24,14 @@ static var button_dictionary = {
 	JOY_BUTTON_PADDLE1: "left_shoulder",
 }
 
+static var mouse_button_dictionary = {
+	MOUSE_BUTTON_LEFT: "left",
+	MOUSE_BUTTON_MIDDLE: "left",
+	MOUSE_BUTTON_RIGHT: "left",
+	MOUSE_BUTTON_WHEEL_DOWN: "scroll_down",
+	MOUSE_BUTTON_WHEEL_UP: "scroll_up",
+}
+
 ## A dictionary where each JoyAxis key corresponds to a string pair. Used for textures.
 static var axis_dictionary = {
 	JOY_AXIS_TRIGGER_LEFT: "left_trigger",
