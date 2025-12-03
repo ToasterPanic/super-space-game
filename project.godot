@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 global="*res://scripts/global.gd"
+input_icon="*res://addons/super_awesome_input_icons/input_icon.gd"
 
 [display]
 
@@ -28,7 +29,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/awesome_input_icons/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/super_awesome_input_icons/plugin.cfg")
 
 [gui]
 
