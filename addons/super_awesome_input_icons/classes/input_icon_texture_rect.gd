@@ -28,7 +28,7 @@ func _update_icon():
 		if n.is_class("InputEventKey") and !input_icon.using_gamepad:
 			var keycode = n.keycode if n.keycode else n.physical_keycode
 			
-			texture = load("res://addons/super_awesome_input_icons/textures/keyboard/" + OS.get_keycode_string(keycode).to_lower() + ".png")
+			texture = load("res://addons/super_awesome_input_icons/textures/keyboard/" + OS.get_keycode_string(keycode).to_snake_case() + ".png")
 			
 			break
 			
