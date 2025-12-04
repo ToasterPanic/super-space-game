@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=28 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="12_kvuet"]
 [ext_resource type="Texture2D" uid="uid://hgfmjw6gbdnn" path="res://textures/blank.png" id="12_trtic"]
 [ext_resource type="Script" uid="uid://d0txwo63hlrsy" path="res://scripts/enterable.gd" id="13_trtic"]
+[ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="15_ir15t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
 texture = ExtResource("12_trtic")
@@ -34,6 +35,29 @@ points = PackedVector2Array(-16, 16, 16, 16, 0, -16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
 radius = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ca42v"]
+bg_color = Color(0, 0, 1, 1)
+corner_detail = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_rysoc"]
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssvqc"]
+bg_color = Color(1, 0, 0, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir15t"]
+bg_color = Color(0.5421658, 0.0015220869, 0.72708863, 1)
+corner_detail = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
+outline_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rysoc"]
+bg_color = Color(1, 0, 0, 1)
+corner_detail = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trtic"]
 shader = ExtResource("12_kvuet")
@@ -85,6 +109,8 @@ shape = SubResource("RectangleShape2D_kvuet")
 position = Vector2(0, 245.5)
 rotation = 3.1415927
 
+[node name="Unloadables" type="Node2D" parent="."]
+
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(-78, 957)
 linear_damp = 6.247
@@ -105,6 +131,7 @@ bus = &"Sound Effects"
 
 [node name="Fire" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("8_vtaks")
+max_polyphony = 4
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_uwrxv")
@@ -125,7 +152,83 @@ rotation_smoothing_speed = 15.0
 shape = SubResource("CircleShape2D_lnu2h")
 debug_color = Color(0.9686392, 0, 0.4696517, 0.41960785)
 
-[node name="Unloadables" type="Node2D" parent="."]
+[node name="BoostMeter" type="ProgressBar" parent="Player"]
+custom_minimum_size = Vector2(12, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -24.0
+offset_right = -42.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_ca42v")
+value = 100.0
+fill_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="Player/BoostMeter"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -12.0
+offset_right = 23.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(23, 12)
+text = "100"
+label_settings = SubResource("LabelSettings_rysoc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HealthMeter" type="ProgressBar" parent="Player"]
+custom_minimum_size = Vector2(12, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 42.0
+offset_top = -24.0
+offset_right = 54.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssvqc")
+value = 100.0
+fill_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="Player/HealthMeter"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -12.0
+offset_right = 23.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(23, 12)
+text = "100"
+label_settings = SubResource("LabelSettings_rysoc")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -153,6 +256,59 @@ offset_right = 136.0
 offset_bottom = 12.0
 grow_vertical = 2
 text = "DIST: 2048"
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+offset_right = 260.0
+grow_vertical = 0
+theme = ExtResource("15_ir15t")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/v_separation = 0
+
+[node name="Fuel" type="ProgressBar" parent="UI/Control/PanelContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 24)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_ir15t")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="UI/Control/PanelContainer/HFlowContainer/Fuel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100% FUEL"
+label_settings = SubResource("LabelSettings_ca42v")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Health" type="ProgressBar" parent="UI/Control/PanelContainer/HFlowContainer"]
+custom_minimum_size = Vector2(256, 24)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_rysoc")
+value = 50.0
+fill_mode = 1
+show_percentage = false
+
+[node name="Label" type="Label" parent="UI/Control/PanelContainer/HFlowContainer/Health"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "+1000 HEALTH"
+label_settings = SubResource("LabelSettings_ca42v")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FadeToBlack" type="ColorRect" parent="UI"]
 process_mode = 3

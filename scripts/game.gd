@@ -7,9 +7,18 @@ var time_since_last_atmospheric_track = 999
 var current_atmospheric_track = null
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
+var enemy_scene = preload("res://scenes/enemy.tscn")
 
-func ship_heal(health: float = 1000) -> void:
+func ship_health(health: float = 1000) -> void:
 	$Player.health = health
+	
+func summon_enemy() -> void:
+	var spawn_position = $Player.position + ($Player.transform.y * 1024)
+	
+	var enemy = enemy_scene.instantiate() 
+	enemy.position = spawn_position
+	
+	add_child(enemy)
 
 ## Takes a world coordinate and converts it to a chunk coordinate.
 func world_to_chunk(position: Vector2) -> Vector2:
@@ -42,7 +51,9 @@ func enter_physical(map):
 		
 		
 func _ready() -> void:
-	LimboConsole
+	LimboConsole.register_command(ship_health, "ship_health", "Sets the ship's health.")
+	LimboConsole.register_command(summon_enemy, "summon_enemy", "Summons an enemy.")
+	
 	if global.ground_location:
 		$Player.global_position = get_node(global.ground_location + "/ExitPoint").global_position
 		$Player.rotation = get_node(global.ground_location + "/ExitPoint").rotation

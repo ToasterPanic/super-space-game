@@ -20,6 +20,8 @@ func _process(delta: float) -> void:
 	if (time_since_last_fire <= 0) and Input.is_action_pressed("fire"):
 		time_since_last_fire = 0.25
 		
+		$Fire.play()
+		
 		var laser = laser_scene.instantiate() 
 		
 		laser.creator = self 
@@ -51,6 +53,20 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("boost") and (boost > 33):
 			boosting = true
 			$Boost.play()
+	
+	if boost < 100:
+		$BoostMeter.modulate = Color(1, 1, 1, 1)
+	else:
+		$BoostMeter.modulate.a -= delta * 2
+	$BoostMeter.value = boost 
+	$BoostMeter/Label.text = str(floori(boost))
+		
+	if health < 100:
+		$HealthMeter.modulate = Color(1, 1, 1, 1)
+	else:
+		$HealthMeter.modulate.a -= delta * 2
+	$HealthMeter.value = health / 10 
+	$HealthMeter/Label.text = str(floori(health / 10))
 	
 	if camera_shake_power > 0:
 		camera_shake_power -= delta * 20

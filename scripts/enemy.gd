@@ -10,6 +10,9 @@ var firing = true
 
 var axis = 0
 var movement_axis = -1
+var evade_direction = 1
+
+var stress = 0
 
 var AI_MODE_ATTACK = 1
 
@@ -135,12 +138,8 @@ func _process(delta: float) -> void:
 		if ai_mode == AI_MODE_ATTACK:
 			firing = false
 			
-			if !front_cast and (player_distance > 480):
+			if !front_cast and (player_distance > 720):
 				boost_pressed = true
-			elif $FireCast.get_collider() == player:
-				if player_distance > 480: boost_pressed = true
-				
-				firing = true
 			else:
 				boost_pressed = false
 				
@@ -159,7 +158,18 @@ func _process(delta: float) -> void:
 				
 				if (player.linear_velocity.length() > 256) or (player_distance > 320):
 					ai_state = AI_STATE_TRACK_ENEMY
-			
+					
+			var direction = (player.position - position).normalized()
+
+		# Optionally, you can get the angle if needed
+			var angle = direction.angle() + deg_to_rad(90)
+		
+			var angular_target = wrapf(angle - rotation, -PI, PI)
+					
+			if abs(rad_to_deg(rotation - angular_target)) < 15:
+				if player_distance > 480: boost_pressed = true
+				
+				firing = true
 		if front_cast:
 			var front_cast_distance = ($SightCast.get_collision_point() - position).length()
 			
@@ -211,6 +221,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if not "linear_velocity" in body: return
+	
 	if body.linear_velocity.length() + linear_velocity.length() > 256:
 		$Collision.play()
 		
