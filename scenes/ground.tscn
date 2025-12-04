@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://by43ihcec8e8q"]
+[gd_scene load_steps=45 format=4 uid="uid://by43ihcec8e8q"]
 
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
 [ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="2_5vwr8"]
@@ -12,12 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://c8csobncvu3f0" path="res://textures/galactamart_worker.png" id="7_2c1ag"]
 [ext_resource type="Texture2D" uid="uid://cj5sjx1jhrah6" path="res://textures/wall_side_tile_center.png" id="7_26mqe"]
 [ext_resource type="Shader" uid="uid://d3hoh7ec2w8q7" path="res://scripts/outline.gdshader" id="7_vuhkc"]
+[ext_resource type="Script" uid="uid://cireshybqi5oq" path="res://scripts/galactamart_worker.gd" id="8_e3s4u"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="9_257nh"]
 [ext_resource type="Script" uid="uid://dxkb8v7w4daw1" path="res://scripts/interact_area.gd" id="10_26mqe"]
 [ext_resource type="Script" uid="uid://khas1kkt2t3k" path="res://scripts/exit_ship.gd" id="14_257nh"]
 [ext_resource type="Texture2D" uid="uid://b047lku56vtve" path="res://textures/galacta_counter.png" id="15_vuhkc"]
 [ext_resource type="Texture2D" uid="uid://dauoebs801ngm" path="res://addons/super_awesome_input_icons/textures/keyboard/question.png" id="16_e3s4u"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="16_hby33"]
+[ext_resource type="PackedScene" uid="uid://dhcfrsf726k68" path="res://scenes/dialogue_select_button.tscn" id="19_qqas2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gysiw"]
 light_mode = 1
@@ -175,8 +177,8 @@ height = 48.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gysiw"]
 size = Vector2(40, 40)
 
-[sub_resource type="LabelSettings" id="LabelSettings_c2suo"]
-font_size = 48
+[sub_resource type="LabelSettings" id="LabelSettings_e3s4u"]
+font_size = 32
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
@@ -187,6 +189,11 @@ shader_parameter/width = 2.000000095
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_c2suo"]
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ypt7u"]
 shader = ExtResource("9_257nh")
@@ -222,6 +229,7 @@ tile_set = SubResource("TileSet_gysiw")
 
 [node name="GalactamartWorker" type="CharacterBody2D" parent="."]
 position = Vector2(-115, -894)
+script = ExtResource("8_e3s4u")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="GalactamartWorker"]
 scale = Vector2(-2, 2)
@@ -236,6 +244,12 @@ interact_text = "TALK"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="GalactamartWorker/InteractArea"]
 shape = SubResource("CircleShape2D_vuhkc")
+
+[node name="Camera" type="Camera2D" parent="GalactamartWorker"]
+position = Vector2(99, 0)
+enabled = false
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
 
 [node name="GalactaCounter" type="StaticBody2D" parent="."]
 position = Vector2(-64, -883)
@@ -290,6 +304,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Dialogue" type="HFlowContainer" parent="UI/Control"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Control/Dialogue"]
+layout_mode = 2
+text = "How may I help you?"
+label_settings = SubResource("LabelSettings_e3s4u")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="InputIcon" type="VFlowContainer" parent="UI/Control/Dialogue"]
+layout_mode = 2
+alignment = 1
+
+[node name="InputIcon" type="TextureRect" parent="UI/Control/Dialogue/InputIcon"]
+material = SubResource("ShaderMaterial_jo68p")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 2
+script = ExtResource("16_hby33")
+action_name = "dialogue_continue"
+
 [node name="BoostText" type="Label" parent="UI/Control"]
 layout_mode = 0
 offset_right = 40.0
@@ -336,6 +382,49 @@ layout_mode = 2
 text = "TO INTERACT"
 label_settings = SubResource("LabelSettings_c2suo")
 
+[node name="DialogueOptions" type="VBoxContainer" parent="UI/Control"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.5
+anchor_right = 0.9
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/Control/DialogueOptions"]
+layout_mode = 2
+alignment = 1
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/DialogueOptions/HFlowContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "ui_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/DialogueOptions/HFlowContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "ui_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/DialogueOptions/HFlowContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "dialogue_continue"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Button" parent="UI/Control/DialogueOptions" instance=ExtResource("19_qqas2")]
+layout_mode = 2
+
 [node name="Shader" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ypt7u")
 anchors_preset = 15
@@ -343,6 +432,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

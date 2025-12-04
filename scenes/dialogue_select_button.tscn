@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhcfrsf726k68"]
+
+[ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="1_m4r5t"]
+[ext_resource type="Script" uid="uid://dco3p5546nyhx" path="res://scripts/dialogue_select_button.gd" id="2_27vbl"]
+
+[node name="DialogueSelectButton" type="Button"]
+theme = ExtResource("1_m4r5t")
+text = "test"
+script = ExtResource("2_27vbl")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

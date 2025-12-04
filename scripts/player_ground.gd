@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+## Is the player busy in an interaction?
+var busy = false
+
 func _ready() -> void:
 	$Sprite.play()
 
@@ -7,7 +10,10 @@ func _process(delta: float) -> void:
 	var horizontial_movement = Input.get_axis("ground_left", "ground_right")
 	var vertical_movement = Input.get_axis("ground_up", "ground_down")
 	
-	velocity = Vector2(256 * horizontial_movement, 256 * vertical_movement)
+	if busy:
+		velocity = Vector2()
+	else:
+		velocity = Vector2(256 * horizontial_movement, 256 * vertical_movement)
 	if horizontial_movement > 0.1:
 		$Sprite.scale.x = -2
 	if horizontial_movement < -0.1:

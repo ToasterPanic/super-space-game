@@ -7,8 +7,6 @@ func _ready() -> void:
 	game = owner 
 	
 	if game.owner != null: game = game.owner
-	
-	print(game)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.get_name() == "PlayerGround":

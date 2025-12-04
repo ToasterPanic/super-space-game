@@ -51,8 +51,6 @@ func _update_icon():
 func _process(delta: float) -> void:
 	_time_until_next_check -= delta
 	
-	print(input_icon.using_gamepad)
-	
 	if _time_until_next_check < 0:
 		_time_until_next_check = 0.2
 		
