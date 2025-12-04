@@ -29,7 +29,9 @@ func dialogue(text: String) -> void:
 		
 		$UI/Control/Dialogue/Label.text = displayed_text
 		
-		await get_tree().create_timer(0.05).timeout
+		$Dialogue.play()
+		
+		await get_tree().create_timer(0.03).timeout
 		
 		i += 1
 		
@@ -41,10 +43,8 @@ func dialogue(text: String) -> void:
 	
 	return
 	
-func make_choice(options: Dictionary = {}) -> void:
+func make_choice(options: Dictionary = {}) -> String:
 	$UI/Control/DialogueOptions.visible = true
-	
-	$UI/Control/DialogueOptions/Button.grab_focus()
 	
 	var dialogue_select_button_scene = preload("res://scenes/dialogue_select_button.tscn")
 	
@@ -58,6 +58,7 @@ func make_choice(options: Dictionary = {}) -> void:
 		
 		dialogue_select_button.name = n
 		dialogue_select_button.text = options[n]
+		dialogue_select_button.game = self
 		
 		$UI/Control/DialogueOptions.add_child(dialogue_select_button)
 		
@@ -70,9 +71,12 @@ func make_choice(options: Dictionary = {}) -> void:
 		
 	first_button.grab_focus()
 	
-	await dialogue_continue
+	var response = await choice_made
 	
-	return
+	$UI/Control/DialogueOptions.visible = false
+	
+	return response
+	
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("dialogue_continue"):

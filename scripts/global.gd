@@ -22,3 +22,11 @@ var orbit_zones = [
 	},
 	
 ]
+
+var stats = {
+	"fuel": 12,
+	"fuel_tank_size": 1,
+	"speed": 512,
+	"boost_tank_size": 1,
+	"marks": 200,
+}

@@ -1,8 +1,9 @@
-[gd_scene load_steps=45 format=4 uid="uid://by43ihcec8e8q"]
+[gd_scene load_steps=46 format=4 uid="uid://by43ihcec8e8q"]
 
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
 [ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="2_5vwr8"]
 [ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="3_8gbjj"]
+[ext_resource type="AudioStream" uid="uid://cdl70q0x28717" path="res://sounds/dialogue.mp3" id="3_rncil"]
 [ext_resource type="Texture2D" uid="uid://c0cyhybh30ogt" path="res://textures/player-ground-sheet.png" id="4_2c1ag"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="4_8gbjj"]
 [ext_resource type="Texture2D" uid="uid://ddfp7u4a7llnr" path="res://textures/wall_side_tile_left.png" id="5_176r3"]
@@ -154,20 +155,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jo68p")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_6gpfv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yqhs4")
+"texture": SubResource("AtlasTexture_jo68p")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fd1o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqhs4")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 7.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_176r3"]
@@ -200,7 +201,7 @@ shader = ExtResource("9_257nh")
 shader_parameter/shake = 0.002000000095
 shader_parameter/noiseQuality = 250.0
 shader_parameter/noiseIntensity = 0.0010000000475
-shader_parameter/offsetIntensity = 0.0045
+shader_parameter/offsetIntensity = 0.0
 shader_parameter/colorOffsetIntensity = 0.10000000149012
 shader_parameter/pixelSize = 1024.0
 shader_parameter/grainIntensity = 0.04
@@ -219,6 +220,9 @@ stream = ExtResource("2_5vwr8")
 autoplay = true
 bus = &"Music"
 parameters/looping = true
+
+[node name="Dialogue" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rncil")
 
 [node name="Map" type="TileMapLayer" parent="."]
 modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
@@ -383,6 +387,7 @@ text = "TO INTERACT"
 label_settings = SubResource("LabelSettings_c2suo")
 
 [node name="DialogueOptions" type="VBoxContainer" parent="UI/Control"]
+visible = false
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 1
 anchors_preset = -1
