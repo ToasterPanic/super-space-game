@@ -54,6 +54,9 @@ func _ready() -> void:
 	LimboConsole.register_command(ship_health, "ship_health", "Sets the ship's health.")
 	LimboConsole.register_command(summon_enemy, "summon_enemy", "Summons an enemy.")
 	
+	var events = InputMap.action_get_events("forward")
+	print(events)
+	
 	if global.ground_location:
 		$Player.global_position = get_node(global.ground_location + "/ExitPoint").global_position
 		$Player.rotation = get_node(global.ground_location + "/ExitPoint").rotation
@@ -139,3 +142,11 @@ func _process(delta: float) -> void:
 				n.queue_free()
 			elif abs(n_pos.y - player_chunk.y) > chunk_process_distance:
 				n.queue_free()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		$UI/Control/PauseMenu.visible = true
+		
+		$UI/Control/PauseMenu/Panel/Flow/Resume.grab_focus()
+		
+		get_tree().paused = true

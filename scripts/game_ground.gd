@@ -79,6 +79,6 @@ func make_choice(options: Dictionary = {}) -> String:
 	
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("dialogue_continue"):
+	if event.is_action_released("dialogue_continue"):
 
 		dialogue_continue.emit()

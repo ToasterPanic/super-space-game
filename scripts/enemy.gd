@@ -1,12 +1,13 @@
 extends RigidBody2D
 
-var health = 1000
+var health = 500
 var boost = 100
-var speed = 480
+var speed = 372
 var time_since_last_collision = 1
 var time_since_last_fire = 0
 var boosting = false
 var firing = true
+var dead = false
 
 var axis = 0
 var movement_axis = -1
@@ -72,11 +73,25 @@ func check_front():
 	return 1
 
 func _process(delta: float) -> void:
+	if dead: return
+	
 	modulate.g = health / 1000.0
 	modulate.b = health / 1000.0
 	
 	if health <= 0:
-		queue_free()
+		dead = true
+		
+		modulate = Color(1,1,1)
+		
+		$Explode.play()
+		$Explosion.play()
+		
+		$Sprite.queue_free()
+		$CollisionShape.queue_free()
+		linear_velocity = Vector2()
+		
+		
+		await get_tree().create_timer(10.5).timeout
 	
 	ai_tick -= delta
 	
@@ -166,7 +181,7 @@ func _process(delta: float) -> void:
 		
 			var angular_target = wrapf(angle - rotation, -PI, PI)
 					
-			if abs(rad_to_deg(rotation - angular_target)) < 15:
+			if abs(rad_to_deg(angle - angular_target)) < 25:
 				if player_distance > 480: boost_pressed = true
 				
 				firing = true
@@ -193,6 +208,8 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	axis = 0
+	
+	if dead: return
 	
 	var difference = fmod(target_rotation, deg_to_rad(360)) - fmod(rotation, deg_to_rad(360)) 
 	var normalized_difference = fmod(difference + deg_to_rad(180), deg_to_rad(360)) - deg_to_rad(180)

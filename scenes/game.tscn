@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=33 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -14,7 +14,9 @@
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="12_kvuet"]
 [ext_resource type="Texture2D" uid="uid://hgfmjw6gbdnn" path="res://textures/blank.png" id="12_trtic"]
 [ext_resource type="Script" uid="uid://d0txwo63hlrsy" path="res://scripts/enterable.gd" id="13_trtic"]
+[ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="15_ca42v"]
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="15_ir15t"]
+[ext_resource type="Script" uid="uid://dqiaioigmj5wb" path="res://scripts/pause_menu.gd" id="15_rysoc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
 texture = ExtResource("12_trtic")
@@ -58,6 +60,19 @@ outline_size = 2
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rysoc"]
 bg_color = Color(1, 0, 0, 1)
 corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_264po"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
+corner_detail = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_1kice"]
+font_size = 48
+outline_size = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_ssvqc"]
+font_size = 32
+outline_size = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trtic"]
 shader = ExtResource("12_kvuet")
@@ -310,6 +325,281 @@ label_settings = SubResource("LabelSettings_ca42v")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PauseMenu" type="Panel" parent="UI/Control"]
+process_mode = 3
+self_modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_264po")
+script = ExtResource("15_rysoc")
+
+[node name="Panel" type="PanelContainer" parent="UI/Control/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -26.0
+offset_right = 130.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_ir15t")
+
+[node name="Flow" type="HFlowContainer" parent="UI/Control/PauseMenu/Panel"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Panel/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_1kice")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/Control/PauseMenu/Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/PauseMenu/Panel/Flow/HFlowContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "ui_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/PauseMenu/Panel/Flow/HFlowContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "ui_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/PauseMenu/Panel/Flow/HFlowContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "dialogue_continue"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Resume" type="Button" parent="UI/Control/PauseMenu/Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitToTitle")
+text = "Resume"
+
+[node name="Settings" type="Button" parent="UI/Control/PauseMenu/Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitToTitle" type="Button" parent="UI/Control/PauseMenu/Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Resume")
+text = "Quit to Title"
+
+[node name="Label2" type="Label" parent="UI/Control/PauseMenu/Panel/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_1kice")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="PanelContainer" parent="UI/Control/PauseMenu"]
+visible = false
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -258.0
+offset_right = 258.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_ir15t")
+
+[node name="Scroll" type="ScrollContainer" parent="UI/Control/PauseMenu/Settings"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+
+[node name="Flow" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_1kice")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "ui_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "ui_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "dialogue_continue"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Resume" type="Button" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Back"
+
+[node name="Label2" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "SOUND"
+label_settings = SubResource("LabelSettings_ssvqc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow2" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow2"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolume" type="HSlider" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow2/MasterVolume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -12.0
+offset_right = 115.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+horizontal_alignment = 1
+
+[node name="Flow3" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow3"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MasterVolume" type="HSlider" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow3/MasterVolume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -12.0
+offset_right = 115.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+horizontal_alignment = 1
+
+[node name="Flow4" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow4"]
+layout_mode = 2
+text = "Sound Effects Volume"
+
+[node name="MasterVolume" type="HSlider" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow4/MasterVolume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -12.0
+offset_right = 115.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "CONTROLS"
+label_settings = SubResource("LabelSettings_ssvqc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow5" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Southpaw"
+
+[node name="Button" type="Button" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow5"]
+layout_mode = 2
+text = "NO"
+
 [node name="FadeToBlack" type="ColorRect" parent="UI"]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
@@ -333,3 +623,5 @@ color = Color(1, 1, 1, 0)
 [connection signal="area_entered" from="SpaceStation1/EnterHitbox" to="SpaceStation1" method="_on_enter_hitbox_area_entered"]
 [connection signal="body_entered" from="SpaceStation1/EnterHitbox" to="SpaceStation1" method="_on_enter_hitbox_body_entered"]
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
+[connection signal="pressed" from="UI/Control/PauseMenu/Panel/Flow/Resume" to="UI/Control/PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="UI/Control/PauseMenu/Settings/Scroll/Flow/Resume" to="UI/Control/PauseMenu" method="_on_resume_pressed"]
