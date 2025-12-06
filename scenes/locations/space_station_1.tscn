@@ -293,25 +293,67 @@ position = Vector2(349, -58)
 [node name="PlayerSpawnIntro" type="Node2D" parent="."]
 position = Vector2(126, -1796)
 
-[node name="Sprite2D3" type="Sprite2D" parent="."]
+[node name="StoryHandler1" type="Node2D" parent="."]
+script = ExtResource("19_akl5n")
+
+[node name="Bed" type="Node2D" parent="."]
+
+[node name="Bed" type="Sprite2D" parent="Bed"]
 z_index = -1
 position = Vector2(126, -1787)
 scale = Vector2(2, 2)
 texture = ExtResource("17_50pdk")
 
-[node name="Sprite2D" type="StaticBody2D" parent="."]
+[node name="BedFoot" type="StaticBody2D" parent="Bed"]
 position = Vector2(126, -1787)
 scale = Vector2(2, 2)
 
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="Bed/BedFoot"]
 texture = ExtResource("18_83fjc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed/BedFoot"]
 position = Vector2(-0.25, 37.5)
 shape = SubResource("RectangleShape2D_83fjc")
 
-[node name="StoryHandler1" type="Node2D" parent="."]
-script = ExtResource("19_akl5n")
+[node name="Bed2" type="Node2D" parent="."]
+position = Vector2(-384, 0)
+
+[node name="Bed" type="Sprite2D" parent="Bed2"]
+z_index = -1
+position = Vector2(126, -1787)
+scale = Vector2(2, 2)
+texture = ExtResource("17_50pdk")
+
+[node name="BedFoot" type="StaticBody2D" parent="Bed2"]
+position = Vector2(126, -1787)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Bed2/BedFoot"]
+texture = ExtResource("18_83fjc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed2/BedFoot"]
+position = Vector2(-0.25, 37.5)
+shape = SubResource("RectangleShape2D_83fjc")
+
+[node name="Bed3" type="Node2D" parent="."]
+position = Vector2(-768, 0)
+
+[node name="Bed" type="Sprite2D" parent="Bed3"]
+z_index = -1
+position = Vector2(126, -1787)
+scale = Vector2(2, 2)
+texture = ExtResource("17_50pdk")
+
+[node name="BedFoot" type="StaticBody2D" parent="Bed3"]
+position = Vector2(126, -1787)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Bed3/BedFoot"]
+texture = ExtResource("18_83fjc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed3/BedFoot"]
+position = Vector2(-0.25, 37.5)
+shape = SubResource("RectangleShape2D_83fjc")
 
 [connection signal="body_entered" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_entered"]
 [connection signal="body_exited" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_exited"]

@@ -26,7 +26,7 @@ func _ground_ready() -> void:
 		
 		game.end_dialogue()
 		
-		"""var i = 0
+		var i = 0
 		while i < 5:
 			await get_tree().create_timer(0.2).timeout
 			
@@ -108,9 +108,9 @@ func _ground_ready() -> void:
 		
 		await get_tree().create_timer(1).timeout
 		
-		await game.dialogue("Don't worry, I won't.", "doctor_1", false)"""
+		await game.dialogue("Don't worry, I won't.", "doctor_1", false)
 		
-		var i = 0
+		i = 0
 		
 		while i < 35:
 			await get_tree().create_timer(0.2).timeout

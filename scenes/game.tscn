@@ -108,6 +108,7 @@ texture = ExtResource("10_dinhu")
 [node name="SpaceStation1" type="Node2D" parent="Orbits"]
 
 [node name="SpaceStation1" type="Sprite2D" parent="Orbits/SpaceStation1"]
+position = Vector2(0, -10000)
 scale = Vector2(2, 2)
 texture = ExtResource("12_dinhu")
 script = ExtResource("13_trtic")
@@ -131,7 +132,7 @@ rotation = 3.1415927
 [node name="Unloadables" type="Node2D" parent="."]
 
 [node name="Player" type="RigidBody2D" parent="."]
-position = Vector2(-78, 957)
+position = Vector2(-78, -9043)
 linear_damp = 6.247
 script = ExtResource("1_yqjtg")
 

@@ -2,6 +2,8 @@ extends Node
 
 func _ready() -> void:
 	load_settings()
+	
+	LimboConsole.register_command(set_story_progress, "set_story_progress", "Sets the current story_progress variable")
 
 var ground_location = null
 
@@ -83,6 +85,9 @@ func load_settings():
 	
 func delete_game():
 	await DirAccess.remove_absolute("user://savegame.save")
+	
+func set_story_progress(value: int) -> void:
+	stats.story_progress = value
 
 var default_stats = {
 	"loaded": false,
