@@ -125,10 +125,18 @@ func _process(delta: float) -> void:
 				
 				$Navring.add_child(navigation_marker)
 				
+			if $UI/Control/Navpanel/NavigationHyperboost.visible:
+				var distance_to_hyperboost = (global.stats.navigation_goal.point.global_position - $Player.global_position).length() - 3000
+				var fuel_cost = floori((distance_to_hyperboost / 4096) * 7)
+				
+				$UI/Control/Navpanel/NavigationHyperboost/FuelRequired.text = "FUEL REQUIRED:\n"+ str(fuel_cost) + "%"
+				
 			if $UI/Control/Navpanel/Navigation.visible:
 			
 				$UI/Control/Navpanel/Navigation/CurrentRoute.visible = true
 				$UI/Control/Navpanel/Navigation/Destination.visible = true
+				
+				$UI/Control/Navpanel/Navigation/Hyperboost.visible = true
 				
 				var goal_distance = (global.stats.navigation_goal.point.position - $Player.position).length()
 				
@@ -140,6 +148,12 @@ func _process(delta: float) -> void:
 		if $UI/Control/Navpanel/Navigation.visible:
 			$UI/Control/Navpanel/Navigation/CurrentRoute.visible = false
 			$UI/Control/Navpanel/Navigation/Destination.visible = false
+				
+			$UI/Control/Navpanel/Navigation/Hyperboost.visible = false
+	
+	if $UI/Control/Navpanel/NavigationRoutes.visible:
+		for n in $UI/Control/Navpanel/NavigationRoutes/Scroll/Box.get_children():
+			n.update()
 	
 	$Navring.position = $Player.position
 	
@@ -240,16 +254,20 @@ func _input(event: InputEvent) -> void:
 		get_tree().paused = true
 	elif event.is_action_pressed("navpanel"):
 		if $UI/Control/Navpanel.visible:
+			$UiBack.play()
+			
 			$UI/Control/Navpanel.visible = false
 		else:
+			$UiSelect.play()
+			
 			$UI/Control/Navpanel.visible = true
 			
 			_set_navpanel_menu("Start")
 	elif event.is_action_pressed("ui_back"):
 		if $UI/Control/Navpanel.visible:
-			$UiSelect.play()
+			$UiBack.play()
 			
-			if $UI/Control/Navpanel/NavigationRoutes.visible:
+			if ($UI/Control/Navpanel/NavigationRoutes.visible) or ($UI/Control/Navpanel/NavigationHyperboost.visible):
 				_set_navpanel_menu("Navigation")
 			elif $UI/Control/Navpanel/Start.visible:
 				$UI/Control/Navpanel.visible = false
@@ -268,7 +286,7 @@ func _on_navigation_pressed() -> void:
 
 
 func _on_navpanel_back_pressed() -> void:
-	$UiSelect.play()
+	$UiBack.play()
 	_set_navpanel_menu("Start")
 
 
@@ -283,7 +301,7 @@ func _on_cancel_route_pressed() -> void:
 
 
 func _on_quit_pressed() -> void:
-	$UiSelect.play()
+	$UiBack.play()
 	$UI/Control/Navpanel.visible = false
 
 
@@ -291,3 +309,19 @@ func _navigation_item_pressed(goal) -> void:
 	global.stats.navigation_goal = goal
 	$UiSelect.play()
 	_set_navpanel_menu("Navigation")
+
+
+func _on_navigation_back_pressed() -> void:
+	$UiBack.play()
+	_set_navpanel_menu("Navigation")
+
+
+func _on_hyperboost_pressed() -> void:
+	$UiSelect.play()
+	_set_navpanel_menu("NavigationHyperboost")
+
+
+func _on_enable_hyperboost_pressed() -> void:
+	$UiSelect.play()
+	_set_navpanel_menu("Navigation")
+	$Player.hyperboosting = true

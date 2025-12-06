@@ -86,6 +86,8 @@ shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5vwr8"]
 font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jo68p"]
 shader = ExtResource("7_vuhkc")

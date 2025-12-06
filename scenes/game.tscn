@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=41 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://b6tyof2j3ytbv" path="res://sounds/concrete_halls.mp3" id="3_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_p57ef"]
 [ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="4_5newe"]
+[ext_resource type="AudioStream" uid="uid://bff3l15ivkcyi" path="res://sounds/ui_back.mp3" id="5_37s47"]
 [ext_resource type="PackedScene" uid="uid://gofibd3kwx3r" path="res://scenes/navigation_marker.tscn" id="5_264po"]
 [ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="8_vtaks"]
 [ext_resource type="Texture2D" uid="uid://dsdd1830ilu1" path="res://textures/navigation_ring.png" id="10_dinhu"]
@@ -73,6 +74,9 @@ font_size = 12
 [sub_resource type="LabelSettings" id="LabelSettings_bt5mj"]
 font_size = 14
 
+[sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
+font_size = 14
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_264po"]
 bg_color = Color(0, 0, 0, 1)
 border_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
@@ -111,6 +115,9 @@ bus = &"Music"
 
 [node name="UiSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_5newe")
+
+[node name="UiBack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_37s47")
 
 [node name="Stars" type="Node2D" parent="."]
 
@@ -394,6 +401,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "new route"
 
+[node name="Hyperboost" type="Button" parent="UI/Control/Navpanel/Navigation"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "hyperboost"
+
 [node name="CancelRoute" type="Button" parent="UI/Control/Navpanel/Navigation"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
@@ -426,7 +439,50 @@ layout_mode = 2
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 
-[node name="NavpanelBack" type="Button" parent="UI/Control/Navpanel/NavigationRoutes"]
+[node name="NavigationBack" type="Button" parent="UI/Control/Navpanel/NavigationRoutes"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "back"
+
+[node name="NavigationHyperboost" type="HFlowContainer" parent="UI/Control/Navpanel"]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+
+[node name="Label3" type="Label" parent="UI/Control/Navpanel/NavigationHyperboost"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HYPERBOOST?"
+label_settings = SubResource("LabelSettings_5newe")
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="UI/Control/Navpanel/NavigationHyperboost"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "hyperboosting will allow you to reach your destination quicker. it uses your fuel."
+label_settings = SubResource("LabelSettings_pl11u")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="FuelRequired" type="Label" parent="UI/Control/Navpanel/NavigationHyperboost"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FUEL REQUIRED:
+100%"
+label_settings = SubResource("LabelSettings_37s47")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="EnableHyperboost" type="Button" parent="UI/Control/Navpanel/NavigationHyperboost"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "boost now"
+
+[node name="NavigationBack" type="Button" parent="UI/Control/Navpanel/NavigationHyperboost"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -565,7 +621,10 @@ color = Color(1, 1, 1, 0)
 [connection signal="pressed" from="UI/Control/Navpanel/Start/Navigation" to="." method="_on_navigation_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Start/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/NewRoute" to="." method="_on_new_route_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Navigation/Hyperboost" to="." method="_on_hyperboost_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/CancelRoute" to="." method="_on_cancel_route_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/NavpanelBack" to="." method="_on_navpanel_back_pressed"]
-[connection signal="pressed" from="UI/Control/Navpanel/NavigationRoutes/NavpanelBack" to="." method="_on_navpanel_back_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/NavigationRoutes/NavigationBack" to="." method="_on_navigation_back_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/NavigationHyperboost/EnableHyperboost" to="." method="_on_enable_hyperboost_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/NavigationHyperboost/NavigationBack" to="." method="_on_navigation_back_pressed"]
 [connection signal="pressed" from="UI/Control/PauseMenu/Panel/Flow/Resume" to="UI/Control/PauseMenu" method="_on_resume_pressed"]

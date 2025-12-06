@@ -5,7 +5,7 @@
 [node name="NavigationItem" type="VBoxContainer"]
 script = ExtResource("1_vuhx2")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Label" type="RichTextLabel" parent="."]
 layout_mode = 2
 bbcode_enabled = true
 text = "[font size=24]space station 1[/font]

@@ -6,6 +6,7 @@ var time_since_last_fire = 0
 var time_since_last_collision = 1
 var camera_shake_power = 0
 var boosting = false
+var hyperboosting = false
 
 var laser_scene = preload("res://scenes/laser.tscn")
 
@@ -76,6 +77,10 @@ func _process(delta: float) -> void:
 	
 	if time_since_last_collision <= 1:
 		time_since_last_collision += delta
+		
+	if hyperboosting:
+		if (global.stats.navigation_goal.point.global_position - global_position).length() < 3000:
+			hyperboosting = false
 
 func _physics_process(delta: float) -> void:
 	var axis = Input.get_axis("turn_left", "turn_right")
@@ -88,6 +93,25 @@ func _physics_process(delta: float) -> void:
 	if boosting:
 		movement_axis = -1
 		final_speed = 1024
+		
+	if hyperboosting:
+		movement_axis = -1
+		final_speed = 4096
+		
+		angular_velocity = 0
+		
+		look_at(global.stats.navigation_goal.point.global_position)
+		
+		rotation_degrees += 90
+		
+		global.stats.fuel -= delta * 7
+		
+		$CollisionShape.disabled = true
+		$Hitbox.monitoring = false
+	else:
+		$CollisionShape.disabled = false
+		$Hitbox.monitoring = true
+		
 	
 	# Slow down on collision and gradually speed up
 	if time_since_last_collision < 0.85: final_speed *= (time_since_last_collision + 0.15)
