@@ -66,9 +66,29 @@ func _ready() -> void:
 		$Player.rotation = spawn_points[global.stats.location].rotation
 		
 	var i = 0
-	while i < 512:
+	while i < 1024 / 3:
 		var star = star_scene.instantiate() 
 		star.position = Vector2(-99999999999999999, -9999999999999999999)
+		
+		$Stars.add_child(star)
+		
+		i += 1
+		
+	i = 0
+	while i < 1024 / 3:
+		var star = star_scene.instantiate() 
+		star.position = Vector2(-99999999999999999, -9999999999999999999)
+		star.parallax = 0.2
+		
+		$Stars.add_child(star)
+		
+		i += 1
+		
+	i = 0
+	while i < 1024 / 3:
+		var star = star_scene.instantiate() 
+		star.position = Vector2(-99999999999999999, -9999999999999999999)
+		star.parallax = 0.5
 		
 		$Stars.add_child(star)
 		
