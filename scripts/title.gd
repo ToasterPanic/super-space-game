@@ -12,6 +12,8 @@ func _ready() -> void:
 func _on_continue_pressed() -> void:
 	if transitioning: return 
 	
+	$UiSelect.play()
+	
 	transitioning = true 
 	
 	$UI/Control/ControllerInfo/Box/Flow/Continue.release_focus()
@@ -46,6 +48,8 @@ func _on_continue_pressed() -> void:
 func _on_quit_pressed() -> void:
 	if transitioning: return 
 	
+	$UiSelect.play()
+	
 	transitioning = true 
 	
 	get_viewport().gui_release_focus()
@@ -63,6 +67,8 @@ func _on_quit_pressed() -> void:
 
 func _on_credits_pressed() -> void:
 	if transitioning: return 
+	
+	$UiSelect.play()
 	
 	transitioning = true 
 	
@@ -96,6 +102,8 @@ func _on_credits_pressed() -> void:
 
 func _on_exit_credits_pressed() -> void:
 	if transitioning: return 
+	
+	$UiSelect.play()
 	
 	transitioning = true 
 	
@@ -131,6 +139,8 @@ func _on_exit_credits_pressed() -> void:
 func _on_settings_pressed() -> void:
 	if transitioning: return 
 	
+	$UiSelect.play()
+	
 	transitioning = true 
 	
 	get_viewport().gui_release_focus()
@@ -163,6 +173,8 @@ func _on_settings_pressed() -> void:
 
 func _on_settings_back_pressed() -> void:
 	if transitioning: return 
+	
+	$UiSelect.play()
 	
 	transitioning = true 
 	
@@ -198,6 +210,8 @@ func _on_settings_back_pressed() -> void:
 
 func _on_new_game_pressed() -> void:
 	if transitioning: return 
+	
+	$UiSelect.play()
 	
 	transitioning = true 
 	

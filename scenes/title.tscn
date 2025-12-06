@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1x7evhkxm385"]
+[gd_scene load_steps=12 format=3 uid="uid://b1x7evhkxm385"]
 
 [ext_resource type="Script" uid="uid://md1biuc6ygmv" path="res://scripts/title.gd" id="1_pyl7j"]
 [ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="1_wosw1"]
 [ext_resource type="Texture2D" uid="uid://5iimabvyld40" path="res://textures/particles/basic.png" id="2_4rr2b"]
+[ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="2_hiwto"]
+[ext_resource type="AudioStream" uid="uid://cfnchaj8n83ck" path="res://sounds/music/title.mp3" id="2_ia1n6"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="2_p6dhs"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="2_pyl7j"]
 [ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="3_b3w7a"]
@@ -34,6 +36,15 @@ shader_parameter/lens_distortion_strength = 0.0
 
 [node name="Title" type="Node2D"]
 script = ExtResource("1_pyl7j")
+
+[node name="UiSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hiwto")
+
+[node name="Title" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ia1n6")
+volume_db = -4.0
+autoplay = true
+parameters/looping = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-1420, 0)
@@ -278,6 +289,24 @@ theme_override_font_sizes/italics_font_size = 32
 theme_override_font_sizes/mono_font_size = 32
 bbcode_enabled = true
 text = "[font size=20]some sound effects by freesound_community on Pixabay[/font]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="RichTextLabel" parent="UI/Control/Credits"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[font size=20]soundtrack by delosound on pixabay[/font]"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Super Space Game"
-run/main_scene="uid://bauklhpieuivd"
+run/main_scene="uid://b1x7evhkxm385"
 config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"

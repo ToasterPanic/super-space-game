@@ -6,6 +6,22 @@ signal choice_made
 
 func _ready() -> void:
 	$UI/Control/Dialogue.visible = false
+	
+	var location_scene = load("res://scenes/locations/space_station_1.tscn").instantiate()
+	
+	for n in location_scene.get_children():
+		location_scene.remove_child(n)
+		add_child(n)
+		
+		if "game" in n:
+			n.game = self
+		
+		# This gets all descendants. Copied it off the forums don't ask me how it works
+		for o in n.find_children("*", "", true, false):
+			if "game" in o:
+				o.game = self
+		
+	location_scene.free()
 
 func _process(delta: float) -> void:
 	if current_interaction_area:
