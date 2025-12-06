@@ -177,11 +177,16 @@ func _process(delta: float) -> void:
 			var direction = (player.position - position).normalized()
 
 		# Optionally, you can get the angle if needed
-			var angle = direction.angle() + deg_to_rad(90)
-		
-			var angular_target = wrapf(angle - rotation, -PI, PI)
+			var angle = Vector2.UP.rotated(rotation)  # assuming facing right is forward
+			var to_a = (player.global_position - global_position).normalized()
+
+			var angle_between = angle.angle_to(to_a)
+
+			# Define your field of view angle (in degrees), e.g., 45 degrees cone
+			var fov_degrees = 45
+			var fov_radians = deg_to_rad(fov_degrees / 2) 
 					
-			if abs(rad_to_deg(angle - angular_target)) < 25:
+			if (abs(angle_between) <= fov_radians) or front_cast == player:
 				if player_distance > 480: boost_pressed = true
 				
 				firing = true

@@ -94,7 +94,7 @@ var default_stats = {
 	"location": "space",
 	"ship_position": Vector2(),
 	"ship_rotation": 0,
-	"story_progress": 0,
+	"story_progress": 1,
 }
 
 var stats = default_stats.duplicate_deep()

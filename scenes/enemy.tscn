@@ -10,9 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://5iimabvyld40" path="res://textures/particles/basic.png" id="7_nenq2"]
 [ext_resource type="Texture2D" uid="uid://bpe67g6185n5v" path="res://textures/particles/fire.png" id="9_ipns3"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_uwrxv"]
-radius = 16.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
 radius = 20.0
 
@@ -37,6 +34,9 @@ scale_min = 0.099999994
 scale_max = 0.25
 alpha_curve = SubResource("CurveTexture_8qclf")
 collision_use_scale = true
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ipns3"]
+points = PackedVector2Array(-16, 16, 16, 16, 0, -16)
 
 [node name="Enemy" type="RigidBody2D"]
 linear_damp = 6.247
@@ -65,9 +65,6 @@ stream = ExtResource("5_ipns3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("6_w8i8w")
-
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_uwrxv")
 
 [node name="Hitbox" type="Area2D" parent="."]
 
@@ -101,5 +98,8 @@ lifetime = 10.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_w8i8w")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("ConvexPolygonShape2D_ipns3")
 
 [connection signal="body_shape_entered" from="Hitbox" to="." method="_on_hitbox_body_shape_entered"]

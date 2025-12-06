@@ -160,3 +160,8 @@ func _input(event: InputEvent) -> void:
 		$UI/Control/PauseMenu/Panel/Flow/Resume.grab_focus()
 		
 		get_tree().paused = true
+
+
+func _on_tree_exiting() -> void:
+	LimboConsole.unregister_command(ship_health)
+	LimboConsole.unregister_command(summon_enemy)

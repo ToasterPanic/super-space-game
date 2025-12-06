@@ -437,6 +437,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="area_entered" from="Orbits/SpaceStation1/SpaceStation1/EnterHitbox" to="Orbits/SpaceStation1/SpaceStation1" method="_on_enter_hitbox_area_entered"]
 [connection signal="body_entered" from="Orbits/SpaceStation1/SpaceStation1/EnterHitbox" to="Orbits/SpaceStation1/SpaceStation1" method="_on_enter_hitbox_body_entered"]
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
