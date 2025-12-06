@@ -292,6 +292,7 @@ grow_vertical = 2
 theme = ExtResource("15_ir15t")
 
 [node name="Start" type="HFlowContainer" parent="UI/Control/Navpanel"]
+visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 
@@ -334,11 +335,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "navigation"
 
-[node name="Button2" type="Button" parent="UI/Control/Navpanel/Start"]
+[node name="Quit" type="Button" parent="UI/Control/Navpanel/Start"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "test"
+text = "quit"
 
 [node name="Cheery" type="Label" parent="UI/Control/Navpanel/Start"]
 custom_minimum_size = Vector2(256, 0)
@@ -416,6 +417,14 @@ size_flags_horizontal = 3
 text = "PICK ROUTE"
 label_settings = SubResource("LabelSettings_5newe")
 horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="UI/Control/Navpanel/NavigationRoutes"]
+custom_minimum_size = Vector2(256, 512)
+layout_mode = 2
+
+[node name="Box" type="VBoxContainer" parent="UI/Control/Navpanel/NavigationRoutes/Scroll"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
 
 [node name="NavpanelBack" type="Button" parent="UI/Control/Navpanel/NavigationRoutes"]
 custom_minimum_size = Vector2(256, 0)
@@ -554,6 +563,7 @@ color = Color(1, 1, 1, 0)
 [connection signal="body_entered" from="Orbits/SpaceStation1/SpaceStation1/EnterHitbox" to="Orbits/SpaceStation1/SpaceStation1" method="_on_enter_hitbox_body_entered"]
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
 [connection signal="pressed" from="UI/Control/Navpanel/Start/Navigation" to="." method="_on_navigation_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Start/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/NewRoute" to="." method="_on_new_route_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/CancelRoute" to="." method="_on_cancel_route_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/NavpanelBack" to="." method="_on_navpanel_back_pressed"]

@@ -73,6 +73,14 @@ func _ready() -> void:
 		$Player.global_position = spawn_points[global.stats.location].global_position
 		$Player.rotation = spawn_points[global.stats.location].rotation
 		
+	for n in navigation_points:
+		var navigation_item = preload("res://scenes/navigation_item.tscn").instantiate()
+		
+		navigation_item.goal = n
+		navigation_item.game = self
+		
+		$UI/Control/Navpanel/NavigationRoutes/Scroll/Box.add_child(navigation_item)
+		
 	var i = 0
 	while i < 1024 / 3:
 		var star = star_scene.instantiate() 
@@ -213,10 +221,13 @@ func _set_navpanel_menu(menu: String) -> void:
 		if n.get_name() == menu:
 			n.visible = true
 			
-			for o in n.get_children():
-				if o.is_class("Button"):
-					o.grab_focus()
-					break
+			if menu == "NavigationRoutes":
+				n.get_node("Scroll/Box").get_children()[0].get_node("Button").grab_focus()
+			else:
+				for o in n.get_children():
+					if o.is_class("Button"):
+						o.grab_focus()
+						break
 		else:
 			n.visible = false
 
@@ -234,6 +245,16 @@ func _input(event: InputEvent) -> void:
 			$UI/Control/Navpanel.visible = true
 			
 			_set_navpanel_menu("Start")
+	elif event.is_action_pressed("ui_back"):
+		if $UI/Control/Navpanel.visible:
+			$UiSelect.play()
+			
+			if $UI/Control/Navpanel/NavigationRoutes.visible:
+				_set_navpanel_menu("Navigation")
+			elif $UI/Control/Navpanel/Start.visible:
+				$UI/Control/Navpanel.visible = false
+			else:
+				_set_navpanel_menu("Start")
 
 
 func _on_tree_exiting() -> void:
@@ -253,9 +274,20 @@ func _on_navpanel_back_pressed() -> void:
 
 func _on_new_route_pressed() -> void:
 	$UiSelect.play()
-	global.stats.navigation_goal = navigation_points[0]
+	_set_navpanel_menu("NavigationRoutes")
 
 
 func _on_cancel_route_pressed() -> void:
 	$UiSelect.play()
 	global.stats.navigation_goal = null
+
+
+func _on_quit_pressed() -> void:
+	$UiSelect.play()
+	$UI/Control/Navpanel.visible = false
+
+
+func _navigation_item_pressed(goal) -> void:
+	global.stats.navigation_goal = goal
+	$UiSelect.play()
+	_set_navpanel_menu("Navigation")

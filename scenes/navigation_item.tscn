@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cky1bhmlnicwx"]
+
+[ext_resource type="Script" uid="uid://usvp2plv7qsx" path="res://scripts/navigation_item.gd" id="1_vuhx2"]
+
+[node name="NavigationItem" type="VBoxContainer"]
+script = ExtResource("1_vuhx2")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font size=24]space station 1[/font]
+1000u away"
+fit_content = true
+scroll_active = false
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "navigate"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
