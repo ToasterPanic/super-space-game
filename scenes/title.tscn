@@ -117,6 +117,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Title" type="VBoxContainer" parent="UI/Control"]
+visible = false
 layout_mode = 0
 offset_left = 480.0
 offset_right = 1120.0
@@ -300,6 +301,93 @@ script = ExtResource("2_pyl7j")
 action_name = "ui_accept"
 metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
 
+[node name="OverrideSave" type="VBoxContainer" parent="UI/Control"]
+visible = false
+layout_mode = 0
+offset_left = 480.0
+offset_right = 1120.0
+offset_bottom = 900.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="UI/Control/OverrideSave"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[b][font size=64]OVERRIDE SAVE?[/font][/b]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="RichTextLabel" parent="UI/Control/OverrideSave"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[font size=20]there is currently a save in storage. creating a new save will delete your old one.[/font]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HFlowContainer" parent="UI/Control/OverrideSave"]
+layout_mode = 2
+alignment = 1
+
+[node name="YesOverride" type="Button" parent="UI/Control/OverrideSave/Buttons"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "yes"
+
+[node name="NoOverride" type="Button" parent="UI/Control/OverrideSave/Buttons"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "no"
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/OverrideSave/Buttons"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_left"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/OverrideSave/Buttons"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_right"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect4" type="TextureRect" parent="UI/Control/OverrideSave/Buttons"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_accept"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
 [node name="Settings" parent="UI/Control" instance=ExtResource("6_yql1r")]
 visible = false
 layout_mode = 1
@@ -328,6 +416,7 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [connection signal="pressed" from="UI/Control/ControllerInfo/Box/Flow/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="UI/Control/Title/Buttons/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="UI/Control/Title/Buttons/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/Control/Title/Buttons/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="UI/Control/Title/Buttons/Quit" to="." method="_on_quit_pressed"]

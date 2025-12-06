@@ -8,6 +8,11 @@ var current_atmospheric_track = null
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 var enemy_scene = preload("res://scenes/enemy.tscn")
+var star_scene = preload("res://scenes/star.tscn")
+
+@onready var spawn_points = {
+	"SpaceStation1": $Orbits/SpaceStation1/SpaceStation1/ExitPoint
+}
 
 func ship_health(health: float = 1000) -> void:
 	$Player.health = health
@@ -45,7 +50,7 @@ func enter_physical(map):
 	
 	get_tree().paused = false
 	
-	global.ground_location = map
+	global.stats.location = map
 	
 	get_tree().change_scene_to_file("res://scenes/ground.tscn")
 		
@@ -56,9 +61,18 @@ func _ready() -> void:
 	
 	var events = InputMap.action_get_events("forward")
 	
-	if global.ground_location:
-		$Player.global_position = get_node(global.ground_location + "/ExitPoint").global_position
-		$Player.rotation = get_node(global.ground_location + "/ExitPoint").rotation
+	if (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
+		$Player.global_position = spawn_points[global.stats.location].global_position
+		$Player.rotation = spawn_points[global.stats.location].rotation
+		
+	var i = 0
+	while i < 512:
+		var star = star_scene.instantiate() 
+		star.position = Vector2(-99999999999999999, -9999999999999999999)
+		
+		$Stars.add_child(star)
+		
+		i += 1
 
 func _process(delta: float) -> void:
 	if get_tree().paused:

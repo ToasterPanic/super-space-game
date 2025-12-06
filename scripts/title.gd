@@ -194,3 +194,44 @@ func _on_settings_back_pressed() -> void:
 		
 	transitioning = false
 	
+
+
+func _on_new_game_pressed() -> void:
+	if transitioning: return 
+	
+	transitioning = true 
+	
+	get_viewport().gui_release_focus()
+	var i = 0
+	
+	while i < 6:
+		$UI/Control/Title.modulate.a -= 0.2
+		
+		await get_tree().create_timer(0.2).timeout
+		
+		i += 1
+		
+	$UI/Control/Title.visible = false
+	
+	if global.stats.loaded:
+		$UI/Control/OverrideSave.visible = true
+		
+		$UI/Control/OverrideSave.modulate.a = 0
+	
+		i = 0
+		
+		while i < 6:
+			$UI/Control/OverrideSave.modulate.a += 0.2
+			
+			await get_tree().create_timer(0.2).timeout
+			
+			i += 1
+			
+		$UI/Control/OverrideSave/Buttons/NoOverride.grab_focus()
+
+	if global.stats.location == "space":
+		get_tree().change_scene_to_file("res://scenes/game.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/ground.tscn")
+
+	transitioning = false

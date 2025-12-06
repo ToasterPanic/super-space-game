@@ -24,4 +24,5 @@ func _on_sfx_volume_value_changed(value: float) -> void:
 
 
 func _on_back_pressed() -> void:
+	global.save_settings()
 	get_owner()._on_settings_back_pressed()
