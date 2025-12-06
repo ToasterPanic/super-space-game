@@ -84,7 +84,7 @@ func load_settings():
 func delete_game():
 	await DirAccess.remove_absolute("user://savegame.save")
 
-var stats = {
+var default_stats = {
 	"loaded": false,
 	"fuel": 12,
 	"fuel_tank_size": 1,
@@ -93,8 +93,11 @@ var stats = {
 	"marks": 200,
 	"location": "space",
 	"ship_position": Vector2(),
-	"ship_rotation": 0
+	"ship_rotation": 0,
+	"story_progress": 0,
 }
+
+var stats = default_stats.duplicate_deep()
 
 var settings = {
 	"master_volume": 1.0,

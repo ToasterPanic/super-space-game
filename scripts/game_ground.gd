@@ -4,6 +4,20 @@ var current_interaction_area = null
 signal dialogue_continue
 signal choice_made
 
+var dialogue_colors = {
+	"generic": Color("fff"),
+	"player": Color("fff"),
+	"player_woozy": Color("fff"),
+	"doctor_1": Color("00ffffff"),
+	"doctor_2": Color("00a2ffff"),
+}
+
+var dialogue_speed = {
+	"generic": 0.037,
+	"player_slow": 0.06,
+	"player_woozy": 0.2,
+}
+
 func _ready() -> void:
 	$UI/Control/Dialogue.visible = false
 	
@@ -20,6 +34,10 @@ func _ready() -> void:
 		for o in n.find_children("*", "", true, false):
 			if "game" in o:
 				o.game = self
+				
+	for n in get_children():
+		if "_ground_ready" in n:
+			n._ground_ready()
 		
 	location_scene.free()
 
@@ -33,9 +51,17 @@ func _process(delta: float) -> void:
 	else:
 		$UI/Control/Interact.visible = false
 
-func dialogue(text: String) -> void:
+func dialogue(text: String, type: String = "generic", allow_input: bool = true) -> void:
 	$UI/Control/Dialogue/InputIcon.visible = false
 	$UI/Control/Dialogue.visible = true
+	
+	var speed = dialogue_speed.generic
+	
+	if dialogue_speed.has(type): speed = dialogue_speed[type]
+	
+	$UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors.generic
+	
+	if dialogue_colors.has(type): $UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors[type]
 	
 	var displayed_text = ""
 	
@@ -47,14 +73,18 @@ func dialogue(text: String) -> void:
 		
 		$Dialogue.play()
 		
-		await get_tree().create_timer(0.03).timeout
+		await get_tree().create_timer(speed).timeout
 		
 		i += 1
 		
-	$UI/Control/Dialogue/InputIcon.visible = true
+	if allow_input:
+		$UI/Control/Dialogue/InputIcon.visible = true
 
-	await dialogue_continue
-	
+		await dialogue_continue
+		
+		$UI/Control/Dialogue.visible = false
+
+func end_dialogue() -> void:
 	$UI/Control/Dialogue.visible = false
 	
 	return
@@ -64,7 +94,7 @@ func make_choice(options: Dictionary = {}) -> String:
 	
 	var dialogue_select_button_scene = preload("res://scenes/dialogue_select_button.tscn")
 	
-	for n in $UI/Control/DialogueOptions.get_children(): if n.is_class("Button"): n.free()
+	for n in $UI/Control/DialogueOptions.get_children(): if n.is_class("Button"): n.queue_free()
 	
 	var first_button = null
 	var last_button = null
@@ -73,6 +103,7 @@ func make_choice(options: Dictionary = {}) -> String:
 		var dialogue_select_button = dialogue_select_button_scene.instantiate()
 		
 		dialogue_select_button.name = n
+		dialogue_select_button.id = n
 		dialogue_select_button.text = options[n]
 		dialogue_select_button.game = self
 		
@@ -87,12 +118,19 @@ func make_choice(options: Dictionary = {}) -> String:
 		
 	first_button.grab_focus()
 	
-	var response = await choice_made
+	var button = await choice_made
+	
+	var response = button.id
 	
 	$UI/Control/DialogueOptions.visible = false
 	
 	return response
 	
+func get_vignette_parameter(name: String) -> float:
+	return $UI/Vignette.material.get_shader_parameter(name)
+	
+func set_vignette_parameter(name: String, value: float) -> void:
+	$UI/Vignette.material.set_shader_parameter(name, value)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("dialogue_continue"):

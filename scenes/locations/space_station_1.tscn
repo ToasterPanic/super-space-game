@@ -1,7 +1,8 @@
-[gd_scene load_steps=42 format=4 uid="uid://dfjnikjjynj0e"]
+[gd_scene load_steps=47 format=4 uid="uid://dfjnikjjynj0e"]
 
 [ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="1_kpeax"]
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="2_4uppp"]
+[ext_resource type="AudioStream" uid="uid://w3hai62ji61g" path="res://sounds/heart_monitor.mp3" id="2_v7oqm"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="3_ir5n7"]
 [ext_resource type="Texture2D" uid="uid://ddfp7u4a7llnr" path="res://textures/wall_side_tile_left.png" id="4_50pdk"]
 [ext_resource type="Texture2D" uid="uid://gl7rcrys46ay" path="res://textures/wall_side_tile_right.png" id="5_83fjc"]
@@ -16,6 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://b047lku56vtve" path="res://textures/galacta_counter.png" id="12_janyw"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="13_vmpfq"]
 [ext_resource type="Script" uid="uid://khas1kkt2t3k" path="res://scripts/exit_ship.gd" id="14_jxmby"]
+[ext_resource type="Texture2D" uid="uid://ktvnppfhchoj" path="res://textures/bed.png" id="17_50pdk"]
+[ext_resource type="Texture2D" uid="uid://cmv4wou5glrl7" path="res://textures/bed_foot.png" id="18_83fjc"]
+[ext_resource type="Script" uid="uid://cva4b60iqolqy" path="res://scripts/story_handler_1.gd" id="19_akl5n"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vmimc"]
 light_mode = 1
@@ -192,12 +196,19 @@ size = Vector2(128, 60)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hfpp"]
 size = Vector2(40, 40)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83fjc"]
+size = Vector2(61.5, 21)
+
 [node name="SpaceStation1" type="Node2D"]
 
 [node name="Uglyburger" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_kpeax")
 autoplay = true
 bus = &"Music"
+parameters/looping = true
+
+[node name="HeartMonitor" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_v7oqm")
 parameters/looping = true
 
 [node name="Map" type="TileMapLayer" parent="."]
@@ -278,6 +289,29 @@ shape = SubResource("RectangleShape2D_4hfpp")
 
 [node name="PlayerSpawn" type="Node2D" parent="."]
 position = Vector2(349, -58)
+
+[node name="PlayerSpawnIntro" type="Node2D" parent="."]
+position = Vector2(126, -1796)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(126, -1787)
+scale = Vector2(2, 2)
+texture = ExtResource("17_50pdk")
+
+[node name="Sprite2D" type="StaticBody2D" parent="."]
+position = Vector2(126, -1787)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("18_83fjc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
+position = Vector2(-0.25, 37.5)
+shape = SubResource("RectangleShape2D_83fjc")
+
+[node name="StoryHandler1" type="Node2D" parent="."]
+script = ExtResource("19_akl5n")
 
 [connection signal="body_entered" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_entered"]
 [connection signal="body_exited" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_exited"]

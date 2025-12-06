@@ -2,5 +2,7 @@ extends Button
 
 var game = null
 
+var id = null 
+
 func _on_pressed() -> void:
-	game.choice_made.emit(get_name())
+	game.choice_made.emit(self)
