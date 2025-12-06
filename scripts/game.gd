@@ -55,7 +55,6 @@ func _ready() -> void:
 	LimboConsole.register_command(summon_enemy, "summon_enemy", "Summons an enemy.")
 	
 	var events = InputMap.action_get_events("forward")
-	print(events)
 	
 	if global.ground_location:
 		$Player.global_position = get_node(global.ground_location + "/ExitPoint").global_position
@@ -66,9 +65,6 @@ func _process(delta: float) -> void:
 		return
 	
 	$Navring.position = $Player.position
-	
-	$UI/Control/BoostText.text = "BOOST: " + str($Player.boost)
-	$UI/Control/Distance.text = "DIST: " + str(floori($Player.position.length()))
 	
 	if current_atmospheric_track:
 		if not current_atmospheric_track.playing:

@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="15_ca42v"]
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="15_ir15t"]
 [ext_resource type="Script" uid="uid://dqiaioigmj5wb" path="res://scripts/pause_menu.gd" id="15_rysoc"]
+[ext_resource type="PackedScene" uid="uid://cy4nbqbm222os" path="res://scenes/settings.tscn" id="17_ssvqc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
 texture = ExtResource("12_trtic")
@@ -68,10 +69,6 @@ corner_detail = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kice"]
 font_size = 48
-outline_size = 2
-
-[sub_resource type="LabelSettings" id="LabelSettings_ssvqc"]
-font_size = 32
 outline_size = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trtic"]
@@ -255,23 +252,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BoostText" type="Label" parent="UI/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 24.0
-text = "BOOST: 100"
-
-[node name="Distance" type="Label" parent="UI/Control"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -12.0
-offset_right = 136.0
-offset_bottom = 12.0
-grow_vertical = 2
-text = "DIST: 2048"
-
 [node name="PanelContainer" type="PanelContainer" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = 2
@@ -327,6 +307,7 @@ vertical_alignment = 1
 
 [node name="PauseMenu" type="Panel" parent="UI/Control"]
 process_mode = 3
+visible = false
 self_modulate = Color(1, 1, 1, 0.53333336)
 layout_mode = 1
 anchors_preset = 15
@@ -418,187 +399,17 @@ label_settings = SubResource("LabelSettings_1kice")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Settings" type="PanelContainer" parent="UI/Control/PauseMenu"]
+[node name="Settings" parent="UI/Control/PauseMenu" instance=ExtResource("17_ssvqc")]
 visible = false
-custom_minimum_size = Vector2(640, 0)
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -258.0
-offset_right = 258.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("15_ir15t")
-
-[node name="Scroll" type="ScrollContainer" parent="UI/Control/PauseMenu/Settings"]
-custom_minimum_size = Vector2(640, 0)
-layout_mode = 2
-
-[node name="Flow" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll"]
-custom_minimum_size = Vector2(640, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(512, 0)
-layout_mode = 2
-text = "SETTINGS"
-label_settings = SubResource("LabelSettings_1kice")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Flow" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-expand_mode = 1
-script = ExtResource("15_ca42v")
-action_name = "ui_up"
-metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
-
-[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-expand_mode = 1
-script = ExtResource("15_ca42v")
-action_name = "ui_down"
-metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
-
-[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-expand_mode = 1
-script = ExtResource("15_ca42v")
-action_name = "dialogue_continue"
-metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
-
-[node name="Resume" type="Button" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-text = "Back"
-
-[node name="Label2" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(512, 0)
-layout_mode = 2
-text = "SOUND"
-label_settings = SubResource("LabelSettings_ssvqc")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Flow2" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(608, 0)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow2"]
-layout_mode = 2
-text = "Master Volume"
-
-[node name="MasterVolume" type="HSlider" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow2"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow2/MasterVolume"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -115.5
-offset_top = -12.0
-offset_right = 115.5
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "100%"
-horizontal_alignment = 1
-
-[node name="Flow3" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(608, 0)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow3"]
-layout_mode = 2
-text = "Music Volume"
-
-[node name="MasterVolume" type="HSlider" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow3"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow3/MasterVolume"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -115.5
-offset_top = -12.0
-offset_right = 115.5
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "100%"
-horizontal_alignment = 1
-
-[node name="Flow4" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(608, 0)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow4"]
-layout_mode = 2
-text = "Sound Effects Volume"
-
-[node name="MasterVolume" type="HSlider" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow4"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow4/MasterVolume"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -115.5
-offset_top = -12.0
-offset_right = 115.5
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "100%"
-horizontal_alignment = 1
-
-[node name="Label3" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(512, 0)
-layout_mode = 2
-text = "CONTROLS"
-label_settings = SubResource("LabelSettings_ssvqc")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Flow5" type="HFlowContainer" parent="UI/Control/PauseMenu/Settings/Scroll/Flow"]
-custom_minimum_size = Vector2(608, 0)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow5"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Southpaw"
-
-[node name="Button" type="Button" parent="UI/Control/PauseMenu/Settings/Scroll/Flow/Flow5"]
-layout_mode = 2
-text = "NO"
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_right = 640.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="FadeToBlack" type="ColorRect" parent="UI"]
 process_mode = 3
@@ -624,4 +435,3 @@ color = Color(1, 1, 1, 0)
 [connection signal="body_entered" from="SpaceStation1/EnterHitbox" to="SpaceStation1" method="_on_enter_hitbox_body_entered"]
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
 [connection signal="pressed" from="UI/Control/PauseMenu/Panel/Flow/Resume" to="UI/Control/PauseMenu" method="_on_resume_pressed"]
-[connection signal="pressed" from="UI/Control/PauseMenu/Settings/Scroll/Flow/Resume" to="UI/Control/PauseMenu" method="_on_resume_pressed"]

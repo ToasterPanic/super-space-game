@@ -103,8 +103,6 @@ func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index
 	if "linear_velocity" in body:
 		hit_velocity = body.linear_velocity.length() + linear_velocity.length()
 		
-	print(hit_velocity)
-		
 	if hit_velocity > 256:
 		camera_shake_power = 4 
 		

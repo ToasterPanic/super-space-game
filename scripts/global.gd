@@ -30,3 +30,9 @@ var stats = {
 	"boost_tank_size": 1,
 	"marks": 200,
 }
+
+var settings = {
+	"master_volume": 1.0,
+	"music_volume": 1.0,
+	"sfx_volume": 1.0,
+}

@@ -1,0 +1,334 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1x7evhkxm385"]
+
+[ext_resource type="Script" uid="uid://md1biuc6ygmv" path="res://scripts/title.gd" id="1_pyl7j"]
+[ext_resource type="FontFile" uid="uid://n1nd5m2kwexu" path="res://fonts/Michroma.ttf" id="1_wosw1"]
+[ext_resource type="Texture2D" uid="uid://5iimabvyld40" path="res://textures/particles/basic.png" id="2_4rr2b"]
+[ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="2_p6dhs"]
+[ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="2_pyl7j"]
+[ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="3_b3w7a"]
+[ext_resource type="PackedScene" uid="uid://cy4nbqbm222os" path="res://scenes/settings.tscn" id="6_yql1r"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yql1r"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1200, 1)
+angle_min = -720.0
+angle_max = 720.0
+initial_velocity_min = 32.0
+initial_velocity_max = 500.0
+scale_min = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pyl7j"]
+shader = ExtResource("2_p6dhs")
+shader_parameter/shake = 0.002000000095
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0010000000475
+shader_parameter/offsetIntensity = 0.0
+shader_parameter/colorOffsetIntensity = 0.10000000149012
+shader_parameter/pixelSize = 1024.0
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = true
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.0
+
+[node name="Title" type="Node2D"]
+script = ExtResource("1_pyl7j")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-1420, 0)
+amount = 512
+texture = ExtResource("2_4rr2b")
+lifetime = 30.0
+visibility_rect = Rect2(-100, -100, 100000000, 200)
+process_material = SubResource("ParticleProcessMaterial_yql1r")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ControllerInfo" type="HBoxContainer" parent="UI/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_right = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Box" type="VBoxContainer" parent="UI/Control/ControllerInfo"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="UI/Control/ControllerInfo/Box"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[b][font size=64]WARNING[/font][/b]
+This game is best played with a controller, not a keyboard. You should probably switch to one if you have one available."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow" type="HFlowContainer" parent="UI/Control/ControllerInfo/Box"]
+layout_mode = 2
+alignment = 1
+
+[node name="Continue" type="Button" parent="UI/Control/ControllerInfo/Box/Flow"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Continue"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/ControllerInfo/Box/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_accept"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Box2" type="VBoxContainer" parent="UI/Control/ControllerInfo"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Title" type="VBoxContainer" parent="UI/Control"]
+layout_mode = 0
+offset_left = 480.0
+offset_right = 1120.0
+offset_bottom = 900.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="UI/Control/Title"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[b][font size=64]SUPER SPACE GAME[/font][/b]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow" type="HFlowContainer" parent="UI/Control/Title"]
+layout_mode = 2
+alignment = 1
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/Title/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/Title/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/Title/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_accept"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Buttons" type="HFlowContainer" parent="UI/Control/Title"]
+layout_mode = 2
+alignment = 1
+
+[node name="NewGame" type="Button" parent="UI/Control/Title/Buttons"]
+custom_minimum_size = Vector2(324, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Quit")
+text = "New Game"
+
+[node name="LoadGame" type="Button" parent="UI/Control/Title/Buttons"]
+custom_minimum_size = Vector2(324, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Load Game"
+
+[node name="Settings" type="Button" parent="UI/Control/Title/Buttons"]
+custom_minimum_size = Vector2(324, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Settings"
+
+[node name="Credits" type="Button" parent="UI/Control/Title/Buttons"]
+custom_minimum_size = Vector2(324, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Credits"
+
+[node name="Quit" type="Button" parent="UI/Control/Title/Buttons"]
+custom_minimum_size = Vector2(324, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_bottom = NodePath("../NewGame")
+text = "Quit"
+
+[node name="Buttons2" type="HFlowContainer" parent="UI/Control/Title"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="UI/Control/Title/Buttons2"]
+layout_mode = 2
+
+[node name="Credits" type="VBoxContainer" parent="UI/Control"]
+visible = false
+layout_mode = 0
+offset_left = 480.0
+offset_right = 1120.0
+offset_bottom = 900.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="UI/Control/Credits"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[b][font size=64]SUPER SPACE GAME[/font][/b]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="UI/Control/Credits"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[b][font size=32]a game by toasterpanic[/font][/b]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="RichTextLabel" parent="UI/Control/Credits"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_wosw1")
+theme_override_fonts/bold_font = ExtResource("3_b3w7a")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "[font size=20]some sound effects by freesound_community on Pixabay[/font]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HFlowContainer" parent="UI/Control/Credits"]
+layout_mode = 2
+alignment = 1
+
+[node name="ExitCredits" type="Button" parent="UI/Control/Credits/Buttons"]
+custom_minimum_size = Vector2(324, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Exit"
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/Credits/Buttons"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_pyl7j")
+action_name = "ui_accept"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Settings" parent="UI/Control" instance=ExtResource("6_yql1r")]
+visible = false
+layout_mode = 1
+offset_left = -322.0
+offset_right = 322.0
+
+[node name="FadeToBlack" type="ColorRect" parent="UI"]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Shader" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_pyl7j")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[connection signal="pressed" from="UI/Control/ControllerInfo/Box/Flow/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="UI/Control/Title/Buttons/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="UI/Control/Title/Buttons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="UI/Control/Title/Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/Control/Credits/Buttons/ExitCredits" to="." method="_on_exit_credits_pressed"]

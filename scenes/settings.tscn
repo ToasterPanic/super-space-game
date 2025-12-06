@@ -1,0 +1,217 @@
+[gd_scene load_steps=8 format=3 uid="uid://cy4nbqbm222os"]
+
+[ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="1_r6d6q"]
+[ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="2_6wm04"]
+[ext_resource type="Script" uid="uid://jacd1qlw1q5p" path="res://scripts/settings.gd" id="2_f4mfi"]
+[ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="3_f4mfi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1kice"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_ssvqc"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_6wm04"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Settings" type="PanelContainer"]
+custom_minimum_size = Vector2(640, 0)
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -258.0
+offset_right = 258.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_r6d6q")
+script = ExtResource("2_f4mfi")
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+
+[node name="Flow" type="HFlowContainer" parent="Scroll"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_f4mfi")
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_1kice")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow" type="HFlowContainer" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="Scroll/Flow/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_6wm04")
+action_name = "ui_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="Scroll/Flow/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_6wm04")
+action_name = "ui_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="Scroll/Flow/Flow"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("2_6wm04")
+action_name = "dialogue_continue"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Back" type="Button" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Back"
+
+[node name="Label2" type="Label" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_f4mfi")
+text = "SOUND"
+label_settings = SubResource("LabelSettings_ssvqc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow2" type="HFlowContainer" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow2"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolume" type="HSlider" parent="Scroll/Flow/Flow2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow2/MasterVolume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -12.0
+offset_right = 115.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_6wm04")
+horizontal_alignment = 1
+
+[node name="Flow3" type="HFlowContainer" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow3"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVolume" type="HSlider" parent="Scroll/Flow/Flow3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow3/MusicVolume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -12.0
+offset_right = 115.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_6wm04")
+horizontal_alignment = 1
+
+[node name="Flow4" type="HFlowContainer" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow4"]
+layout_mode = 2
+text = "Sound Effects Volume"
+
+[node name="SFXVolume" type="HSlider" parent="Scroll/Flow/Flow4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow4/SFXVolume"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -12.0
+offset_right = 115.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_6wm04")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_f4mfi")
+text = "CONTROLS"
+label_settings = SubResource("LabelSettings_ssvqc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Flow5" type="HFlowContainer" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Southpaw"
+
+[node name="Button" type="Button" parent="Scroll/Flow/Flow5"]
+layout_mode = 2
+text = "NO"
+
+[connection signal="pressed" from="Scroll/Flow/Back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="Scroll/Flow/Flow2/MasterVolume" to="." method="_on_master_volume_value_changed"]
+[connection signal="value_changed" from="Scroll/Flow/Flow3/MusicVolume" to="." method="_on_music_volume_value_changed"]
+[connection signal="value_changed" from="Scroll/Flow/Flow4/SFXVolume" to="." method="_on_sfx_volume_value_changed"]
