@@ -594,6 +594,116 @@ offset_right = 640.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[node name="ControlsBox" type="VBoxContainer" parent="UI/Control"]
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Flow" type="HBoxContainer" parent="UI/Control/ControlsBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/ControlsBox/Flow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MOVE"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/ControlsBox/Flow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "forward"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/ControlsBox/Flow"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "backward"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Flow2" type="HBoxContainer" parent="UI/Control/ControlsBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/ControlsBox/Flow2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "STEER"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/ControlsBox/Flow2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "turn_left"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/ControlsBox/Flow2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "turn_right"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Flow3" type="HBoxContainer" parent="UI/Control/ControlsBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/ControlsBox/Flow3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FIRE"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/ControlsBox/Flow3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "fire"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Flow4" type="HBoxContainer" parent="UI/Control/ControlsBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/ControlsBox/Flow4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PAUSE"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/ControlsBox/Flow4"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "pause"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Flow5" type="HBoxContainer" parent="UI/Control/ControlsBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/ControlsBox/Flow5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "NAVPANEL"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/ControlsBox/Flow5"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "navpanel"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
 [node name="FadeToBlack" type="ColorRect" parent="UI"]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)

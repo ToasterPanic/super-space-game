@@ -22,6 +22,7 @@ static var button_dictionary = {
 	JOY_BUTTON_LEFT_SHOULDER: "left_shoulder",
 	JOY_BUTTON_RIGHT_SHOULDER: "left_shoulder",
 	JOY_BUTTON_PADDLE1: "left_shoulder",
+	JOY_BUTTON_BACK: "back"
 }
 
 static var mouse_button_dictionary = {
@@ -34,8 +35,28 @@ static var mouse_button_dictionary = {
 
 ## A dictionary where each JoyAxis key corresponds to a string pair. Used for textures.
 static var axis_dictionary = {
-	JOY_AXIS_TRIGGER_LEFT: "left_trigger",
-	JOY_AXIS_TRIGGER_RIGHT: "right_trigger"
+	JOY_AXIS_TRIGGER_LEFT: {
+		1: "left_trigger"
+	},
+	JOY_AXIS_TRIGGER_RIGHT: {
+		1: "right_trigger"
+	},
+	JOY_AXIS_LEFT_Y: {
+		-1: "left_stick_up",
+		1: "left_stick_down"
+	},
+	JOY_AXIS_LEFT_X: {
+		-1: "left_stick_left",
+		1: "left_stick_right"
+	},
+	JOY_AXIS_RIGHT_X: {
+		-1: "right_stick_left",
+		1: "right_stick_right"
+	},
+	JOY_AXIS_RIGHT_Y: {
+		-1: "right_stick_up",
+		1: "right_stick_down"
+	},
 }
 
 func check_gamepad_type():

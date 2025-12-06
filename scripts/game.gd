@@ -151,6 +151,10 @@ func _process(delta: float) -> void:
 				
 			$UI/Control/Navpanel/Navigation/Hyperboost.visible = false
 	
+	if $UI/Control/Navpanel/Start.visible:
+		$UI/Control/Navpanel/Start/Fuel.value = global.stats.fuel
+		$UI/Control/Navpanel/Start/Fuel/Label.text = str(roundi(global.stats.fuel)) + "%"
+		
 	if $UI/Control/Navpanel/NavigationRoutes.visible:
 		for n in $UI/Control/Navpanel/NavigationRoutes/Scroll/Box.get_children():
 			n.update()

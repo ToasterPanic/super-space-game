@@ -41,6 +41,11 @@ func _update_icon():
 			break
 		
 		# If it's a gamepad input and we're using a gamepad, use the corresponding gamepad input icon
+		elif n.is_class("InputEventJoypadMotion") and input_icon.using_gamepad:
+			if input_icon.gamepad_type:
+				texture = load("res://addons/super_awesome_input_icons/textures/" + input_icon.gamepad_type + "/" + input_icon.axis_dictionary[n.axis][roundi(n.axis_value)] + ".png")
+				
+				break
 			
 		elif n.is_class("InputEventJoypadButton") and input_icon.using_gamepad:
 			if input_icon.gamepad_type:
