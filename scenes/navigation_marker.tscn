@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://gofibd3kwx3r"]
+
+[ext_resource type="Texture2D" uid="uid://cfuclgb21yw7n" path="res://textures/navigation_marker.png" id="1_ux3yp"]
+[ext_resource type="Script" uid="uid://ddwxm6i060srm" path="res://scripts/navigation_marker.gd" id="2_vk7ji"]
+
+[node name="NavigationMarker" type="Sprite2D"]
+texture = ExtResource("1_ux3yp")
+script = ExtResource("2_vk7ji")

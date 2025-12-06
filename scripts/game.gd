@@ -14,6 +14,14 @@ var star_scene = preload("res://scenes/star.tscn")
 	"SpaceStation1": $Orbits/SpaceStation1/SpaceStation1/ExitPoint
 }
 
+@onready var navigation_points = [
+	{
+		"name": "Space Station 1",
+		"id": "ss1",
+		"point": $Orbits/SpaceStation1/SpaceStation1
+	}
+]
+
 func ship_health(health: float = 1000) -> void:
 	$Player.health = health
 	
@@ -97,6 +105,33 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if get_tree().paused:
 		return
+		
+	if global.stats.navigation_goal:
+		if not global.stats.navigation_goal.point:
+			global.stats.navigation_goal = null
+		else:
+			if !$Navring.has_node("NavigationMarker"):
+				var navigation_marker = preload("res://scenes/navigation_marker.tscn").instantiate()
+				
+				navigation_marker.destination = global.stats.navigation_goal.point
+				
+				$Navring.add_child(navigation_marker)
+				
+			if $UI/Control/Navpanel/Navigation.visible:
+			
+				$UI/Control/Navpanel/Navigation/CurrentRoute.visible = true
+				$UI/Control/Navpanel/Navigation/Destination.visible = true
+				
+				var goal_distance = (global.stats.navigation_goal.point.position - $Player.position).length()
+				
+				$UI/Control/Navpanel/Navigation/Destination.text = global.stats.navigation_goal.name + " (" + str(floori(goal_distance)) + "u)"
+	else:
+		if $Navring.has_node("NavigationMarker"):
+			$Navring.get_node("NavigationMarker").queue_free()
+			
+		if $UI/Control/Navpanel/Navigation.visible:
+			$UI/Control/Navpanel/Navigation/CurrentRoute.visible = false
+			$UI/Control/Navpanel/Navigation/Destination.visible = false
 	
 	$Navring.position = $Player.position
 	
@@ -172,6 +207,18 @@ func _process(delta: float) -> void:
 				n.queue_free()
 			elif abs(n_pos.y - player_chunk.y) > chunk_process_distance:
 				n.queue_free()
+				
+func _set_navpanel_menu(menu: String) -> void:
+	for n in $UI/Control/Navpanel.get_children():
+		if n.get_name() == menu:
+			n.visible = true
+			
+			for o in n.get_children():
+				if o.is_class("Button"):
+					o.grab_focus()
+					break
+		else:
+			n.visible = false
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -180,8 +227,35 @@ func _input(event: InputEvent) -> void:
 		$UI/Control/PauseMenu/Panel/Flow/Resume.grab_focus()
 		
 		get_tree().paused = true
+	elif event.is_action_pressed("navpanel"):
+		if $UI/Control/Navpanel.visible:
+			$UI/Control/Navpanel.visible = false
+		else:
+			$UI/Control/Navpanel.visible = true
+			
+			_set_navpanel_menu("Start")
 
 
 func _on_tree_exiting() -> void:
 	LimboConsole.unregister_command(ship_health)
 	LimboConsole.unregister_command(summon_enemy)
+
+
+func _on_navigation_pressed() -> void:
+	$UiSelect.play()
+	_set_navpanel_menu("Navigation")
+
+
+func _on_navpanel_back_pressed() -> void:
+	$UiSelect.play()
+	_set_navpanel_menu("Start")
+
+
+func _on_new_route_pressed() -> void:
+	$UiSelect.play()
+	global.stats.navigation_goal = navigation_points[0]
+
+
+func _on_cancel_route_pressed() -> void:
+	$UiSelect.play()
+	global.stats.navigation_goal = null

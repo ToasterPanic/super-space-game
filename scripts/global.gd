@@ -100,6 +100,7 @@ var default_stats = {
 	"ship_position": Vector2(),
 	"ship_rotation": 0,
 	"story_progress": 1,
+	"navigation_goal": null,
 }
 
 var stats = default_stats.duplicate_deep()

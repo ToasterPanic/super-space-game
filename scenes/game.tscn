@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=39 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="2_lbhrr"]
 [ext_resource type="AudioStream" uid="uid://b6tyof2j3ytbv" path="res://sounds/concrete_halls.mp3" id="3_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_p57ef"]
+[ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="4_5newe"]
+[ext_resource type="PackedScene" uid="uid://gofibd3kwx3r" path="res://scenes/navigation_marker.tscn" id="5_264po"]
 [ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="8_vtaks"]
 [ext_resource type="Texture2D" uid="uid://dsdd1830ilu1" path="res://textures/navigation_ring.png" id="10_dinhu"]
 [ext_resource type="Texture2D" uid="uid://yfsqc4i52c6k" path="res://textures/space_station_1.png" id="12_dinhu"]
@@ -17,6 +19,7 @@
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="15_ca42v"]
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="15_ir15t"]
 [ext_resource type="Script" uid="uid://dqiaioigmj5wb" path="res://scripts/pause_menu.gd" id="15_rysoc"]
+[ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="16_1kice"]
 [ext_resource type="PackedScene" uid="uid://cy4nbqbm222os" path="res://scenes/settings.tscn" id="17_ssvqc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
@@ -51,6 +54,10 @@ outline_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 0, 0, 1)
 corner_detail = 1
 
+[sub_resource type="LabelSettings" id="LabelSettings_5newe"]
+font = ExtResource("16_1kice")
+font_size = 28
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ir15t"]
 bg_color = Color(0.5421658, 0.0015220869, 0.72708863, 1)
 corner_detail = 1
@@ -58,9 +65,13 @@ corner_detail = 1
 [sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
 outline_size = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rysoc"]
-bg_color = Color(1, 0, 0, 1)
-corner_detail = 1
+[sub_resource type="LabelSettings" id="LabelSettings_e1j6l"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_37s47"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bt5mj"]
+font_size = 14
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_264po"]
 bg_color = Color(0, 0, 0, 1)
@@ -98,10 +109,12 @@ stream = ExtResource("3_0tnpc")
 volume_db = -10.0
 bus = &"Music"
 
+[node name="UiSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5newe")
+
 [node name="Stars" type="Node2D" parent="."]
 
-[node name="Navring" type="Sprite2D" parent="."]
-texture = ExtResource("10_dinhu")
+[node name="Unloadables" type="Node2D" parent="."]
 
 [node name="Orbits" type="Node2D" parent="."]
 
@@ -129,7 +142,12 @@ shape = SubResource("RectangleShape2D_kvuet")
 position = Vector2(0, 245.5)
 rotation = 3.1415927
 
-[node name="Unloadables" type="Node2D" parent="."]
+[node name="Navring" type="Sprite2D" parent="."]
+position = Vector2(0, -9000)
+texture = ExtResource("10_dinhu")
+
+[node name="NavigationMarker" parent="Navring" node_paths=PackedStringArray("destination") instance=ExtResource("5_264po")]
+destination = NodePath("../../Orbits/SpaceStation1/SpaceStation1")
 
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(-78, -9043)
@@ -138,6 +156,7 @@ script = ExtResource("1_yqjtg")
 
 [node name="Boost" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_iywne")
+volume_db = -5.0
 bus = &"Sound Effects"
 
 [node name="BoostFinish" type="AudioStreamPlayer" parent="Player"]
@@ -260,28 +279,37 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/Control"]
+[node name="Navpanel" type="PanelContainer" parent="UI/Control"]
+visible = false
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -52.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -83.0
 offset_right = 260.0
-grow_vertical = 0
+offset_bottom = 83.0
+grow_vertical = 2
 theme = ExtResource("15_ir15t")
 
-[node name="HFlowContainer" type="HFlowContainer" parent="UI/Control/PanelContainer"]
+[node name="Start" type="HFlowContainer" parent="UI/Control/Navpanel"]
 layout_mode = 2
 theme_override_constants/v_separation = 0
 
-[node name="Fuel" type="ProgressBar" parent="UI/Control/PanelContainer/HFlowContainer"]
+[node name="Label3" type="Label" parent="UI/Control/Navpanel/Start"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "METERS"
+label_settings = SubResource("LabelSettings_5newe")
+horizontal_alignment = 1
+
+[node name="Fuel" type="ProgressBar" parent="UI/Control/Navpanel/Start"]
 custom_minimum_size = Vector2(256, 24)
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_ir15t")
 value = 100.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="UI/Control/PanelContainer/HFlowContainer/Fuel"]
+[node name="Label" type="Label" parent="UI/Control/Navpanel/Start/Fuel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -293,25 +321,107 @@ label_settings = SubResource("LabelSettings_ca42v")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Health" type="ProgressBar" parent="UI/Control/PanelContainer/HFlowContainer"]
-custom_minimum_size = Vector2(256, 24)
+[node name="Label2" type="Label" parent="UI/Control/Navpanel/Start"]
 layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_rysoc")
-value = 50.0
-fill_mode = 1
-show_percentage = false
-
-[node name="Label" type="Label" parent="UI/Control/PanelContainer/HFlowContainer/Health"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "+1000 HEALTH"
-label_settings = SubResource("LabelSettings_ca42v")
+size_flags_horizontal = 3
+text = "SYSTEM"
+label_settings = SubResource("LabelSettings_5newe")
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="Navigation" type="Button" parent="UI/Control/Navpanel/Start"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "navigation"
+
+[node name="Button2" type="Button" parent="UI/Control/Navpanel/Start"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "test"
+
+[node name="Cheery" type="Label" parent="UI/Control/Navpanel/Start"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "NAVMAX CHEERY V7.3.4.0."
+label_settings = SubResource("LabelSettings_e1j6l")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Cheery2" type="Label" parent="UI/Control/Navpanel/Start"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ALL RIGHTS RESERVED"
+label_settings = SubResource("LabelSettings_e1j6l")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Navigation" type="HFlowContainer" parent="UI/Control/Navpanel"]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+
+[node name="Label3" type="Label" parent="UI/Control/Navpanel/Navigation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "NAVIGATION"
+label_settings = SubResource("LabelSettings_5newe")
+horizontal_alignment = 1
+
+[node name="CurrentRoute" type="Label" parent="UI/Control/Navpanel/Navigation"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CURRENT ROUTE:"
+label_settings = SubResource("LabelSettings_37s47")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Destination" type="Label" parent="UI/Control/Navpanel/Navigation"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Space Station 1 (1000u)"
+label_settings = SubResource("LabelSettings_bt5mj")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="NewRoute" type="Button" parent="UI/Control/Navpanel/Navigation"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "new route"
+
+[node name="CancelRoute" type="Button" parent="UI/Control/Navpanel/Navigation"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cancel route"
+
+[node name="NavpanelBack" type="Button" parent="UI/Control/Navpanel/Navigation"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "back"
+
+[node name="NavigationRoutes" type="HFlowContainer" parent="UI/Control/Navpanel"]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+
+[node name="Label3" type="Label" parent="UI/Control/Navpanel/NavigationRoutes"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PICK ROUTE"
+label_settings = SubResource("LabelSettings_5newe")
+horizontal_alignment = 1
+
+[node name="NavpanelBack" type="Button" parent="UI/Control/Navpanel/NavigationRoutes"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "back"
 
 [node name="PauseMenu" type="Panel" parent="UI/Control"]
 process_mode = 3
@@ -443,4 +553,9 @@ color = Color(1, 1, 1, 0)
 [connection signal="area_entered" from="Orbits/SpaceStation1/SpaceStation1/EnterHitbox" to="Orbits/SpaceStation1/SpaceStation1" method="_on_enter_hitbox_area_entered"]
 [connection signal="body_entered" from="Orbits/SpaceStation1/SpaceStation1/EnterHitbox" to="Orbits/SpaceStation1/SpaceStation1" method="_on_enter_hitbox_body_entered"]
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
+[connection signal="pressed" from="UI/Control/Navpanel/Start/Navigation" to="." method="_on_navigation_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Navigation/NewRoute" to="." method="_on_new_route_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Navigation/CancelRoute" to="." method="_on_cancel_route_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Navigation/NavpanelBack" to="." method="_on_navpanel_back_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/NavigationRoutes/NavpanelBack" to="." method="_on_navpanel_back_pressed"]
 [connection signal="pressed" from="UI/Control/PauseMenu/Panel/Flow/Resume" to="UI/Control/PauseMenu" method="_on_resume_pressed"]

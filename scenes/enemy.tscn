@@ -44,6 +44,7 @@ script = ExtResource("1_xwavj")
 
 [node name="Boost" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_nenq2")
+volume_db = -5.0
 pitch_scale = 0.75
 bus = &"Sound Effects"
 
