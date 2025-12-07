@@ -74,8 +74,7 @@ func load_game():
 		print("JSON Parse Error: ", json.get_error_message(), " in ", parse_result, " at line ", json.get_error_line())
 		return
 		
-	if json.data.settings: settings = json.data.settings
-	if json.data.stats: settings = json.data.stats
+	if json.data.stats: stats = json.data.stats
 	
 func load_settings():
 	if not FileAccess.file_exists("user://settings.json"):
@@ -107,8 +106,8 @@ var default_stats = {
 	"boost_tank_size": 1,
 	"marks": 200,
 	"location": "space",
-	"ship_position": Vector2(),
-	"ship_rotation": 0,
+	"position": Vector2(),
+	"rotation": 0,
 	"story_progress": 1,
 	"navigation_goal": null,
 	"equipped_ground_gun": "pistol"

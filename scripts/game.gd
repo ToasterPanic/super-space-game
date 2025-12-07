@@ -41,6 +41,21 @@ func world_to_chunk(position: Vector2) -> Vector2:
 func chunk_to_world(position: Vector2) -> Vector2:
 	return Vector2(floori(position.x * 1024), floori(position.y * 1024))
 	
+## Saves the game.
+func save_game() -> void:
+	$UI/Control/SaveIndicator.visible = true
+	
+	global.stats.position = {
+		"x": $Player.global_position.x,
+		"y": $Player.global_position.y
+	}
+	
+	global.save_game()
+	
+	await get_tree().create_timer(2).timeout
+	
+	$UI/Control/SaveIndicator.visible = false
+	
 func enter_physical(map):
 	get_tree().paused = true
 	
@@ -109,6 +124,14 @@ func _ready() -> void:
 		$Stars.add_child(star)
 		
 		i += 1
+		
+	if global.stats.position:
+		$Player.global_position.x = global.stats.position.x
+		$Player.global_position.y = global.stats.position.y
+		
+		global.stats.position = null
+	else:
+		save_game()
 
 func _process(delta: float) -> void:
 	if get_tree().paused:

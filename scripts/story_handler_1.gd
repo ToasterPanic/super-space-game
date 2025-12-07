@@ -198,3 +198,5 @@ func _ground_ready() -> void:
 			game.set_vignette_parameter("softness", i * 0.04)
 			
 			i += 2
+	else:
+		game.save_game()

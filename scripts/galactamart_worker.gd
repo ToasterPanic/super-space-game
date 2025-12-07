@@ -62,6 +62,8 @@ func _interact(player: Node2D) -> void:
 				await game.dialogue("Okay, your tank should be filled to 25%.")
 			else:
 				await game.dialogue("Sorry, but you don't have enough marks for that.")
+				
+		game.save_game()
 	
 	player.get_node("Camera").enabled = true
 	$Camera.enabled = false

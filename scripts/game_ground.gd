@@ -18,6 +18,20 @@ var dialogue_speed = {
 	"player_woozy": 0.2,
 }
 
+func save_game() -> void:
+	$UI/Control/SaveIndicator.visible = true
+	
+	global.stats.position = {
+		"x": $PlayerGround.global_position.x,
+		"y": $PlayerGround.global_position.y
+	}
+	
+	global.save_game()
+	
+	await get_tree().create_timer(2).timeout
+	
+	$UI/Control/SaveIndicator.visible = false
+
 func _ready() -> void:
 	$UI/Control/Dialogue.visible = false
 	
@@ -40,6 +54,12 @@ func _ready() -> void:
 			n._ground_ready()
 		
 	location_scene.free()
+	
+	if global.stats.position:
+		$PlayerGround.global_position.x = global.stats.position.x
+		$PlayerGround.global_position.y = global.stats.position.y
+		
+		global.stats.position = null
 
 func _process(delta: float) -> void:
 	if current_interaction_area:

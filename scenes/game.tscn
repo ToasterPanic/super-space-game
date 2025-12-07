@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=45 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://dqiaioigmj5wb" path="res://scripts/pause_menu.gd" id="15_rysoc"]
 [ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="16_1kice"]
 [ext_resource type="PackedScene" uid="uid://cy4nbqbm222os" path="res://scenes/settings.tscn" id="17_ssvqc"]
+[ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
 texture = ExtResource("12_trtic")
@@ -85,6 +86,28 @@ corner_detail = 1
 [sub_resource type="LabelSettings" id="LabelSettings_1kice"]
 font_size = 48
 outline_size = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vuhkc"]
+atlas = ExtResource("22_bt5mj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26mqe"]
+atlas = ExtResource("22_bt5mj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1j6l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vuhkc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26mqe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trtic"]
 shader = ExtResource("12_kvuet")
@@ -703,6 +726,26 @@ expand_mode = 1
 script = ExtResource("15_ca42v")
 action_name = "navpanel"
 metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="SaveIndicator" type="Control" parent="UI/Control"]
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SaveIcon" type="AnimatedSprite2D" parent="UI/Control/SaveIndicator"]
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_e1j6l")
+autoplay = "default"
 
 [node name="FadeToBlack" type="ColorRect" parent="UI"]
 process_mode = 3
