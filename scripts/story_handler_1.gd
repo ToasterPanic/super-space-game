@@ -225,9 +225,20 @@ func _ground_ready() -> void:
 		
 		game.get_node("Doctor/InteractArea").monitoring = false
 		
-		player.global_position = game.get_node("Checkpoint1PlayerSpawn").global_position
+		#player.global_position = game.get_node("Checkpoint1PlayerSpawn").global_position
 		game.get_node("Doctor").global_position = game.get_node("Checkpoint1DoctorSpawn").global_position
 		
 		game.get_node("Doctor").checkpoint_1()
-	else:
-		game.save_game()
+	elif global.stats.story_progress == 3:
+		game.get_node("Uglyburger").stop()
+		
+		game.get_node("HospitalEscapeD2State1").monitoring = false
+		game.get_node("HospitalEscapeD2State2").monitoring = false
+		
+		game.get_node("Map").modulate = Color(0.5, 0.35, 0.35)
+		
+		game.get_node("Doctor2").global_position = game.get_node("Doctor2DoorWaypoint").global_position
+		
+		game.get_node("Doctor2").firing = false
+		
+		game.get_node("Doctor2").checkpoint_2()

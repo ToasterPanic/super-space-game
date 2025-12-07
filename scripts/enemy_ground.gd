@@ -3,8 +3,6 @@ extends "res://scripts/character_ground.gd"
 var last_aim_direction = Vector2(0, 0)
 var alerted = false
 
-var inaccuracy = 15
-
 var reaction_halve_distance = 720
 var reaction_timer = 0
 
@@ -38,6 +36,8 @@ var game = null
 @export var always_sees_player: bool = false
 ## The time it takes for an enemy to start shooting / notice the player.
 @export var reaction_time: float = 0.35
+
+@export var inaccuracy: int = 15
 
 func _ready() -> void:
 	super()
@@ -133,6 +133,8 @@ func _process(delta: float) -> void:
 				
 			last_seen_player_position = player.global_position
 		elif ai_state == AI_STATE_CHASE_LAST_SEEN:
+			firing = false 
+			
 			if $Navagent.is_navigation_finished():
 				last_seen_player_position = null
 				ai_mode = AI_MODE_IDLE

@@ -109,14 +109,22 @@ func _process(delta: float) -> void:
 				
 				if hit_target:
 					if "health" in hit_target.get_parent():
-						hit_target.get_parent().health -= 10
-					
-				var bullet_impact = preload("res://scenes/particles/bullet_impact.tscn").instantiate() 
-				bullet_impact.global_position = $HeldItem/Cast.get_collision_point()
+						hit_target.get_parent().health -= global.ground_guns[equipped_ground_gun].damage
+						
+						var blood = preload("res://scenes/particles/blood.tscn").instantiate() 
+						blood.global_position = $HeldItem/Cast.get_collision_point()
+						
+						get_parent().add_child(blood)
+						
+						blood.play()
+					else:
+						var bullet_impact = preload("res://scenes/particles/bullet_impact.tscn").instantiate() 
+						bullet_impact.global_position = $HeldItem/Cast.get_collision_point()
+						
+						get_parent().add_child(bullet_impact)
 				
-				get_parent().add_child(bullet_impact)
 				
-				bullet_impact.play()
+						bullet_impact.play()
 				
 				var bullet_trail = preload("res://scenes/particles/bullet_trail.tscn").instantiate()
 				bullet_trail.global_position = $HeldItem/Sprite.global_position

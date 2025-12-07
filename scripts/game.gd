@@ -11,7 +11,7 @@ var enemy_scene = preload("res://scenes/enemy.tscn")
 var star_scene = preload("res://scenes/star.tscn")
 
 @onready var spawn_points = {
-	"SpaceStation1": $Orbits/SpaceStation1/SpaceStation1/ExitPoint
+	"space_station_1": $Orbits/SpaceStation1/SpaceStation1/ExitPoint
 }
 
 @onready var navigation_points = [
@@ -50,6 +50,8 @@ func save_game() -> void:
 		"y": $Player.global_position.y
 	}
 	
+	global.stats.location = "space"
+	
 	global.save_game()
 	
 	await get_tree().create_timer(2).timeout
@@ -83,10 +85,6 @@ func _ready() -> void:
 	LimboConsole.register_command(summon_enemy, "summon_enemy", "Summons an enemy.")
 	
 	var events = InputMap.action_get_events("forward")
-	
-	if (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
-		$Player.global_position = spawn_points[global.stats.location].global_position
-		$Player.rotation = spawn_points[global.stats.location].rotation
 		
 	for n in navigation_points:
 		var navigation_item = preload("res://scenes/navigation_item.tscn").instantiate()
@@ -125,21 +123,35 @@ func _ready() -> void:
 		
 		i += 1
 		
-	if global.stats.position:
+	if (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
+		$Player.global_position = spawn_points[global.stats.location].global_position
+		$Player.rotation = spawn_points[global.stats.location].rotation
+	elif global.stats.position:
 		$Player.global_position.x = global.stats.position.x
 		$Player.global_position.y = global.stats.position.y
 		
 		global.stats.position = null
-	else:
+	
+	global.stats.location = "space"
+	
+	if global.stats.story_progress < 4: global.stats.story_progress = 4
+	
+	if global.stats.loaded:
 		save_game()
+	else:
+		global.stats.loaded = true
 
 func _process(delta: float) -> void:
 	if get_tree().paused:
 		return
 		
 	if global.stats.navigation_goal:
-		if not global.stats.navigation_goal.point:
-			global.stats.navigation_goal = null
+		if !global.stats.navigation_goal.point || (typeof(global.stats.navigation_goal.point) == TYPE_STRING):
+			if global.stats.navigation_goal.id:
+				for n in navigation_points:
+					if n.id == global.stats.navigation_goal.id:
+						global.stats.navigation_goal.point = n.point 
+						break
 		else:
 			if !$Navring.has_node("NavigationMarker"):
 				var navigation_marker = preload("res://scenes/navigation_marker.tscn").instantiate()
@@ -161,9 +173,10 @@ func _process(delta: float) -> void:
 				
 				$UI/Control/Navpanel/Navigation/Hyperboost.visible = true
 				
-				var goal_distance = (global.stats.navigation_goal.point.position - $Player.position).length()
+				if global.stats.navigation_goal.point and (typeof(global.stats.navigation_goal.point) != TYPE_STRING):
+					var goal_distance = (global.stats.navigation_goal.point.position - $Player.position).length()
 				
-				$UI/Control/Navpanel/Navigation/Destination.text = global.stats.navigation_goal.name + " (" + str(floori(goal_distance)) + "u)"
+					$UI/Control/Navpanel/Navigation/Destination.text = global.stats.navigation_goal.name + " (" + str(floori(goal_distance)) + "u)"
 	else:
 		if $Navring.has_node("NavigationMarker"):
 			$Navring.get_node("NavigationMarker").queue_free()

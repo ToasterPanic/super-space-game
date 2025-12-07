@@ -1,9 +1,10 @@
-[gd_scene load_steps=64 format=4 uid="uid://dfjnikjjynj0e"]
+[gd_scene load_steps=69 format=4 uid="uid://dfjnikjjynj0e"]
 
 [ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="1_kpeax"]
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="2_4uppp"]
 [ext_resource type="AudioStream" uid="uid://w3hai62ji61g" path="res://sounds/heart_monitor.mp3" id="2_v7oqm"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="3_ir5n7"]
+[ext_resource type="AudioStream" uid="uid://7cvp5b3mq1tn" path="res://sounds/music/dnbd_sudden.mp3" id="3_kl2qk"]
 [ext_resource type="Texture2D" uid="uid://ddfp7u4a7llnr" path="res://textures/wall_side_tile_left.png" id="4_50pdk"]
 [ext_resource type="Texture2D" uid="uid://gl7rcrys46ay" path="res://textures/wall_side_tile_right.png" id="5_83fjc"]
 [ext_resource type="Texture2D" uid="uid://cj5sjx1jhrah6" path="res://textures/wall_side_tile_center.png" id="6_akl5n"]
@@ -18,13 +19,17 @@
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="13_vmpfq"]
 [ext_resource type="Script" uid="uid://khas1kkt2t3k" path="res://scripts/exit_ship.gd" id="14_jxmby"]
 [ext_resource type="Script" uid="uid://mmptv0l2ahhh" path="res://scripts/doctor.gd" id="14_vmimc"]
+[ext_resource type="Script" uid="uid://cytses4dvcif2" path="res://scripts/doctor_2.gd" id="16_bhfm6"]
+[ext_resource type="Texture2D" uid="uid://csrlh1sbdroud" path="res://textures/pistol.png" id="16_mdep3"]
 [ext_resource type="Texture2D" uid="uid://ktvnppfhchoj" path="res://textures/bed.png" id="17_50pdk"]
+[ext_resource type="AudioStream" uid="uid://5x8fl2mk082h" path="res://sounds/gunshot_1.mp3" id="17_bhfm6"]
 [ext_resource type="Texture2D" uid="uid://b0c5hws6ki8p5" path="res://textures/door_large_vertical.png" id="17_vmpfq"]
 [ext_resource type="Texture2D" uid="uid://cmv4wou5glrl7" path="res://textures/bed_foot.png" id="18_83fjc"]
 [ext_resource type="Texture2D" uid="uid://bgui3ranlk441" path="res://textures/locker.png" id="18_jxmby"]
 [ext_resource type="Texture2D" uid="uid://iim42wat824h" path="res://textures/door_large_horizontial.png" id="18_vmimc"]
 [ext_resource type="Script" uid="uid://cva4b60iqolqy" path="res://scripts/story_handler_1.gd" id="19_akl5n"]
 [ext_resource type="PackedScene" uid="uid://dh3psx6ilrtql" path="res://scenes/enemy_ground.tscn" id="22_janyw"]
+[ext_resource type="PackedScene" uid="uid://cs30mgkcn74is" path="res://scenes/doors/door_medium_horizontial.tscn" id="23_ga4dw"]
 [ext_resource type="Texture2D" uid="uid://bahp733iqv2us" path="res://textures/desk.png" id="26_vmpfq"]
 [ext_resource type="AudioStream" uid="uid://c13fyse8fxmio" path="res://sounds/intrusion_alarm.mp3" id="28_k741b"]
 [ext_resource type="AudioStream" uid="uid://f6l56kvndidj" path="res://sounds/background_gunshots.mp3" id="28_vmimc"]
@@ -41,6 +46,7 @@ texture = ExtResource("2_4uppp")
 0:0/0 = 0
 0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_gysiw")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mdep3"]
 texture = ExtResource("3_ir5n7")
@@ -93,8 +99,9 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_uxsmb"]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
-physics_layer_0/collision_layer = 3
-physics_layer_0/collision_mask = 3
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 2
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_k741b")
 sources/1 = SubResource("TileSetAtlasSource_mdep3")
@@ -240,7 +247,7 @@ size = Vector2(40, 40)
 size = Vector2(223, 442)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vmimc"]
-size = Vector2(353, 401)
+size = Vector2(353, 655)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83fjc"]
 size = Vector2(61.5, 21)
@@ -259,6 +266,11 @@ parameters/looping = true
 [node name="HeartMonitor" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_v7oqm")
 parameters/looping = true
+
+[node name="Dnbd" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kl2qk")
+volume_db = -8.0
+bus = &"Music"
 
 [node name="Map" type="TileMapLayer" parent="."]
 modulate = Color(0.53333336, 0.53333336, 0.53333336, 1)
@@ -329,9 +341,22 @@ collision_mask = 2
 shape = SubResource("CapsuleShape2D_janyw")
 debug_color = Color(1, 0, 0, 0.41960785)
 
+[node name="HospitalEscapeD2State1" type="Area2D" parent="."]
+position = Vector2(1216, -1408)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HospitalEscapeD2State1"]
+position = Vector2(-144, 0)
+shape = SubResource("CircleShape2D_janyw")
+
+[node name="HospitalEscapeD2State2" type="Area2D" parent="."]
+position = Vector2(1360, -1072)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HospitalEscapeD2State2"]
+shape = SubResource("CircleShape2D_janyw")
+
 [node name="Doctor2" type="CharacterBody2D" parent="."]
 position = Vector2(1664, -1328)
-script = ExtResource("14_vmimc")
+script = ExtResource("16_bhfm6")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Doctor2"]
 scale = Vector2(-2, 2)
@@ -340,13 +365,6 @@ sprite_frames = SubResource("SpriteFrames_c5r8y")
 [node name="CollisionShape" type="CollisionShape2D" parent="Doctor2"]
 position = Vector2(0, 40)
 shape = SubResource("CapsuleShape2D_2ss3m")
-
-[node name="InteractArea" type="Area2D" parent="Doctor2"]
-script = ExtResource("10_tvsp8")
-interact_text = "TALK"
-
-[node name="CollisionShape" type="CollisionShape2D" parent="Doctor2/InteractArea"]
-shape = SubResource("CircleShape2D_janyw")
 
 [node name="Navagent" type="NavigationAgent2D" parent="Doctor2"]
 path_desired_distance = 34.0
@@ -360,6 +378,22 @@ collision_mask = 2
 [node name="CollisionShape" type="CollisionShape2D" parent="Doctor2/Hitbox"]
 shape = SubResource("CapsuleShape2D_janyw")
 debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="HeldItem" type="Node2D" parent="Doctor2"]
+
+[node name="Cast" type="RayCast2D" parent="Doctor2/HeldItem"]
+position = Vector2(64, 0)
+target_position = Vector2(2048, 0)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="Sprite" type="Sprite2D" parent="Doctor2/HeldItem"]
+position = Vector2(56, 0)
+texture = ExtResource("16_mdep3")
+
+[node name="Gunshot" type="AudioStreamPlayer2D" parent="Doctor2/HeldItem"]
+stream = ExtResource("17_bhfm6")
+bus = &"Sound Effects"
 
 [node name="GalactaCounter" type="StaticBody2D" parent="."]
 position = Vector2(-64, -883)
@@ -392,6 +426,16 @@ texture = ExtResource("17_vmpfq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MedbayDoorLargeVertical3"]
 shape = SubResource("RectangleShape2D_whbip")
 
+[node name="MedbayDoorLargeVertical6" type="StaticBody2D" parent="."]
+position = Vector2(224, -3104)
+scale = Vector2(2, 2)
+
+[node name="Sprite" type="Sprite2D" parent="MedbayDoorLargeVertical6"]
+texture = ExtResource("17_vmpfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MedbayDoorLargeVertical6"]
+shape = SubResource("RectangleShape2D_whbip")
+
 [node name="MedbayDoorLargeVertical2" type="StaticBody2D" parent="."]
 position = Vector2(352, -1280)
 scale = Vector2(2, 2)
@@ -402,6 +446,20 @@ texture = ExtResource("18_vmimc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MedbayDoorLargeVertical2"]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_bhfm6")
+
+[node name="MedbayDoorLargeVertical5" type="StaticBody2D" parent="."]
+position = Vector2(352, -1280)
+scale = Vector2(2, 2)
+
+[node name="Sprite" type="Sprite2D" parent="MedbayDoorLargeVertical5"]
+texture = ExtResource("18_vmimc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MedbayDoorLargeVertical5"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_bhfm6")
+
+[node name="Doctor2DoorToOpen" parent="." instance=ExtResource("23_ga4dw")]
+position = Vector2(1344, -960)
 
 [node name="MedbayDoorLargeVertical4" type="StaticBody2D" parent="."]
 position = Vector2(352, -2432)
@@ -499,13 +557,28 @@ position = Vector2(126, -1796)
 position = Vector2(-1119, -1537)
 
 [node name="DoctorHallWaypoint" type="Node2D" parent="."]
-position = Vector2(-730, -1375)
+position = Vector2(-768, -1376)
+
+[node name="Doctor2DoorWaypoint" type="Node2D" parent="."]
+position = Vector2(1376, -1056)
 
 [node name="CamperSpawn1" type="Node2D" parent="."]
 position = Vector2(-1248, -1984)
 
+[node name="CamperSpawn2" type="Node2D" parent="."]
+position = Vector2(-544, -1408)
+
+[node name="CamperSpawn3" type="Node2D" parent="."]
+position = Vector2(992, -32)
+
+[node name="CamperSpawn4" type="Node2D" parent="."]
+position = Vector2(1632, 752)
+
 [node name="Checkpoint1PlayerSpawn" type="Node2D" parent="."]
 position = Vector2(-928, -2112)
+
+[node name="Checkpoint2PlayerSpawn" type="Node2D" parent="."]
+position = Vector2(1312, -1056)
 
 [node name="Checkpoint1DoctorSpawn" type="Node2D" parent="."]
 position = Vector2(-864, -2224)
@@ -527,7 +600,7 @@ position = Vector2(-827, -3082)
 position = Vector2(-52, 45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoctorEscapeWaypoint2/Area"]
-position = Vector2(146.5, 70.5)
+position = Vector2(146.5, 197.5)
 shape = SubResource("RectangleShape2D_vmimc")
 
 [node name="StoryHandler1" type="Node2D" parent="."]
@@ -613,23 +686,41 @@ position = Vector2(-0.25, 37.5)
 shape = SubResource("RectangleShape2D_83fjc")
 
 [node name="Camper1" parent="." instance=ExtResource("22_janyw")]
-position = Vector2(33, -3149)
+position = Vector2(-128, -3149)
 starting_gun = "smg"
-starting_health = 100
+starting_health = 300
 concious = false
 always_sees_player = true
 
 [node name="Camper2" parent="." instance=ExtResource("22_janyw")]
-position = Vector2(33, -3085)
+position = Vector2(-128, -3085)
 starting_gun = "smg"
-starting_health = 100
+starting_health = 300
 concious = false
 always_sees_player = true
 
 [node name="Camper3" parent="." instance=ExtResource("22_janyw")]
 position = Vector2(-6704, -6000)
 starting_gun = "smg"
-starting_health = 100
+starting_health = 300
+
+[node name="Camper4" parent="." instance=ExtResource("22_janyw")]
+position = Vector2(-6704, -6000)
+starting_gun = "smg"
+starting_health = 300
+inaccuracy = 30
+
+[node name="Camper5" parent="." instance=ExtResource("22_janyw")]
+position = Vector2(-6704, -6000)
+starting_health = 35
+reaction_time = 0.4
+inaccuracy = 30
+
+[node name="Camper6" parent="." instance=ExtResource("22_janyw")]
+position = Vector2(-6704, -6000)
+starting_health = 35
+reaction_time = 0.4
+inaccuracy = 30
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-1145.8125, -1537.0664)
@@ -669,7 +760,7 @@ bus = &"Sound Effects"
 [connection signal="body_exited" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_exited"]
 [connection signal="body_entered" from="Doctor/InteractArea" to="Doctor/InteractArea" method="_on_body_entered"]
 [connection signal="body_exited" from="Doctor/InteractArea" to="Doctor/InteractArea" method="_on_body_exited"]
-[connection signal="body_entered" from="Doctor2/InteractArea" to="Doctor2/InteractArea" method="_on_body_entered"]
-[connection signal="body_exited" from="Doctor2/InteractArea" to="Doctor2/InteractArea" method="_on_body_exited"]
+[connection signal="body_entered" from="HospitalEscapeD2State1" to="Doctor2" method="_on_state_1_body_entered"]
+[connection signal="body_entered" from="HospitalEscapeD2State2" to="Doctor2" method="_on_state_2_body_entered"]
 [connection signal="body_entered" from="ExitShip/InteractArea" to="ExitShip/InteractArea" method="_on_body_entered"]
 [connection signal="body_exited" from="ExitShip/InteractArea" to="ExitShip/InteractArea" method="_on_body_exited"]

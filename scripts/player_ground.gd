@@ -46,12 +46,17 @@ func _process(delta: float) -> void:
 		$HeldItem/Line.visible = false
 		
 	if Input.is_action_just_pressed("toggle_holster"):
-		global.stats.gun_holstered = !global.stats.gun_holstered
-		
-		if global.stats.gun_holstered:
-			set_ground_gun(null)
+		if global.stats.equipped_ground_gun:
+			global.stats.gun_holstered = !global.stats.gun_holstered
+			
+			if global.stats.gun_holstered:
+				set_ground_gun(null)
+			else:
+				set_ground_gun(global.stats.equipped_ground_gun)
 		else:
-			set_ground_gun(global.stats.equipped_ground_gun)
+			global.stats.gun_holstered = true
+			
+			set_ground_gun(null)
 			
 	
 	firing = Input.is_action_pressed("fire")

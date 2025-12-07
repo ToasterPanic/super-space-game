@@ -273,6 +273,8 @@ func _on_load_game_pressed() -> void:
 	
 	await global.load_game()
 	
+	global.stats.loaded = false
+	
 	if global.stats.location == "space":
 		get_tree().change_scene_to_file("res://scenes/game.tscn")
 	else:

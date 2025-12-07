@@ -35,9 +35,6 @@ func save_game() -> void:
 func checkpoint() -> void:
 	var packed_scene = PackedScene.new()
 	packed_scene.pack(get_tree().get_current_scene())
-	
-	if global.checkpoint:
-		global.checkpoint.free()
 		
 	global.checkpoint = packed_scene
 
@@ -65,10 +62,16 @@ func _ready() -> void:
 	location_scene.free()
 	
 	if global.stats.position:
+		print("AAA ", global.stats.position)
 		$PlayerGround.global_position.x = global.stats.position.x
 		$PlayerGround.global_position.y = global.stats.position.y
 		
 		global.stats.position = null
+		
+	if global.stats.loaded:
+		save_game()
+	else:
+		global.stats.loaded = true
 
 func _process(delta: float) -> void:
 	if current_interaction_area:
@@ -102,7 +105,7 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true) 
 		
 		$Dialogue.play()
 		
-		#await get_tree().create_timer(speed).timeout
+		await get_tree().create_timer(speed).timeout
 		
 		i += 1
 		

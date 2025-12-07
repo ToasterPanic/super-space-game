@@ -14,7 +14,7 @@ func _interact(player: Node2D) -> void:
 	
 	player.busy = true
 	
-	await game.dialogue("Ready to leave?", "doctor", false)
+	await game.dialogue("Ready to leave?", "doctor_1", false)
 	
 	var option = await game.make_choice({
 		"yes": "Yes",
@@ -22,20 +22,20 @@ func _interact(player: Node2D) -> void:
 	})
 	
 	if option == "yes":
-		await game.dialogue("Alrighty!", "doctor")
+		await game.dialogue("Alrighty!", "doctor_1")
 		
-		await game.dialogue("We have your stuff back here, let me go grab it real quick...", "doctor")
+		await game.dialogue("We have your stuff back here, let me go grab it real quick...", "doctor_1")
 		
 		
-		await game.dialogue("Here's your bag.", "doctor")
+		await game.dialogue("Here's your bag.", "doctor_1")
 		
-		await game.dialogue("Should have everything - tablet, ship keys, a pistol...", "doctor")
+		await game.dialogue("Should have everything - tablet, ship keys, a pistol...", "doctor_1")
 		
 		game.get_node("DistantGunshots1").play()
 		
 		await get_tree().create_timer(2).timeout
 		
-		await game.dialogue("...the hell?", "doctor", false)
+		await game.dialogue("...the hell?", "doctor_1", false)
 		
 		await get_tree().create_timer(1.5).timeout
 		
@@ -45,11 +45,11 @@ func _interact(player: Node2D) -> void:
 		
 		await get_tree().create_timer(1).timeout
 		
-		await game.dialogue("Oh, no.", "doctor", true)
+		await game.dialogue("Oh, no.", "doctor_1", true)
 		
 		await get_tree().create_timer(0.5).timeout
 		
-		await game.dialogue("We need to leave. Now.", "doctor", true)
+		await game.dialogue("We need to leave. Now.", "doctor_1", true)
 		
 		await get_tree().create_timer(0.5).timeout
 		
@@ -58,7 +58,7 @@ func _interact(player: Node2D) -> void:
 		
 		player.busy = false
 		
-		await game.dialogue("Follow me.", "doctor", false)
+		await game.dialogue("Follow me.", "doctor_1", false)
 		
 		await navigate_to(game.get_node("DoctorEscapeWaypoint1").position)
 		
@@ -66,15 +66,15 @@ func _interact(player: Node2D) -> void:
 		
 		player.busy = true
 		
-		await game.dialogue("You good with that gun?", "doctor", true)
+		await game.dialogue("You good with that gun?", "doctor_1", true)
 		
 		var option_2 = await game.make_choice({
 			"yes": "Yes",
 			"no": "No"
 		})
 		
-		if option_2 == "yes": await game.dialogue("Good to know.", "doctor", true)
-		else: await game.dialogue("Well, you're still probably better than I would be.", "doctor", true)
+		if option_2 == "yes": await game.dialogue("Good to know.", "doctor_1", true)
+		else: await game.dialogue("Well, you're still probably better than I would be.", "doctor_1", true)
 		
 		global.stats.story_progress = 2
 		
@@ -83,7 +83,7 @@ func _interact(player: Node2D) -> void:
 		checkpoint_1()
 		
 	elif option == "no":
-		await game.dialogue("Well, I'm here whenever you need me.", "doctor")
+		await game.dialogue("Well, I'm here whenever you need me.", "doctor_1")
 		
 	
 	player.get_node("Camera").enabled = true
@@ -96,9 +96,11 @@ func _interact(player: Node2D) -> void:
 
 
 func checkpoint_1():
+	$InteractArea.monitoring = false
+	
 	var player = game.get_node("PlayerGround")
 	
-	await game.dialogue("You should probably get it out.", "doctor", false)
+	await game.dialogue("You should probably get it out.", "doctor_1", false)
 		
 	player.busy = false
 	
@@ -110,7 +112,7 @@ func checkpoint_1():
 	
 	game.get_node("UI/Control/UnholsterTutorial").visible = false
 	
-	await game.dialogue("Let's go.", "doctor", false)
+	await game.dialogue("Let's go.", "doctor_1", false)
 	
 	game.checkpoint()
 	
@@ -118,7 +120,10 @@ func checkpoint_1():
 	
 	while !game.get_node("DoctorEscapeWaypoint2/Area").get_overlapping_bodies().has(player): await get_tree().create_timer(0.2).timeout
 	
-	await game.dialogue("RUN!", "doctor", false)
+	game.get_node("Dnbd").play()
+	game.get_node("IntrusionAlarm").stop()
+	
+	await game.dialogue("OH GOD!", "doctor_1", false)
 	
 	game.get_node("MedbayDoorLargeVertical").free()
 	
@@ -130,6 +135,9 @@ func checkpoint_1():
 	game.get_node("Camper1").firing = true
 	await get_tree().create_timer(0.06).timeout
 	game.get_node("Camper2").firing = true
+	
+	
+	await game.dialogue("RUN!", "doctor_1", false)
 	
 	while health > 0: await get_tree().create_timer(0.2).timeout
 	
@@ -145,3 +153,4 @@ func checkpoint_1():
 	game.get_node("Camper2").concious = true
 	
 	game.get_node("Camper3").global_position = game.get_node("CamperSpawn1").global_position
+	game.get_node("Camper4").global_position = game.get_node("CamperSpawn2").global_position

@@ -36,6 +36,13 @@ var ground_guns = {
 		"magazine_size": 12,
 		"fire_rate": 0.3
 	},
+	"docgun": {
+		"name": "Docgun",
+		"type": "kinetic",
+		"damage": 150,
+		"magazine_size": 12,
+		"fire_rate": 0.25
+	},
 	"smg": {
 		"name": "Ripper",
 		"type": "energy",
