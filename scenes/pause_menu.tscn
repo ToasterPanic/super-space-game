@@ -1,0 +1,122 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6bq2viqao61m"]
+
+[ext_resource type="Script" uid="uid://dqiaioigmj5wb" path="res://scripts/pause_menu.gd" id="1_5d2l8"]
+[ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="2_7l7mv"]
+[ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="3_v4r4p"]
+[ext_resource type="PackedScene" uid="uid://cy4nbqbm222os" path="res://scenes/settings.tscn" id="4_1s2dm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_264po"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
+corner_detail = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_1kice"]
+font_size = 48
+outline_size = 2
+
+[node name="PauseMenu" type="Panel"]
+process_mode = 3
+visible = false
+self_modulate = Color(1, 1, 1, 0.53333336)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_264po")
+script = ExtResource("1_5d2l8")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -26.0
+offset_right = 130.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_7l7mv")
+
+[node name="Flow" type="HFlowContainer" parent="Panel"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_1kice")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="Panel/Flow/HFlowContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("3_v4r4p")
+action_name = "ui_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="Panel/Flow/HFlowContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("3_v4r4p")
+action_name = "ui_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect" type="TextureRect" parent="Panel/Flow/HFlowContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("3_v4r4p")
+action_name = "dialogue_continue"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="Resume" type="Button" parent="Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitToTitle")
+text = "Resume"
+
+[node name="Settings" type="Button" parent="Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitToTitle" type="Button" parent="Panel/Flow"]
+custom_minimum_size = Vector2(257, 0)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Resume")
+text = "Quit to Title"
+
+[node name="Label2" type="Label" parent="Panel/Flow"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_1kice")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" parent="." instance=ExtResource("4_1s2dm")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_right = 640.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="pressed" from="Panel/Flow/Resume" to="." method="_on_resume_pressed"]

@@ -166,5 +166,10 @@ func set_vignette_parameter(name: String, value: float) -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("dialogue_continue"):
-
 		dialogue_continue.emit()
+	if event.is_action_pressed("pause"):
+		$UI/Control/PauseMenu.visible = true
+		
+		$UI/Control/PauseMenu/Panel/Flow/Resume.grab_focus()
+		
+		get_tree().paused = true

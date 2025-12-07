@@ -106,7 +106,7 @@ collide_with_areas = true
 
 [node name="Cast" type="RayCast2D" parent="HeldItem"]
 position = Vector2(64, 0)
-target_position = Vector2(2048, 0)
+target_position = Vector2(204800, 0)
 collision_mask = 2
 collide_with_areas = true
 

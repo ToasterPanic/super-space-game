@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=42 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -19,9 +19,8 @@
 [ext_resource type="Script" uid="uid://d0txwo63hlrsy" path="res://scripts/enterable.gd" id="13_trtic"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="15_ca42v"]
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="15_ir15t"]
-[ext_resource type="Script" uid="uid://dqiaioigmj5wb" path="res://scripts/pause_menu.gd" id="15_rysoc"]
 [ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="16_1kice"]
-[ext_resource type="PackedScene" uid="uid://cy4nbqbm222os" path="res://scenes/settings.tscn" id="17_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://b6bq2viqao61m" path="res://scenes/pause_menu.tscn" id="19_37s47"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
@@ -77,15 +76,6 @@ font_size = 14
 
 [sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
 font_size = 14
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_264po"]
-bg_color = Color(0, 0, 0, 1)
-border_color = Color(0.53333336, 0.53333336, 0.53333336, 1)
-corner_detail = 1
-
-[sub_resource type="LabelSettings" id="LabelSettings_1kice"]
-font_size = 48
-outline_size = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vuhkc"]
 atlas = ExtResource("22_bt5mj")
@@ -511,111 +501,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "back"
 
-[node name="PauseMenu" type="Panel" parent="UI/Control"]
-process_mode = 3
-visible = false
-self_modulate = Color(1, 1, 1, 0.53333336)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_264po")
-script = ExtResource("15_rysoc")
-
-[node name="Panel" type="PanelContainer" parent="UI/Control/PauseMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -130.0
-offset_top = -26.0
-offset_right = 130.0
-offset_bottom = 26.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("15_ir15t")
-
-[node name="Flow" type="HFlowContainer" parent="UI/Control/PauseMenu/Panel"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/Control/PauseMenu/Panel/Flow"]
-custom_minimum_size = Vector2(512, 0)
-layout_mode = 2
-text = "PAUSED"
-label_settings = SubResource("LabelSettings_1kice")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HFlowContainer" type="HFlowContainer" parent="UI/Control/PauseMenu/Panel/Flow"]
-custom_minimum_size = Vector2(257, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/PauseMenu/Panel/Flow/HFlowContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-expand_mode = 1
-script = ExtResource("15_ca42v")
-action_name = "ui_up"
-metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
-
-[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/PauseMenu/Panel/Flow/HFlowContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-expand_mode = 1
-script = ExtResource("15_ca42v")
-action_name = "ui_down"
-metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
-
-[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/PauseMenu/Panel/Flow/HFlowContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-expand_mode = 1
-script = ExtResource("15_ca42v")
-action_name = "dialogue_continue"
-metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
-
-[node name="Resume" type="Button" parent="UI/Control/PauseMenu/Panel/Flow"]
-custom_minimum_size = Vector2(257, 0)
-layout_mode = 2
-focus_neighbor_top = NodePath("../QuitToTitle")
-text = "Resume"
-
-[node name="Settings" type="Button" parent="UI/Control/PauseMenu/Panel/Flow"]
-custom_minimum_size = Vector2(257, 0)
-layout_mode = 2
-text = "Settings"
-
-[node name="QuitToTitle" type="Button" parent="UI/Control/PauseMenu/Panel/Flow"]
-custom_minimum_size = Vector2(257, 0)
-layout_mode = 2
-focus_neighbor_bottom = NodePath("../Resume")
-text = "Quit to Title"
-
-[node name="Label2" type="Label" parent="UI/Control/PauseMenu/Panel/Flow"]
-custom_minimum_size = Vector2(512, 0)
-layout_mode = 2
-text = "PAUSED"
-label_settings = SubResource("LabelSettings_1kice")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Settings" parent="UI/Control/PauseMenu" instance=ExtResource("17_ssvqc")]
-visible = false
+[node name="PauseMenu" parent="UI/Control" instance=ExtResource("19_37s47")]
 layout_mode = 0
 anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_right = 640.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="ControlsBox" type="VBoxContainer" parent="UI/Control"]
 modulate = Color(1, 1, 1, 0.53333336)
@@ -780,4 +668,3 @@ color = Color(1, 1, 1, 0)
 [connection signal="pressed" from="UI/Control/Navpanel/NavigationRoutes/NavigationBack" to="." method="_on_navigation_back_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/NavigationHyperboost/EnableHyperboost" to="." method="_on_enable_hyperboost_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/NavigationHyperboost/NavigationBack" to="." method="_on_navigation_back_pressed"]
-[connection signal="pressed" from="UI/Control/PauseMenu/Panel/Flow/Resume" to="UI/Control/PauseMenu" method="_on_resume_pressed"]

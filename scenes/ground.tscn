@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://by43ihcec8e8q"]
+[gd_scene load_steps=33 format=3 uid="uid://by43ihcec8e8q"]
 
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
 [ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="3_8gbjj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" uid="uid://d2e0541hawkml" path="res://scripts/vignette.gdshader" id="9_5vwr8"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="9_257nh"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="13_176r3"]
+[ext_resource type="PackedScene" uid="uid://b6bq2viqao61m" path="res://scenes/pause_menu.tscn" id="14_vuhkc"]
 [ext_resource type="Texture2D" uid="uid://dauoebs801ngm" path="res://addons/super_awesome_input_icons/textures/keyboard/question.png" id="16_e3s4u"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="16_hby33"]
 [ext_resource type="PackedScene" uid="uid://dhcfrsf726k68" path="res://scenes/dialogue_select_button.tscn" id="19_qqas2"]
@@ -500,6 +501,9 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_257nh")
 autoplay = "default"
 frame_progress = 0.6029871
+
+[node name="PauseMenu" parent="UI/Control" instance=ExtResource("14_vuhkc")]
+layout_mode = 1
 
 [node name="Shader" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ypt7u")
