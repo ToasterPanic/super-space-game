@@ -28,6 +28,16 @@ var orbit_zones = [
 	
 ]
 
+var ground_guns = {
+	"pistol": {
+		"name": "Oni",
+		"type": "energy",
+		"damage": 10,
+		"magazine_size": 12,
+		"fire_rate": 0.3
+	}
+}
+
 func generate_save():
 	var save_dict = {
 		"stats": stats
@@ -101,6 +111,7 @@ var default_stats = {
 	"ship_rotation": 0,
 	"story_progress": 1,
 	"navigation_goal": null,
+	"equipped_ground_gun": "pistol"
 }
 
 var stats = default_stats.duplicate_deep()

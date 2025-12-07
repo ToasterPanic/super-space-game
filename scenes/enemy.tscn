@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dy6dv2tio433m"]
+[gd_scene load_steps=10 format=3 uid="uid://dy6dv2tio433m"]
 
 [ext_resource type="Script" uid="uid://8d4jhy3fo32b" path="res://scripts/enemy.gd" id="1_xwavj"]
 [ext_resource type="AudioStream" uid="uid://brqjxveo53kco" path="res://sounds/boost.mp3" id="2_nenq2"]
@@ -6,34 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="4_ipns3"]
 [ext_resource type="AudioStream" uid="uid://bney1c4julhfk" path="res://sounds/explode.mp3" id="5_ipns3"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="6_w8i8w"]
-[ext_resource type="Script" uid="uid://ck38qwl4qytnt" path="res://scripts/particle_group.gd" id="7_md484"]
-[ext_resource type="Texture2D" uid="uid://5iimabvyld40" path="res://textures/particles/basic.png" id="7_nenq2"]
-[ext_resource type="Texture2D" uid="uid://bpe67g6185n5v" path="res://textures/particles/fire.png" id="9_ipns3"]
+[ext_resource type="PackedScene" path="res://scenes/particles/explosion.tscn" id="7_nenq2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
 radius = 20.0
-
-[sub_resource type="Curve" id="Curve_ipns3"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7512195, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_8qclf"]
-curve = SubResource("Curve_ipns3")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w8i8w"]
-particle_flag_disable_z = true
-angle_min = -720.0
-angle_max = 720.0
-spread = 180.0
-initial_velocity_min = 30.3
-initial_velocity_max = 260.81
-gravity = Vector3(0, 0, 0)
-damping_min = 2.0
-damping_max = 14.000001
-scale_min = 0.099999994
-scale_max = 0.25
-alpha_curve = SubResource("CurveTexture_8qclf")
-collision_use_scale = true
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ipns3"]
 points = PackedVector2Array(-16, 16, 16, 16, 0, -16)
@@ -79,26 +55,7 @@ target_position = Vector2(0, -256)
 [node name="FireCast" type="RayCast2D" parent="."]
 target_position = Vector2(0, -1024)
 
-[node name="Explosion" type="Node2D" parent="."]
-script = ExtResource("7_md484")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Explosion"]
-emitting = false
-amount = 24
-texture = ExtResource("7_nenq2")
-lifetime = 10.0
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_w8i8w")
-
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="Explosion"]
-emitting = false
-amount = 24
-texture = ExtResource("9_ipns3")
-lifetime = 10.0
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_w8i8w")
+[node name="Explosion" parent="." instance=ExtResource("7_nenq2")]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("ConvexPolygonShape2D_ipns3")

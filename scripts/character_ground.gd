@@ -3,14 +3,34 @@ extends CharacterBody2D
 var horizontial_movement = 0
 var vertical_movement = 0
 var speed = 256
+var health = 100
+
+var fire_delay = 0
 
 ## Is the player busy in an interaction?
 var busy = false
 
+var firing = false
+
+var equipped_ground_gun = "pistol"
+var ammo_in_mag = 12
+
+func set_ground_gun(value: String):
+	equipped_ground_gun = value
+	$HeldItem/Sprite.texture = load("res://textures/" + equipped_ground_gun + ".png")
+	ammo_in_mag = global.ground_guns
+
 func _ready() -> void:
 	$Sprite.play()
+	
+	if has_node("HeldItem") and (equipped_ground_gun != null): 
+		set_ground_gun(equipped_ground_gun)
+		$HeldItem/Cast.add_exception(self)
 
 func _process(delta: float) -> void:
+	if !$Sprite.is_playing():
+		$Sprite.play()
+		
 	if busy:
 		velocity = Vector2()
 	else:
@@ -27,5 +47,34 @@ func _process(delta: float) -> void:
 	else:
 		$Sprite.animation = "idle"
 		
+	fire_delay -= delta
+	if firing and (fire_delay < 0):
+		if has_node("HeldItem") and (equipped_ground_gun != null):
+			$HeldItem/Cast.force_raycast_update()
+			
+			var hit_target = $HeldItem/Cast.get_collider()
+			
+			if "health" in hit_target:
+				hit_target.health -= 10
+				
+			var bullet_impact = preload("res://scenes/particles/bullet_impact.tscn").instantiate() 
+			bullet_impact.global_position = $HeldItem/Cast.get_collision_point()
+			
+			get_parent().add_child(bullet_impact)
+			
+			bullet_impact.play()
+			
+			var bullet_trail = preload("res://scenes/particles/bullet_trail.tscn").instantiate()
+			bullet_trail.global_position = $HeldItem/Sprite.global_position
+			
+			bullet_trail.points[1] = ($HeldItem/Cast.get_collision_point() - bullet_trail.global_position)
+			
+			get_parent().add_child(bullet_trail)
+			
+			bullet_trail.play()
+			
+			$HeldItem/Gunshot.play()
+			
+			fire_delay = 0.5
 	
 	move_and_slide()

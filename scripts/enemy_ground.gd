@@ -2,10 +2,12 @@ extends "res://scripts/character_ground.gd"
 
 var last_aim_direction = Vector2(0, 0)
 
+@export var starting_gun: String = &"pistol"
+
 func _ready() -> void:
 	super()
 	
-	set_ground_gun(global.stats.equipped_ground_gun)
+	set_ground_gun(starting_gun)
 
 func _process(delta: float) -> void:
 	super(delta)

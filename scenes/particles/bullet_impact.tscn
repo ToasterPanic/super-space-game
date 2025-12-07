@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckbjyhwv6su8y"]
+
+[ext_resource type="Script" uid="uid://ck38qwl4qytnt" path="res://scripts/particle_group.gd" id="1_416m4"]
+[ext_resource type="Texture2D" uid="uid://cduq2cbhvwqj4" path="res://textures/particles/bullet.png" id="2_c1ocy"]
+
+[sub_resource type="Curve" id="Curve_ipns3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.49242425, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_416m4"]
+curve = SubResource("Curve_ipns3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ty3mr"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 30.3
+initial_velocity_max = 260.81
+gravity = Vector3(0, 0, 0)
+damping_min = 2.0
+damping_max = 14.000001
+scale_min = 0.29999998
+scale_max = 0.5
+alpha_curve = SubResource("CurveTexture_416m4")
+collision_use_scale = true
+
+[node name="BulletImpact" type="Node2D"]
+script = ExtResource("1_416m4")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 24
+texture = ExtResource("2_c1ocy")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ty3mr")
