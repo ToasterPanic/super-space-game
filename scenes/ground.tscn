@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c0cyhybh30ogt" path="res://textures/player-ground-sheet.png" id="4_2c1ag"]
 [ext_resource type="Texture2D" uid="uid://csrlh1sbdroud" path="res://textures/pistol.png" id="5_8gbjj"]
 [ext_resource type="AudioStream" uid="uid://5x8fl2mk082h" path="res://sounds/gunshot_1.mp3" id="6_2c1ag"]
-[ext_resource type="Script" uid="uid://bv7ymrwe6ciax" path="res://scripts/enemy_ground.gd" id="7_modao"]
+[ext_resource type="Texture2D" uid="uid://coflscl1w4vtr" path="res://textures/crosshair.png" id="7_modao"]
 [ext_resource type="Shader" uid="uid://d3hoh7ec2w8q7" path="res://scripts/outline.gdshader" id="7_vuhkc"]
 [ext_resource type="Shader" uid="uid://d2e0541hawkml" path="res://scripts/vignette.gdshader" id="9_5vwr8"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="9_257nh"]
@@ -160,48 +160,20 @@ texture = ExtResource("5_8gbjj")
 [node name="Gunshot" type="AudioStreamPlayer2D" parent="PlayerGround/HeldItem"]
 stream = ExtResource("6_2c1ag")
 
+[node name="Crosshair" type="Sprite2D" parent="PlayerGround/HeldItem"]
+scale = Vector2(2, 2)
+texture = ExtResource("7_modao")
+
+[node name="Line" type="Line2D" parent="PlayerGround/HeldItem"]
+points = PackedVector2Array(0, 0, 512, 0)
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
 [node name="Hitbox" type="Area2D" parent="PlayerGround"]
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape2D" parent="PlayerGround/Hitbox"]
-shape = SubResource("CapsuleShape2D_8gbjj")
-debug_color = Color(1, 0, 0, 0.41960785)
-
-[node name="EnemyTest" type="CharacterBody2D" parent="."]
-position = Vector2(349, -58)
-script = ExtResource("7_modao")
-
-[node name="Sprite" type="AnimatedSprite2D" parent="EnemyTest"]
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_aergo")
-
-[node name="Camera" type="Camera2D" parent="EnemyTest"]
-position_smoothing_enabled = true
-
-[node name="CollisionShape" type="CollisionShape2D" parent="EnemyTest"]
-position = Vector2(0, 40)
-shape = SubResource("CapsuleShape2D_176r3")
-
-[node name="HeldItem" type="Node2D" parent="EnemyTest"]
-
-[node name="Cast" type="RayCast2D" parent="EnemyTest/HeldItem"]
-target_position = Vector2(2048, 0)
-collision_mask = 2
-collide_with_areas = true
-
-[node name="Sprite" type="Sprite2D" parent="EnemyTest/HeldItem"]
-position = Vector2(56, 0)
-texture = ExtResource("5_8gbjj")
-
-[node name="Gunshot" type="AudioStreamPlayer2D" parent="EnemyTest/HeldItem"]
-stream = ExtResource("6_2c1ag")
-
-[node name="Hitbox" type="Area2D" parent="EnemyTest"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape2D" parent="EnemyTest/Hitbox"]
 shape = SubResource("CapsuleShape2D_8gbjj")
 debug_color = Color(1, 0, 0, 0.41960785)
 

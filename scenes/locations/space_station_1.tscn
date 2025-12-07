@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://dfjnikjjynj0e"]
+[gd_scene load_steps=57 format=4 uid="uid://dfjnikjjynj0e"]
 
 [ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="1_kpeax"]
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="2_4uppp"]
@@ -20,6 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://ktvnppfhchoj" path="res://textures/bed.png" id="17_50pdk"]
 [ext_resource type="Texture2D" uid="uid://cmv4wou5glrl7" path="res://textures/bed_foot.png" id="18_83fjc"]
 [ext_resource type="Script" uid="uid://cva4b60iqolqy" path="res://scripts/story_handler_1.gd" id="19_akl5n"]
+[ext_resource type="Script" uid="uid://bv7ymrwe6ciax" path="res://scripts/enemy_ground.gd" id="21_tvsp8"]
+[ext_resource type="Texture2D" uid="uid://csrlh1sbdroud" path="res://textures/pistol.png" id="22_6l1ru"]
+[ext_resource type="AudioStream" uid="uid://5x8fl2mk082h" path="res://sounds/gunshot_1.mp3" id="23_janyw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vmimc"]
 light_mode = 1
@@ -39,36 +42,65 @@ texture = ExtResource("3_ir5n7")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tvsp8"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bhfm6"]
 texture = ExtResource("4_50pdk")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_tvsp8")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6l1ru"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kl2qk"]
 texture = ExtResource("5_83fjc")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_6l1ru")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ga4dw"]
 texture = ExtResource("6_akl5n")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_janyw"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir5n7"]
 texture = ExtResource("7_4uppp")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_janyw")
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vmpfq"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_50pdk"]
 texture = ExtResource("8_ir5n7")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vmpfq")
 
 [sub_resource type="TileSet" id="TileSet_uxsmb"]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_k741b")
 sources/1 = SubResource("TileSetAtlasSource_mdep3")
 sources/2 = SubResource("TileSetAtlasSource_bhfm6")
@@ -199,6 +231,59 @@ size = Vector2(40, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83fjc"]
 size = Vector2(61.5, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vmpfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd1o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqhs4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo68p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd1o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqhs4")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jxmby"]
+radius = 21.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tvsp8"]
+radius = 25.0
+height = 148.0
 
 [node name="SpaceStation1" type="Node2D"]
 
@@ -355,6 +440,50 @@ texture = ExtResource("18_83fjc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bed3/BedFoot"]
 position = Vector2(-0.25, 37.5)
 shape = SubResource("RectangleShape2D_83fjc")
+
+[node name="EnemyTest" type="CharacterBody2D" parent="."]
+position = Vector2(-162, -537)
+script = ExtResource("21_tvsp8")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="EnemyTest"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_vmpfq")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="EnemyTest"]
+position = Vector2(0, 40)
+shape = SubResource("CapsuleShape2D_jxmby")
+
+[node name="LineOfSight" type="RayCast2D" parent="EnemyTest"]
+target_position = Vector2(2048, 0)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="HeldItem" type="Node2D" parent="EnemyTest"]
+
+[node name="Cast" type="RayCast2D" parent="EnemyTest/HeldItem"]
+target_position = Vector2(2048, 0)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="Sprite" type="Sprite2D" parent="EnemyTest/HeldItem"]
+position = Vector2(56, 0)
+texture = ExtResource("22_6l1ru")
+
+[node name="Gunshot" type="AudioStreamPlayer2D" parent="EnemyTest/HeldItem"]
+stream = ExtResource("23_janyw")
+
+[node name="Hitbox" type="Area2D" parent="EnemyTest"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape2D" parent="EnemyTest/Hitbox"]
+shape = SubResource("CapsuleShape2D_tvsp8")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="Navagent" type="NavigationAgent2D" parent="EnemyTest"]
+path_desired_distance = 34.0
+target_desired_distance = 34.0
+path_postprocessing = 1
 
 [connection signal="body_entered" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_entered"]
 [connection signal="body_exited" from="GalactamartWorker/InteractArea" to="GalactamartWorker/InteractArea" method="_on_body_exited"]

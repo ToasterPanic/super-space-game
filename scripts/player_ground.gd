@@ -27,4 +27,14 @@ func _process(delta: float) -> void:
 	horizontial_movement = Input.get_axis("ground_left", "ground_right")
 	vertical_movement = Input.get_axis("ground_up", "ground_down")
 	
+	if $HeldItem/Cast.get_collision_point():
+		$HeldItem/Crosshair.visible = true
+		$HeldItem/Line.visible = true
+		
+		$HeldItem/Crosshair.global_position = $HeldItem/Cast.get_collision_point()
+		$HeldItem/Line.points[1].x = ($HeldItem/Cast.get_collision_point() - global_position).length()
+	else:
+		$HeldItem/Crosshair.visible = false
+		$HeldItem/Line.visible = false
+	
 	firing = Input.is_action_pressed("fire")
