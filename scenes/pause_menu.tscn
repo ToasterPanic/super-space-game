@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6bq2viqao61m"]
+[gd_scene load_steps=9 format=3 uid="uid://b6bq2viqao61m"]
 
 [ext_resource type="Script" uid="uid://dqiaioigmj5wb" path="res://scripts/pause_menu.gd" id="1_5d2l8"]
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="2_7l7mv"]
+[ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="2_v4r4p"]
+[ext_resource type="AudioStream" uid="uid://bff3l15ivkcyi" path="res://sounds/ui_back.mp3" id="3_1s2dm"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="3_v4r4p"]
 [ext_resource type="PackedScene" uid="uid://cy4nbqbm222os" path="res://scenes/settings.tscn" id="4_1s2dm"]
 
@@ -25,6 +27,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_264po")
 script = ExtResource("1_5d2l8")
+
+[node name="UiSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_v4r4p")
+
+[node name="UiBack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1s2dm")
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -109,14 +117,9 @@ vertical_alignment = 1
 
 [node name="Settings" parent="." instance=ExtResource("4_1s2dm")]
 visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_right = 640.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
+offset_left = -322.0
+offset_right = 322.0
 
 [connection signal="pressed" from="Panel/Flow/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/Flow/Settings" to="." method="_on_settings_pressed"]

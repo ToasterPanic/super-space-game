@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cy4nbqbm222os"]
+[gd_scene load_steps=10 format=3 uid="uid://cy4nbqbm222os"]
 
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="1_r6d6q"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="2_6wm04"]
 [ext_resource type="Script" uid="uid://jacd1qlw1q5p" path="res://scripts/settings.gd" id="2_f4mfi"]
 [ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="3_f4mfi"]
+[ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="3_gis3k"]
+[ext_resource type="AudioStream" uid="uid://bff3l15ivkcyi" path="res://sounds/ui_back.mp3" id="4_83j8s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kice"]
 font_size = 48
@@ -27,6 +29,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_r6d6q")
 script = ExtResource("2_f4mfi")
+
+[node name="UiSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gis3k")
+bus = &"Sound Effects"
+
+[node name="UiBack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_83j8s")
+bus = &"Sound Effects"
 
 [node name="Scroll" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(640, 0)
@@ -211,7 +221,7 @@ text = "Southpaw"
 layout_mode = 2
 text = "NO"
 
-[connection signal="pressed" from="Scroll/Flow/Back" to="." method="_on_back_pressed"]
+[connection signal="button_up" from="Scroll/Flow/Back" to="." method="_on_back_pressed"]
 [connection signal="value_changed" from="Scroll/Flow/Flow2/MasterVolume" to="." method="_on_master_volume_value_changed"]
 [connection signal="value_changed" from="Scroll/Flow/Flow3/MusicVolume" to="." method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Scroll/Flow/Flow4/SFXVolume" to="." method="_on_sfx_volume_value_changed"]

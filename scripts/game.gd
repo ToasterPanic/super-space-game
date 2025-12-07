@@ -287,6 +287,8 @@ func _set_navpanel_menu(menu: String) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
+		$UiSelect.play()
+		
 		$UI/Control/PauseMenu.visible = true
 		
 		$UI/Control/PauseMenu/Panel/Flow/Resume.grab_focus()

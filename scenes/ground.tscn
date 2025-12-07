@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://by43ihcec8e8q"]
+[gd_scene load_steps=34 format=3 uid="uid://by43ihcec8e8q"]
 
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
 [ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="3_8gbjj"]
+[ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="3_26mqe"]
 [ext_resource type="AudioStream" uid="uid://cdl70q0x28717" path="res://sounds/dialogue.mp3" id="3_rncil"]
 [ext_resource type="Texture2D" uid="uid://c0cyhybh30ogt" path="res://textures/player-ground-sheet.png" id="4_2c1ag"]
 [ext_resource type="Texture2D" uid="uid://csrlh1sbdroud" path="res://textures/pistol.png" id="5_8gbjj"]
@@ -158,7 +159,12 @@ y_sort_enabled = true
 script = ExtResource("1_6ra5r")
 
 [node name="Dialogue" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("3_rncil")
+
+[node name="UiSelect" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_26mqe")
 
 [node name="PlayerGround" type="CharacterBody2D" parent="."]
 position = Vector2(349, -58)
