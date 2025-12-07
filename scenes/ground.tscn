@@ -161,10 +161,12 @@ script = ExtResource("1_6ra5r")
 [node name="Dialogue" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_rncil")
+bus = &"Sound Effects"
 
 [node name="UiSelect" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_26mqe")
+bus = &"Sound Effects"
 
 [node name="PlayerGround" type="CharacterBody2D" parent="."]
 position = Vector2(349, -58)

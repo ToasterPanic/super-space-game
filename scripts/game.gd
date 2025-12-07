@@ -11,14 +11,20 @@ var enemy_scene = preload("res://scenes/enemy.tscn")
 var star_scene = preload("res://scenes/star.tscn")
 
 @onready var spawn_points = {
-	"space_station_1": $Orbits/SpaceStation1/SpaceStation1/ExitPoint
+	"space_station_1": $Orbits/SpaceStation1/space_station_1/ExitPoint,
+	"space_station_2": $Orbits/SpaceStation2/space_station_2/ExitPoint
 }
 
 @onready var navigation_points = [
 	{
-		"name": "Space Station 1",
+		"name": "Space Station 01",
 		"id": "ss1",
-		"point": $Orbits/SpaceStation1/SpaceStation1
+		"point": $Orbits/SpaceStation1/space_station_1
+	},
+	{
+		"name": "Space Station 02",
+		"id": "ss2",
+		"point": $Orbits/SpaceStation2/space_station_2
 	}
 ]
 

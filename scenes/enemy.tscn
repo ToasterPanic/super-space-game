@@ -36,9 +36,11 @@ bus = &"Sound Effects"
 
 [node name="Fire" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ipns3")
+bus = &"Sound Effects"
 
 [node name="Explode" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ipns3")
+bus = &"Sound Effects"
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("6_w8i8w")

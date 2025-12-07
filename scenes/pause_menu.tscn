@@ -30,9 +30,11 @@ script = ExtResource("1_5d2l8")
 
 [node name="UiSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_v4r4p")
+bus = &"Sound Effects"
 
 [node name="UiBack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_1s2dm")
+bus = &"Sound Effects"
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1

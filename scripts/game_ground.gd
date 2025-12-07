@@ -37,11 +37,18 @@ func checkpoint() -> void:
 	packed_scene.pack(get_tree().get_current_scene())
 		
 	global.checkpoint = packed_scene
+	
+func give_ground_gun(string: String) -> void:
+	global.stats.equipped_ground_gun = string
 
 func _ready() -> void:
 	$UI/Control/Dialogue.visible = false
 	
-	var location_scene = load("res://scenes/locations/space_station_1.tscn").instantiate()
+	LimboConsole.register_command(give_ground_gun, "give_ground_gun", "Gives a gun for ground mode")
+	
+	print(global.stats.location)
+	
+	var location_scene = load("res://scenes/locations/" + global.stats.location + ".tscn").instantiate()
 	
 	for n in location_scene.get_children():
 		location_scene.remove_child(n)
@@ -175,3 +182,6 @@ func _input(event: InputEvent) -> void:
 		$UI/Control/PauseMenu/Panel/Flow/Resume.grab_focus()
 		
 		get_tree().paused = true
+
+func _exit_tree() -> void:
+	LimboConsole.unregister_command(give_ground_gun)

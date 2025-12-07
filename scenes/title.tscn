@@ -40,14 +40,17 @@ script = ExtResource("1_pyl7j")
 
 [node name="UiSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_hiwto")
+bus = &"Sound Effects"
 
 [node name="UiBack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_w65of")
+bus = &"Sound Effects"
 
 [node name="Title" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ia1n6")
 volume_db = -4.0
 autoplay = true
+bus = &"Music"
 parameters/looping = true
 
 [node name="Stars" type="GPUParticles2D" parent="."]

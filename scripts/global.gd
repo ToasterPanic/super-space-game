@@ -28,6 +28,37 @@ var orbit_zones = [
 	
 ]
 
+var missions = [
+	{
+		"id": "waking_up",
+		"name": "Waking Up",
+		"desc": "Welcome back, spaceperson.",
+		"rewards": {
+			"marks": 500
+		},
+		"objectives": {
+			"desk": "Visit the doctor at their desk",
+			"follow": "Follow the doctor",
+			"run": "My suggestion: RUN!",
+			"escape": "Escape to your ship"
+		}
+	},
+	{
+		"id": "test_contract",
+		"name": "HEMA Removal",
+		"desc": "Space station 02 is currently overrun with HEMA mercenaries. We know they have a bomb in the storage warehouse. We want someone to plant that bomb on the station.",
+		"rewards": {
+			"marks": 500
+		},
+		"objectives": {
+			"arrive": "Enter Space Station 02 (navigate to it via your navagent)",
+			"collect_bomb": "Collect the bomb in the back room",
+			"plant_bomb": "Plant the bomb in the main foyer",
+			"escape": "Escape"
+		}
+	},
+]
+
 var ground_guns = {
 	"pistol": {
 		"name": "Oni",
@@ -120,7 +151,7 @@ func set_story_progress(value: int) -> void:
 
 var default_stats = {
 	"loaded": false,
-	"fuel": 12,
+	"fuel": 75,
 	"fuel_tank_size": 1,
 	"speed": 512,
 	"boost_tank_size": 1,
@@ -132,6 +163,10 @@ var default_stats = {
 	"navigation_goal": null,
 	"equipped_ground_gun": null,
 	"gun_holstered": true,
+	
+	"active_mission": "waking_up",
+	"mission_progress": 0,
+	"completed_missions": [],
 }
 
 var stats = default_stats.duplicate_deep()

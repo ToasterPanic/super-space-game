@@ -36,6 +36,14 @@ var game = null
 @export var always_sees_player: bool = false
 ## The time it takes for an enemy to start shooting / notice the player.
 @export var reaction_time: float = 0.35
+## A path for the enemy to follow while idle.
+@export var points: Array[Node2D] = []
+## Time to wait between points while idle.
+@export var wait_time_between_points: int = 5
+
+var current_node = null
+
+var current_point = 0
 
 @export var inaccuracy: int = 15
 
@@ -88,6 +96,28 @@ func _process(delta: float) -> void:
 		if reaction_timer < 0:
 			reaction_timer = 0
 			
+			
+		if points.size() > 0:
+			if !current_node: current_node = points[0]
+			
+			print(current_node)
+			
+			if $Navagent.is_navigation_finished():
+				if points.find(current_node) + 1 > points.size() - 1:
+					current_node = points[0]
+				else:
+					current_node = points[points.find(current_node) + 1]
+			else:
+				var next_position = $Navagent.get_next_path_position()
+				next_position.y -= 32
+				var axes = global_position.direction_to(next_position)
+				
+				horizontial_movement = axes.x
+				vertical_movement = axes.y
+				
+				print(next_position)
+				
+			if !$Navagent.target_position or ($Navagent.target_position != current_node.position): $Navagent.target_position = current_node.position
 		
 	elif ai_mode == AI_MODE_ATTACK:
 		$Detecting.playing = false
