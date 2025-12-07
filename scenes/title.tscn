@@ -50,7 +50,7 @@ volume_db = -4.0
 autoplay = true
 parameters/looping = true
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Stars" type="GPUParticles2D" parent="."]
 position = Vector2(-1420, 0)
 amount = 512
 texture = ExtResource("2_4rr2b")

@@ -216,18 +216,20 @@ func _on_new_game_pressed() -> void:
 	transitioning = true 
 	
 	get_viewport().gui_release_focus()
-	var i = 0
 	
-	while i < 6:
-		$UI/Control/Title.modulate.a -= 0.2
-		
-		await get_tree().create_timer(0.2).timeout
-		
-		i += 1
-		
-	$UI/Control/Title.visible = false
 	
 	if FileAccess.file_exists("user://savegame.save"):
+		var i = 0
+	
+		while i < 6:
+			$UI/Control/Title.modulate.a -= 0.2
+			
+			await get_tree().create_timer(0.2).timeout
+			
+			i += 1
+			
+		$UI/Control/Title.visible = false
+		
 		$UI/Control/OverrideSave.visible = true
 		
 		$UI/Control/OverrideSave.modulate.a = 0
@@ -246,11 +248,23 @@ func _on_new_game_pressed() -> void:
 		transitioning = false
 		
 		return
-
-	if global.stats.location == "space":
-		get_tree().change_scene_to_file("res://scenes/game.tscn")
 	else:
-		get_tree().change_scene_to_file("res://scenes/ground.tscn")
+		var i = 0
+	
+		while i < 6:
+			$UI/Control/Title.modulate.a -= 0.2
+			$Stars.modulate.a -= 0.2
+			
+			await get_tree().create_timer(0.2).timeout
+			
+			i += 1
+			
+		$UI/Control/Title.visible = false
+
+		if global.stats.location == "space":
+			get_tree().change_scene_to_file("res://scenes/game.tscn")
+		else:
+			get_tree().change_scene_to_file("res://scenes/ground.tscn")
 
 func _on_load_game_pressed() -> void:
 	if transitioning: return 
@@ -264,6 +278,7 @@ func _on_load_game_pressed() -> void:
 	
 	while i < 6:
 		$UI/Control/Title.modulate.a -= 0.2
+		$Stars.modulate.a -= 0.2
 		
 		await get_tree().create_timer(0.2).timeout
 		
@@ -293,6 +308,7 @@ func _on_yes_override_pressed() -> void:
 	
 	while i < 6:
 		$UI/Control/OverrideSave.modulate.a -= 0.2
+		$Stars.modulate.a -= 0.2
 		
 		await get_tree().create_timer(0.2).timeout
 		
