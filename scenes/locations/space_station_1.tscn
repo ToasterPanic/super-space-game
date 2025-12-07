@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=4 uid="uid://dfjnikjjynj0e"]
+[gd_scene load_steps=59 format=4 uid="uid://dfjnikjjynj0e"]
 
 [ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="1_kpeax"]
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="2_4uppp"]
@@ -22,6 +22,8 @@
 [ext_resource type="Script" uid="uid://cva4b60iqolqy" path="res://scripts/story_handler_1.gd" id="19_akl5n"]
 [ext_resource type="Script" uid="uid://bv7ymrwe6ciax" path="res://scripts/enemy_ground.gd" id="21_tvsp8"]
 [ext_resource type="Texture2D" uid="uid://csrlh1sbdroud" path="res://textures/pistol.png" id="22_6l1ru"]
+[ext_resource type="AudioStream" uid="uid://boiv2kfau8gop" path="res://sounds/detecting.mp3" id="22_janyw"]
+[ext_resource type="AudioStream" uid="uid://dpkn65kpftlmr" path="res://sounds/alerted.mp3" id="22_vmpfq"]
 [ext_resource type="AudioStream" uid="uid://5x8fl2mk082h" path="res://sounds/gunshot_1.mp3" id="23_janyw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vmimc"]
@@ -445,6 +447,16 @@ shape = SubResource("RectangleShape2D_83fjc")
 position = Vector2(-162, -537)
 script = ExtResource("21_tvsp8")
 
+[node name="Alerted" type="AudioStreamPlayer2D" parent="EnemyTest"]
+stream = ExtResource("22_vmpfq")
+volume_db = 8.0
+bus = &"Sound Effects"
+
+[node name="Detecting" type="AudioStreamPlayer2D" parent="EnemyTest"]
+stream = ExtResource("22_janyw")
+bus = &"Sound Effects"
+parameters/looping = true
+
 [node name="Sprite" type="AnimatedSprite2D" parent="EnemyTest"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vmpfq")
@@ -471,6 +483,7 @@ texture = ExtResource("22_6l1ru")
 
 [node name="Gunshot" type="AudioStreamPlayer2D" parent="EnemyTest/HeldItem"]
 stream = ExtResource("23_janyw")
+bus = &"Sound Effects"
 
 [node name="Hitbox" type="Area2D" parent="EnemyTest"]
 collision_layer = 2

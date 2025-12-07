@@ -4,6 +4,7 @@ var horizontial_movement = 0
 var vertical_movement = 0
 var speed = 256
 var health = 100
+var dead = false
 
 var fire_delay = 0
 
@@ -11,6 +12,7 @@ var fire_delay = 0
 var busy = false
 
 var firing = false
+var sprinting = false
 
 var equipped_ground_gun = "pistol"
 var ammo_in_mag = 12
@@ -28,8 +30,32 @@ func _ready() -> void:
 		$HeldItem/Cast.add_exception(self)
 
 func _process(delta: float) -> void:
+	if dead:
+		velocity /= 1.3
+		$Sprite.rotation_degrees = -90
+		$Sprite.position.y = 64
+		$Sprite.animation = "idle"
+		
+		$HeldItem.visible = false
+		
+		return
+	
 	if !$Sprite.is_playing():
 		$Sprite.play()
+		
+	$Sprite.modulate.g = health / 100.0
+	$Sprite.modulate.b = health / 100.0
+	
+	if health <= 0:
+		dead = true
+		
+		$CollisionShape.queue_free()
+		$Hitbox.queue_free()
+		
+		if randi_range(0, 1) == 0:
+			$Sprite.rotation_degrees = -90
+		else:
+			$Sprite.rotation_degrees = 90
 		
 	if busy:
 		velocity = Vector2()
@@ -54,8 +80,9 @@ func _process(delta: float) -> void:
 			
 			var hit_target = $HeldItem/Cast.get_collider()
 			
-			if "health" in hit_target:
-				hit_target.health -= 10
+			if hit_target:
+				if "health" in hit_target.get_parent():
+					hit_target.get_parent().health -= 10
 				
 			var bullet_impact = preload("res://scenes/particles/bullet_impact.tscn").instantiate() 
 			bullet_impact.global_position = $HeldItem/Cast.get_collision_point()

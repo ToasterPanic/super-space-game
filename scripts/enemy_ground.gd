@@ -43,6 +43,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 	
+	if dead: 
+		$Detecting.stop()
+		return
+	
 	if !player: 
 		if game:
 			player = game.get_node("PlayerGround")
@@ -55,17 +59,25 @@ func _process(delta: float) -> void:
 			var divider = clamp((player.global_position - global_position).length() / reaction_halve_distance, 1, 8) * 1.5
 			reaction_timer += delta / divider
 			
+			$Detecting.playing = true
+			$Detecting.pitch_scale = (reaction_timer / reaction_time) * 12
+			
 			if reaction_time < reaction_timer:
 				ai_mode = AI_MODE_ATTACK
 				reaction_timer = 0
+				$Alerted.play()
 		else:
 			reaction_timer -= delta
+			
+			$Detecting.playing = false
 			
 		if reaction_timer < 0:
 			reaction_timer = 0
 			
 		
 	elif ai_mode == AI_MODE_ATTACK:
+		$Detecting.playing = false
+		
 		$LineOfSight.look_at(player.global_position)
 		if player.is_ancestor_of($LineOfSight.get_collider()):
 			if !$Navagent.target_position or ($Navagent.target_position != player.global_position):

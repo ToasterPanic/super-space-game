@@ -230,23 +230,6 @@ expand_mode = 2
 script = ExtResource("16_hby33")
 action_name = "dialogue_continue"
 
-[node name="BoostText" type="Label" parent="UI/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 24.0
-text = "BOOST: 100"
-
-[node name="Distance" type="Label" parent="UI/Control"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -12.0
-offset_right = 136.0
-offset_bottom = 12.0
-grow_vertical = 2
-text = "DIST: 2048"
-
 [node name="Interact" type="HFlowContainer" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = 14
