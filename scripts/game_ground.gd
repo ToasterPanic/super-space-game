@@ -31,6 +31,15 @@ func save_game() -> void:
 	await get_tree().create_timer(2).timeout
 	
 	$UI/Control/SaveIndicator.visible = false
+	
+func checkpoint() -> void:
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(get_tree().get_current_scene())
+	
+	if global.checkpoint:
+		global.checkpoint.free()
+		
+	global.checkpoint = packed_scene
 
 func _ready() -> void:
 	$UI/Control/Dialogue.visible = false
@@ -93,7 +102,7 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true) 
 		
 		$Dialogue.play()
 		
-		await get_tree().create_timer(speed).timeout
+		#await get_tree().create_timer(speed).timeout
 		
 		i += 1
 		

@@ -5,7 +5,6 @@ var alerted = false
 
 var inaccuracy = 15
 
-var reaction_time = 0.35
 var reaction_halve_distance = 720
 var reaction_timer = 0
 
@@ -29,9 +28,16 @@ var last_seen_player_position = null
 @onready var player = null 
 var game = null
 
+## The enemy's starting gun. Leave blank for no weapon
 @export var starting_gun: String = &"pistol"
-
+## The enemy's starting health.
 @export var starting_health: int = 50
+## Is the enemy's AI enabled?
+@export var concious: bool = true
+## Will the enemy always chase the player?
+@export var always_sees_player: bool = false
+## The time it takes for an enemy to start shooting / notice the player.
+@export var reaction_time: float = 0.35
 
 func _ready() -> void:
 	super()
@@ -46,16 +52,24 @@ func _process(delta: float) -> void:
 	if dead: 
 		$Detecting.stop()
 		return
+		
+	if !concious: 
+		$Detecting.stop()
+		return
 	
 	if !player: 
 		if game:
 			player = game.get_node("PlayerGround")
 		else: return
+		
+	if always_sees_player:
+		ai_mode = AI_MODE_ATTACK
+		last_seen_player_position = player.global_position
 	
 	if ai_mode == AI_MODE_IDLE:
 		$LineOfSight.look_at(player.global_position)
 		
-		if player.is_ancestor_of($LineOfSight.get_collider()):
+		if $LineOfSight.get_collider() && player.is_ancestor_of($LineOfSight.get_collider()):
 			var divider = clamp((player.global_position - global_position).length() / reaction_halve_distance, 1, 8) * 1.5
 			reaction_timer += delta / divider
 			

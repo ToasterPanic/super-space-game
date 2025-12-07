@@ -4,9 +4,13 @@ extends Area2D
 var game = null
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.get_name() == "PlayerGround":
+	if !game: return
+	
+	if (body.get_name() == "PlayerGround") or (game.get_node("PlayerGround").is_ancestor_of(body)):
 		game.current_interaction_area = self
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.get_name() == "PlayerGround":
+	if !game: return
+	
+	if (body.get_name() == "PlayerGround") or (game.get_node("PlayerGround").is_ancestor_of(body)):
 		if game.current_interaction_area == self: game.current_interaction_area = null

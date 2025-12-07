@@ -31,12 +31,25 @@ var orbit_zones = [
 var ground_guns = {
 	"pistol": {
 		"name": "Oni",
-		"type": "energy",
+		"type": "kinetic",
 		"damage": 10,
 		"magazine_size": 12,
 		"fire_rate": 0.3
+	},
+	"smg": {
+		"name": "Ripper",
+		"type": "energy",
+		"damage": 8,
+		"magazine_size": 24,
+		"fire_rate": 1.0/6.0
 	}
 }
+
+var checkpoint = null
+
+func load_checkpoint():
+	if checkpoint:
+		get_tree().change_scene_to_packed(checkpoint)
 
 func generate_save():
 	var save_dict = {
@@ -105,12 +118,13 @@ var default_stats = {
 	"speed": 512,
 	"boost_tank_size": 1,
 	"marks": 200,
-	"location": "space",
+	"location": "space_station_1",
 	"position": Vector2(),
 	"rotation": 0,
-	"story_progress": 1,
+	"story_progress": 0,
 	"navigation_goal": null,
-	"equipped_ground_gun": "pistol"
+	"equipped_ground_gun": null,
+	"gun_holstered": true,
 }
 
 var stats = default_stats.duplicate_deep()

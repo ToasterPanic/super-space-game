@@ -17,10 +17,31 @@ var sprinting = false
 var equipped_ground_gun = "pistol"
 var ammo_in_mag = 12
 
-func set_ground_gun(value: String):
+func set_ground_gun(value):
 	equipped_ground_gun = value
-	$HeldItem/Sprite.texture = load("res://textures/" + equipped_ground_gun + ".png")
-	ammo_in_mag = global.ground_guns
+	
+	if value:
+		$HeldItem/Sprite.texture = load("res://textures/" + equipped_ground_gun + ".png")
+		ammo_in_mag = global.ground_guns
+	
+func navigate_to(goal: Vector2):
+	if has_node("Navagent"):
+		$Navagent.target_position = goal
+		
+		while !$Navagent.is_navigation_finished():
+			var next_position = $Navagent.get_next_path_position()
+			next_position.y -= 32
+			
+			var axes = global_position.direction_to(next_position)
+			
+			horizontial_movement = axes.x
+			vertical_movement = axes.y
+			
+			# This is a bad way to do this, to be honest. However, I am lazy
+			await get_tree().create_timer(0.05).timeout
+			
+		horizontial_movement = 0
+		vertical_movement = 0
 
 func _ready() -> void:
 	$Sprite.play()
@@ -36,7 +57,7 @@ func _process(delta: float) -> void:
 		$Sprite.position.y = 64
 		$Sprite.animation = "idle"
 		
-		$HeldItem.visible = false
+		if has_node("HeldItem"): $HeldItem.visible = false
 		
 		return
 	
@@ -74,34 +95,40 @@ func _process(delta: float) -> void:
 		$Sprite.animation = "idle"
 		
 	fire_delay -= delta
-	if firing and (fire_delay < 0):
-		if has_node("HeldItem") and (equipped_ground_gun != null):
-			$HeldItem/Cast.force_raycast_update()
+	if has_node("HeldItem"):
+		if !equipped_ground_gun:
+			$HeldItem.visible = false
+		else:
+			$HeldItem.visible = true
 			
-			var hit_target = $HeldItem/Cast.get_collider()
-			
-			if hit_target:
-				if "health" in hit_target.get_parent():
-					hit_target.get_parent().health -= 10
+			if firing and (fire_delay < 0):
+	
+				$HeldItem/Cast.force_raycast_update()
 				
-			var bullet_impact = preload("res://scenes/particles/bullet_impact.tscn").instantiate() 
-			bullet_impact.global_position = $HeldItem/Cast.get_collision_point()
-			
-			get_parent().add_child(bullet_impact)
-			
-			bullet_impact.play()
-			
-			var bullet_trail = preload("res://scenes/particles/bullet_trail.tscn").instantiate()
-			bullet_trail.global_position = $HeldItem/Sprite.global_position
-			
-			bullet_trail.points[1] = ($HeldItem/Cast.get_collision_point() - bullet_trail.global_position)
-			
-			get_parent().add_child(bullet_trail)
-			
-			bullet_trail.play()
-			
-			$HeldItem/Gunshot.play()
-			
-			fire_delay = 0.5
+				var hit_target = $HeldItem/Cast.get_collider()
+				
+				if hit_target:
+					if "health" in hit_target.get_parent():
+						hit_target.get_parent().health -= 10
+					
+				var bullet_impact = preload("res://scenes/particles/bullet_impact.tscn").instantiate() 
+				bullet_impact.global_position = $HeldItem/Cast.get_collision_point()
+				
+				get_parent().add_child(bullet_impact)
+				
+				bullet_impact.play()
+				
+				var bullet_trail = preload("res://scenes/particles/bullet_trail.tscn").instantiate()
+				bullet_trail.global_position = $HeldItem/Sprite.global_position
+				
+				bullet_trail.points[1] = ($HeldItem/Cast.get_collision_point() - bullet_trail.global_position)
+				
+				get_parent().add_child(bullet_trail)
+				
+				bullet_trail.play()
+				
+				$HeldItem/Gunshot.play()
+				
+				fire_delay = global.ground_guns[equipped_ground_gun].fire_rate
 	
 	move_and_slide()

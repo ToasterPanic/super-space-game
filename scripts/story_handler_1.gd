@@ -188,6 +188,10 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("When you're feeling ready, I'll be at the end of the hall.", "doctor_1")
 		
+		await game.get_node("Doctor").navigate_to(game.get_node("DoctorHallWaypoint").position)
+		
+		game.get_node("Doctor").global_position = game.get_node("DoctorDeskWaypoint").position
+		
 		global.stats.story_progress = 1
 		
 		player.busy = false
@@ -198,5 +202,32 @@ func _ground_ready() -> void:
 			game.set_vignette_parameter("softness", i * 0.04)
 			
 			i += 2
+			
+		game.get_node("UI/Control/MoveTutorial").visible = true
+		
+		while player.velocity.length() == 0:
+			await get_tree().create_timer(0.1).timeout
+			
+		await get_tree().create_timer(1).timeout
+		
+		print("end")
+		
+		game.get_node("UI/Control/MoveTutorial").visible = false
+		
+	elif global.stats.story_progress == 1:
+		pass
+	elif global.stats.story_progress == 2:
+		game.get_node("Uglyburger").stop()
+		
+		game.get_node("IntrusionAlarm").play()
+		
+		game.get_node("Map").modulate = Color(0.5, 0.35, 0.35)
+		
+		game.get_node("Doctor/InteractArea").monitoring = false
+		
+		player.global_position = game.get_node("Checkpoint1PlayerSpawn").global_position
+		game.get_node("Doctor").global_position = game.get_node("Checkpoint1DoctorSpawn").global_position
+		
+		game.get_node("Doctor").checkpoint_1()
 	else:
 		game.save_game()

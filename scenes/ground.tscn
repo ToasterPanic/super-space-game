@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://by43ihcec8e8q"]
+[gd_scene load_steps=32 format=3 uid="uid://by43ihcec8e8q"]
 
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
 [ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="3_8gbjj"]
@@ -106,6 +106,11 @@ shader_parameter/add_margins = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_c2suo"]
 font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_176r3"]
+font_size = 32
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
@@ -282,6 +287,155 @@ layout_mode = 2
 text = "TO INTERACT"
 label_settings = SubResource("LabelSettings_c2suo")
 
+[node name="MoveTutorial" type="HFlowContainer" parent="UI/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = -245.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="End2" type="Label" parent="UI/Control/MoveTutorial"]
+layout_mode = 2
+text = "MOVE"
+label_settings = SubResource("LabelSettings_176r3")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "ground_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "ground_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "ground_left"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect4" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "ground_right"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="UnholsterTutorial" type="HFlowContainer" parent="UI/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = -245.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="End2" type="Label" parent="UI/Control/UnholsterTutorial"]
+layout_mode = 2
+text = "TOGGLE WEAPON"
+label_settings = SubResource("LabelSettings_176r3")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/UnholsterTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "toggle_holster"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="GunTutorial" type="HFlowContainer" parent="UI/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = -245.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="End2" type="Label" parent="UI/Control/GunTutorial"]
+layout_mode = 2
+text = "FIRE"
+label_settings = SubResource("LabelSettings_176r3")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/GunTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "fire"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="End3" type="Label" parent="UI/Control/GunTutorial"]
+layout_mode = 2
+text = " | AIM"
+label_settings = SubResource("LabelSettings_176r3")
+
+[node name="InputIconTextureRect5" type="TextureRect" parent="UI/Control/GunTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "aim_up"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect6" type="TextureRect" parent="UI/Control/GunTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "aim_down"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect7" type="TextureRect" parent="UI/Control/GunTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "aim_left"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect8" type="TextureRect" parent="UI/Control/GunTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_e3s4u")
+expand_mode = 1
+script = ExtResource("16_hby33")
+action_name = "aim_right"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
 [node name="DialogueOptions" type="VBoxContainer" parent="UI/Control"]
 visible = false
 custom_minimum_size = Vector2(128, 0)
@@ -345,7 +499,7 @@ position = Vector2(32, 32)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_257nh")
 autoplay = "default"
-frame_progress = 0.42345548
+frame_progress = 0.6029871
 
 [node name="Shader" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ypt7u")

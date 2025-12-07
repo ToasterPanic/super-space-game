@@ -22,7 +22,9 @@ static var button_dictionary = {
 	JOY_BUTTON_LEFT_SHOULDER: "left_shoulder",
 	JOY_BUTTON_RIGHT_SHOULDER: "left_shoulder",
 	JOY_BUTTON_PADDLE1: "left_shoulder",
-	JOY_BUTTON_BACK: "back"
+	JOY_BUTTON_BACK: "back",
+	JOY_BUTTON_LEFT_STICK: "left_stick",
+	JOY_BUTTON_RIGHT_STICK: "right_stick",
 }
 
 static var mouse_button_dictionary = {
