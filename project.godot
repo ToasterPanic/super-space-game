@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Super Space Game"
+config/name="Super Space Game Demo"
+config/version="d0.1.0"
 run/main_scene="uid://b1x7evhkxm385"
 config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)

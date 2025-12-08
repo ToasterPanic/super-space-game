@@ -5,6 +5,8 @@ var chunks = {}
 var chunk_process_distance = 6
 var time_since_last_atmospheric_track = 999
 var current_atmospheric_track = null
+var combat = false
+var combat_track = null
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 var enemy_scene = preload("res://scenes/enemy.tscn")
@@ -37,7 +39,7 @@ func summon_enemy() -> void:
 	var enemy = enemy_scene.instantiate() 
 	enemy.position = spawn_position
 	
-	add_child(enemy)
+	$Enemies.add_child(enemy)
 
 ## Takes a world coordinate and converts it to a chunk coordinate.
 func world_to_chunk(position: Vector2) -> Vector2:
@@ -228,7 +230,7 @@ func _process(delta: float) -> void:
 	chunk_tick_timer -= delta
 	
 	if chunk_tick_timer < 0:
-		chunk_tick_timer = 1
+		chunk_tick_timer = 0.5
 		
 		var player_chunk = world_to_chunk($Player.position)
 		
@@ -285,6 +287,29 @@ func _process(delta: float) -> void:
 				n.queue_free()
 			elif abs(n_pos.y - player_chunk.y) > chunk_process_distance:
 				n.queue_free()
+				
+		# Just gonna put the combat check in here too
+		combat = false 
+		
+		for n in $Enemies.get_children():
+			if "ai_mode" in n:
+				if n.ai_mode == n.AI_MODE_ATTACK:
+					combat = true
+					
+		$UI/Control/CombatIndicator.visible = combat
+					
+		if combat:
+			if !combat_track:
+				var combat_tracks = $CombatMusic.get_children()
+				
+				combat_track = combat_tracks[randi_range(0, combat_tracks.size() - 1)]
+				
+				combat_track.play()
+		else:
+			if combat_track:
+				combat_track.stop()
+				
+				combat_track = null
 				
 func _set_navpanel_menu(menu: String) -> void:
 	for n in $UI/Control/Navpanel.get_children():

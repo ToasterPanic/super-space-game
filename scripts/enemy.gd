@@ -15,14 +15,19 @@ var evade_direction = 1
 
 var stress = 0
 
-var AI_MODE_ATTACK = 1
+enum {
+	AI_MODE_IDLE,
+	AI_MODE_ATTACK
+}
 
 var ai_mode = AI_MODE_ATTACK
 
-var AI_STATE_EVADE_OBJECT = 1
-var AI_STATE_TRACK_ENEMY = 2
-var AI_STATE_EVADE_ENEMY_AIM = 3
-var AI_STATE_STATIONARY_ENEMY = 4
+enum {
+	AI_STATE_EVADE_OBJECT,
+	AI_STATE_TRACK_ENEMY,
+	AI_STATE_EVADE_ENEMY_AIM,
+	AI_STATE_STATIONARY_ENEMY
+}
 
 var object_to_evade = null
 var last_ai_state_before_evasion = AI_STATE_TRACK_ENEMY
@@ -34,7 +39,8 @@ var target_rotation_speed = 1
 var boost_pressed = false
 
 var ai_tick = 0.1
-@onready var player = get_parent().get_node("Player")
+@onready var game = get_parent().get_parent()
+@onready var player = game.get_node("Player")
 
 var laser_scene = preload("res://scenes/laser.tscn")
 
@@ -81,6 +87,9 @@ func _process(delta: float) -> void:
 	if health <= 0:
 		dead = true
 		
+		# so combat mode disables
+		ai_mode = AI_MODE_IDLE
+		
 		modulate = Color(1,1,1)
 		
 		$Explode.play()
@@ -92,6 +101,8 @@ func _process(delta: float) -> void:
 		
 		
 		await get_tree().create_timer(10.5).timeout
+		
+		queue_free()
 	
 	ai_tick -= delta
 	
@@ -107,7 +118,7 @@ func _process(delta: float) -> void:
 			boosting = false
 			$BoostFinish.play()
 	else:
-		boost += delta * 25
+		boost += delta * 35
 		if boost > 75: boost = 75
 		
 		$Boost.stop()
@@ -127,7 +138,7 @@ func _process(delta: float) -> void:
 		laser.position = position 
 		laser.rotation = rotation
 		
-		get_parent().get_node("Unloadables").add_child(laser)
+		game.get_node("Unloadables").add_child(laser)
 	
 	if time_since_last_collision <= 1:
 		time_since_last_collision += delta

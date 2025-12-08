@@ -1,8 +1,9 @@
-[gd_scene load_steps=43 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=47 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bfxfkrkaebxk0" path="res://scripts/player.gd" id="1_yqjtg"]
+[ext_resource type="AudioStream" uid="uid://cfomexnrg5o2b" path="res://sounds/music/loneliness.mp3" id="2_e1j6l"]
 [ext_resource type="AudioStream" uid="uid://bfvnxahiyqxhx" path="res://sounds/ballad_of_the_cats.mp3" id="2_gee14"]
 [ext_resource type="AudioStream" uid="uid://brqjxveo53kco" path="res://sounds/boost.mp3" id="2_iywne"]
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="2_lbhrr"]
@@ -23,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://b6bq2viqao61m" path="res://scenes/pause_menu.tscn" id="19_37s47"]
 [ext_resource type="PackedScene" uid="uid://behjlujs230r2" path="res://scenes/mission_objectives.tscn" id="21_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
+[ext_resource type="Shader" uid="uid://bteoujesmedu1" path="res://scripts/in_combat.gdshader" id="22_pl11u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
 texture = ExtResource("12_trtic")
@@ -78,6 +80,20 @@ font_size = 14
 [sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
 font_size = 14
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bhx41"]
+shader = ExtResource("22_pl11u")
+shader_parameter/wave_amplitude = 5.0
+shader_parameter/wave_frequency = -250.0
+shader_parameter/movement_speed = 0.0
+shader_parameter/movement_amplitude = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_qnb83"]
+font = ExtResource("16_1kice")
+font_size = 64
+font_color = Color(1, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vuhkc"]
 atlas = ExtResource("22_bt5mj")
 region = Rect2(0, 0, 16, 16)
@@ -116,6 +132,15 @@ shader_parameter/lens_distortion_strength = 0.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_u5sy4")
+
+[node name="CombatMusic" type="Node2D" parent="."]
+
+[node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic"]
+stream = ExtResource("2_e1j6l")
+volume_db = -8.0
+parameters/looping = true
+
+[node name="Enemies" type="Node2D" parent="."]
 
 [node name="BalladOfTheCats" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_gee14")
@@ -585,14 +610,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "back"
 
-[node name="PauseMenu" parent="UI/Control" instance=ExtResource("19_37s47")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-
 [node name="ControlsBox" type="VBoxContainer" parent="UI/Control"]
 modulate = Color(1, 1, 1, 0.53333336)
 layout_mode = 1
@@ -707,6 +724,29 @@ metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
 layout_mode = 1
 offset_left = -256.0
 offset_bottom = 69.0
+
+[node name="CombatIndicator" type="Label" parent="UI/Control"]
+visible = false
+material = SubResource("ShaderMaterial_bhx41")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -489.5
+offset_right = 489.5
+offset_bottom = 116.0
+grow_horizontal = 2
+text = "!!! IN COMBAT !!!"
+label_settings = SubResource("LabelSettings_qnb83")
+horizontal_alignment = 1
+
+[node name="PauseMenu" parent="UI/Control" instance=ExtResource("19_37s47")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="SaveIndicator" type="Control" parent="UI/Control"]
 visible = false

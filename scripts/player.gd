@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 			boosting = false
 			$BoostFinish.play()
 	else:
-		boost += delta * 25
+		boost += delta * 40
 		if boost > 100: boost = 100
 		
 		$Boost.stop()
