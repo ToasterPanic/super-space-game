@@ -4,12 +4,15 @@
 
 A full remake of my previous Space Game with far more features, content and functionality. The only borrowed assets from the original game are sound effects, and also the code for stars. Turns out that's hard to do right. 
 
+I likely will finish this game after siege, although it will not be immediately.
+
 ## Hints for testers
 I bit off a bit more than I could chew, and therefore this project got bigger than intended. Treat this as a very early alpha build of sorts.
 
-- In your ship, you can press the SELECT/SHARE/- button on your controller to open the navagent. You can fast travel and pick up contracts.
-- The only real content is in the intro and contracts.
+- In your ship, you can press the SELECT/SHARE/BACK/- button on your controller (or CAPS LOCK on PC) to open the navpanel. You can fast travel and pick up contracts.
+- The only real content is in the intro and first contract.
 - In the intro, you probably shouldn't fight the enemies that chase you. They are very beefy.
+- The first contract is not finished.
 
 The following hints require the console, which can be opened with the TILDE key (the key with ~ on it, usually below [ESC].)
 

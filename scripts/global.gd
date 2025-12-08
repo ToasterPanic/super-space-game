@@ -4,6 +4,7 @@ func _ready() -> void:
 	load_settings()
 	
 	LimboConsole.register_command(set_story_progress, "set_story_progress", "Sets the current story_progress variable")
+	LimboConsole.register_command(set_active_mission, "set_active_mission", "Sets the current active_mission variable")
 
 var ground_location = null
 
@@ -58,6 +59,8 @@ var missions = {
 		}
 	},
 }
+
+var contracts = [ "test_contract" ]
 
 var ground_guns = {
 	"pistol": {
@@ -148,6 +151,9 @@ func delete_game():
 	
 func set_story_progress(value: int) -> void:
 	stats.story_progress = value
+	
+func set_active_mission(value = null) -> void:
+	stats.active_mission = value
 
 var default_stats = {
 	"loaded": false,

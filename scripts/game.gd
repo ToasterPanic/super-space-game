@@ -102,6 +102,14 @@ func _ready() -> void:
 		
 		$UI/Control/Navpanel/NavigationRoutes/Scroll/Box.add_child(navigation_item)
 		
+	for n in global.contracts:
+		var contract_item = preload("res://scenes/contract_item.tscn").instantiate()
+		
+		contract_item.contract = n
+		contract_item.game = self
+		
+		$UI/Control/Navpanel/ContractsList/Scroll/Box.add_child(contract_item)
+		
 	var i = 0
 	while i < 1024 / 3:
 		var star = star_scene.instantiate() 
@@ -319,6 +327,8 @@ func _input(event: InputEvent) -> void:
 			
 			if ($UI/Control/Navpanel/NavigationRoutes.visible) or ($UI/Control/Navpanel/NavigationHyperboost.visible):
 				_set_navpanel_menu("Navigation")
+			elif $UI/Control/Navpanel/ContractsList.visible:
+				_set_navpanel_menu("Contracts")
 			elif $UI/Control/Navpanel/Start.visible:
 				$UI/Control/Navpanel.visible = false
 			else:
@@ -360,6 +370,15 @@ func _navigation_item_pressed(goal) -> void:
 	$UiSelect.play()
 	_set_navpanel_menu("Navigation")
 
+func _contracts_item_pressed(contract) -> void:
+	if global.stats.active_mission: return 
+	
+	global.stats.active_mission = contract 
+	global.stats.mission_progress = 0
+	
+	$UiSelect.play()
+	_set_navpanel_menu("Contracts")
+
 
 func _on_navigation_back_pressed() -> void:
 	$UiBack.play()
@@ -375,3 +394,15 @@ func _on_enable_hyperboost_pressed() -> void:
 	$UiSelect.play()
 	_set_navpanel_menu("Navigation")
 	$Player.hyperboosting = true
+
+func _on_new_contract_pressed() -> void:
+	$UiSelect.play()
+	_set_navpanel_menu("ContractsList")
+
+func _on_contracts_pressed() -> void:
+	$UiSelect.play()
+	_set_navpanel_menu("Contracts")
+	
+func _on_contracts_back_pressed() -> void:
+	$UiBack.play()
+	_set_navpanel_menu("Contracts")

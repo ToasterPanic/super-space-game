@@ -74,6 +74,8 @@ func _ready() -> void:
 		$PlayerGround.global_position.y = global.stats.position.y
 		
 		global.stats.position = null
+	else:
+		$PlayerGround.global_position = $PlayerSpawn.global_position
 		
 	if global.stats.loaded:
 		save_game()

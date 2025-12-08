@@ -11,6 +11,8 @@ shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_e3s4u"]
 font_size = 18
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="MissionObjectives" type="VBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
@@ -32,3 +34,4 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "- RUN!"
 label_settings = SubResource("LabelSettings_e3s4u")
+autowrap_mode = 3

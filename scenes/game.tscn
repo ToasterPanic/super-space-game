@@ -173,6 +173,7 @@ position = Vector2(0, -20000)
 scale = Vector2(2, 2)
 texture = ExtResource("12_dinhu")
 script = ExtResource("13_trtic")
+active_mission_requirement = "test_contract"
 
 [node name="Collision" type="TileMapLayer" parent="Orbits/SpaceStation2/space_station_2"]
 visible = false
@@ -382,6 +383,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "navigation"
 
+[node name="Contracts" type="Button" parent="UI/Control/Navpanel/Start"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "contracts"
+
 [node name="Quit" type="Button" parent="UI/Control/Navpanel/Start"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
@@ -454,6 +461,56 @@ size_flags_horizontal = 3
 text = "cancel route"
 
 [node name="NavpanelBack" type="Button" parent="UI/Control/Navpanel/Navigation"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "back"
+
+[node name="ContractsList" type="HFlowContainer" parent="UI/Control/Navpanel"]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+
+[node name="Label3" type="Label" parent="UI/Control/Navpanel/ContractsList"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PICK ROUTE"
+label_settings = SubResource("LabelSettings_5newe")
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="UI/Control/Navpanel/ContractsList"]
+custom_minimum_size = Vector2(256, 512)
+layout_mode = 2
+
+[node name="Box" type="VBoxContainer" parent="UI/Control/Navpanel/ContractsList/Scroll"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="ContractsBack" type="Button" parent="UI/Control/Navpanel/ContractsList"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "back"
+
+[node name="Contracts" type="HFlowContainer" parent="UI/Control/Navpanel"]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+
+[node name="Label3" type="Label" parent="UI/Control/Navpanel/Contracts"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CONTRACTS"
+label_settings = SubResource("LabelSettings_5newe")
+horizontal_alignment = 1
+
+[node name="NewContract" type="Button" parent="UI/Control/Navpanel/Contracts"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "new route"
+
+[node name="NavpanelBack" type="Button" parent="UI/Control/Navpanel/Contracts"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -698,11 +755,15 @@ color = Color(1, 1, 1, 0)
 [connection signal="body_entered" from="Orbits/SpaceStation2/space_station_2/EnterHitbox" to="Orbits/SpaceStation2/space_station_2" method="_on_enter_hitbox_body_entered"]
 [connection signal="body_shape_entered" from="Player/Hitbox" to="Player" method="_on_hitbox_body_shape_entered"]
 [connection signal="pressed" from="UI/Control/Navpanel/Start/Navigation" to="." method="_on_navigation_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Start/Contracts" to="." method="_on_contracts_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Start/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/NewRoute" to="." method="_on_new_route_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/Hyperboost" to="." method="_on_hyperboost_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/CancelRoute" to="." method="_on_cancel_route_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/Navigation/NavpanelBack" to="." method="_on_navpanel_back_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/ContractsList/ContractsBack" to="." method="_on_contracts_back_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Contracts/NewContract" to="." method="_on_new_contract_pressed"]
+[connection signal="pressed" from="UI/Control/Navpanel/Contracts/NavpanelBack" to="." method="_on_navpanel_back_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/NavigationRoutes/NavigationBack" to="." method="_on_navigation_back_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/NavigationHyperboost/EnableHyperboost" to="." method="_on_enable_hyperboost_pressed"]
 [connection signal="pressed" from="UI/Control/Navpanel/NavigationHyperboost/NavigationBack" to="." method="_on_navigation_back_pressed"]

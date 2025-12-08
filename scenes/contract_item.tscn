@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b28c58tdwi3k5"]
+
+[ext_resource type="Script" uid="uid://c3m22vi3fsimq" path="res://scripts/contract_item.gd" id="1_y4oga"]
+
+[node name="ContractItem" type="VBoxContainer"]
+script = ExtResource("1_y4oga")
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font size=24]space station 1[/font]
+1000u away"
+fit_content = true
+scroll_active = false
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "select"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
