@@ -7,7 +7,7 @@ A full remake of my previous Space Game with far more features, content and func
 I likely will finish this game after siege, although it will not be immediately.
 
 ## Hints for testers
-I bit off a bit more than I could chew, and therefore this project got bigger than intended. Treat this as a very early alpha build of sorts.
+Above all else: THIS IS A PROTOTYPE. While I'm definitely making this into a proper game, it's still a prototype. It's not perfect. It's probably buggy. But I've put a lot of effort into it, so I get a gold star for effort (I will eats it :3)
 
 - In your ship, you can press the SELECT/SHARE/BACK/- button on your controller (or CAPS LOCK on PC) to open the navpanel. You can fast travel and pick up contracts.
 - The only real content is in the intro and first contract.
