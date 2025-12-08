@@ -1,4 +1,8 @@
-# Super Space Game
+# Super Space Game Demo Branch
+
+Welcome to the demo branch for Siege week 15!
+
+## Description
 
 18 September, 2140 [EARTH STANDARD TIME]. Ash Milian wakes up from a coma. Remembering nothing about the world or their life, you must fly around the C022 solar system as a mercenary to find answers to who you are, and why you're here.
 
