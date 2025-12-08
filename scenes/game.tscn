@@ -1,18 +1,21 @@
-[gd_scene load_steps=52 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=55 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bfxfkrkaebxk0" path="res://scripts/player.gd" id="1_yqjtg"]
+[ext_resource type="AudioStream" uid="uid://ddye34k0ycsql" path="res://sounds/music/clouds_full_of_tears.mp3" id="2_bhx41"]
 [ext_resource type="AudioStream" uid="uid://cfomexnrg5o2b" path="res://sounds/music/loneliness.mp3" id="2_e1j6l"]
 [ext_resource type="AudioStream" uid="uid://bfvnxahiyqxhx" path="res://sounds/ballad_of_the_cats.mp3" id="2_gee14"]
 [ext_resource type="AudioStream" uid="uid://brqjxveo53kco" path="res://sounds/boost.mp3" id="2_iywne"]
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="2_lbhrr"]
+[ext_resource type="AudioStream" uid="uid://bugpae8rrttjn" path="res://sounds/music/stars.mp3" id="2_qnb83"]
 [ext_resource type="AudioStream" uid="uid://b6tyof2j3ytbv" path="res://sounds/concrete_halls.mp3" id="3_0tnpc"]
 [ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_p57ef"]
 [ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="4_5newe"]
 [ext_resource type="AudioStream" uid="uid://bff3l15ivkcyi" path="res://sounds/ui_back.mp3" id="5_37s47"]
 [ext_resource type="PackedScene" uid="uid://gofibd3kwx3r" path="res://scenes/navigation_marker.tscn" id="5_264po"]
 [ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="8_vtaks"]
+[ext_resource type="Script" uid="uid://lq1qqo2xdarj" path="res://scripts/orbiter.gd" id="9_sww3w"]
 [ext_resource type="Texture2D" uid="uid://dsdd1830ilu1" path="res://textures/navigation_ring.png" id="10_dinhu"]
 [ext_resource type="Texture2D" uid="uid://yfsqc4i52c6k" path="res://textures/space_station_1.png" id="12_dinhu"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="12_kvuet"]
@@ -161,6 +164,14 @@ script = ExtResource("1_u5sy4")
 
 [node name="CombatMusic" type="Node2D" parent="."]
 
+[node name="Stars" type="AudioStreamPlayer" parent="CombatMusic"]
+stream = ExtResource("2_qnb83")
+volume_db = -8.0
+
+[node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="CombatMusic"]
+stream = ExtResource("2_bhx41")
+volume_db = -8.0
+
 [node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic"]
 stream = ExtResource("2_e1j6l")
 volume_db = -8.0
@@ -193,6 +204,9 @@ bus = &"Sound Effects"
 [node name="Orbits" type="Node2D" parent="."]
 
 [node name="SpaceStation1" type="Node2D" parent="Orbits"]
+script = ExtResource("9_sww3w")
+orbit_speed = 0.03
+metadata/orbit_speed = 0.15
 
 [node name="space_station_1" type="Sprite2D" parent="Orbits/SpaceStation1"]
 position = Vector2(0, -10000)
@@ -218,6 +232,9 @@ rotation = 3.1415927
 
 [node name="SpaceStation2" type="Node2D" parent="Orbits"]
 rotation = 0.12217305
+script = ExtResource("9_sww3w")
+orbit_speed = 0.06
+metadata/orbit_speed = -0.1
 
 [node name="space_station_2" type="Sprite2D" parent="Orbits/SpaceStation2"]
 position = Vector2(0, -20000)

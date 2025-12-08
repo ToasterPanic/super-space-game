@@ -1,11 +1,5 @@
 extends Node
 
-func _ready() -> void:
-	load_settings()
-	
-	LimboConsole.register_command(set_story_progress, "set_story_progress", "Sets the current story_progress variable")
-	LimboConsole.register_command(set_active_mission, "set_active_mission", "Sets the current active_mission variable")
-
 var ground_location = null
 
 var orbit_zones = [
@@ -173,6 +167,8 @@ var default_stats = {
 	"active_mission": null,
 	"mission_progress": 0,
 	"completed_missions": [],
+	
+	"time": 0,
 }
 
 var stats = default_stats.duplicate_deep()
@@ -182,3 +178,12 @@ var settings = {
 	"music_volume": 1.0,
 	"sfx_volume": 1.0,
 }
+
+func _ready() -> void:
+	load_settings()
+	
+	LimboConsole.register_command(set_story_progress, "set_story_progress", "Sets the current story_progress variable")
+	LimboConsole.register_command(set_active_mission, "set_active_mission", "Sets the current active_mission variable")
+
+func _process(delta: float) -> void:
+	global.stats.time += delta

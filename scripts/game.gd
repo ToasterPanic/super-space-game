@@ -163,6 +163,8 @@ func _process(delta: float) -> void:
 	if get_tree().paused:
 		return
 		
+	
+		
 	if global.stats.navigation_goal:
 		if !global.stats.navigation_goal.point || (typeof(global.stats.navigation_goal.point) == TYPE_STRING):
 			if global.stats.navigation_goal.id:
