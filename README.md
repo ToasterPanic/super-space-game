@@ -1,6 +1,6 @@
 # Super Space Game Demo Branch
 
-Welcome to the demo branch for Siege week 15!
+Welcome to the demo branch for Siege week 15! If you're here for the prototype, go away!
 
 ## Description
 
