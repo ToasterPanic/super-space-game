@@ -1,6 +1,7 @@
 extends "res://scripts/character_ground.gd"
 
 var last_aim_direction = Vector2(0, 0)
+var processing_death = false
 
 func _ready() -> void:
 	super()
@@ -14,9 +15,16 @@ func _process(delta: float) -> void:
 	super(delta)
 	
 	if dead:
+		if processing_death: return
+		
+		processing_death = true
+		
+		await get_tree().create_timer(1).timeout
+		
 		if global.checkpoint:
 			global.load_game()
 			get_tree().change_scene_to_file("res://scenes/ground.tscn")
+		return
 	
 	if input_icon.using_gamepad:
 		if !((Input.get_axis("aim_left", "aim_right") == 0) and (Input.get_axis("aim_up", "aim_down") == 0)):

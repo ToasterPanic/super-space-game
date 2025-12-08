@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bav8ogrhgycaw"]
+
+[ext_resource type="Texture2D" uid="uid://cfuclgb21yw7n" path="res://textures/navigation_marker.png" id="1_i4ju7"]
+[ext_resource type="Script" uid="uid://ddwxm6i060srm" path="res://scripts/navigation_marker.gd" id="2_yh82h"]
+
+[node name="AlertnessMarker" type="Sprite2D"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("1_i4ju7")
+script = ExtResource("2_yh82h")

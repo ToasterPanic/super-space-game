@@ -28,8 +28,8 @@ var orbit_zones = [
 	
 ]
 
-var missions = [
-	{
+var missions = {
+	"waking_up": {
 		"id": "waking_up",
 		"name": "Waking Up",
 		"desc": "Welcome back, spaceperson.",
@@ -43,7 +43,7 @@ var missions = [
 			"escape": "Escape to your ship"
 		}
 	},
-	{
+	"test_contract": {
 		"id": "test_contract",
 		"name": "HEMA Removal",
 		"desc": "Space station 02 is currently overrun with HEMA mercenaries. We know they have a bomb in the storage warehouse. We want someone to plant that bomb on the station.",
@@ -57,7 +57,7 @@ var missions = [
 			"escape": "Escape"
 		}
 	},
-]
+}
 
 var ground_guns = {
 	"pistol": {
@@ -164,7 +164,7 @@ var default_stats = {
 	"equipped_ground_gun": null,
 	"gun_holstered": true,
 	
-	"active_mission": "waking_up",
+	"active_mission": null,
 	"mission_progress": 0,
 	"completed_missions": [],
 }

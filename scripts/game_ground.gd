@@ -112,7 +112,7 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true) 
 		
 		$Dialogue.play()
 		
-		await get_tree().create_timer(speed).timeout
+		#await get_tree().create_timer(speed).timeout
 		
 		i += 1
 		

@@ -196,27 +196,26 @@ func _ground_ready() -> void:
 		
 		player.busy = false
 		
+		global.stats.active_mission = "waking_up"
+		
+		game.get_node("UI/Control/MoveTutorial").visible = true
+		
 		while i < 100:
 			await get_tree().create_timer(0.2).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.04)
 			
 			i += 2
-			
-		game.get_node("UI/Control/MoveTutorial").visible = true
 		
 		while player.velocity.length() == 0:
 			await get_tree().create_timer(0.1).timeout
-			
-		await get_tree().create_timer(1).timeout
-		
-		print("end")
 		
 		game.get_node("UI/Control/MoveTutorial").visible = false
 		
 	elif global.stats.story_progress == 1:
 		pass
 	elif global.stats.story_progress == 2:
+		print("PROGRESS 2")
 		game.get_node("Uglyburger").stop()
 		
 		game.get_node("IntrusionAlarm").play()
@@ -230,12 +229,15 @@ func _ground_ready() -> void:
 		
 		game.get_node("Doctor").checkpoint_1()
 	elif global.stats.story_progress == 3:
+		print("PROGRESS 3")
 		game.get_node("Uglyburger").stop()
 		
 		game.get_node("HospitalEscapeD2State1").monitoring = false
 		game.get_node("HospitalEscapeD2State2").monitoring = false
 		
 		game.get_node("Map").modulate = Color(0.5, 0.35, 0.35)
+		
+		game.get_node("Doctor").queue_free()
 		
 		game.get_node("Doctor2").global_position = game.get_node("Doctor2DoorWaypoint").global_position
 		

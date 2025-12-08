@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://behjlujs230r2"]
+
+[ext_resource type="Script" uid="uid://ceua7bjh8xokf" path="res://scripts/mission_objectives.gd" id="1_pg0np"]
+[ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="2_80tcl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2tk4m"]
+font = ExtResource("2_80tcl")
+font_size = 32
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_e3s4u"]
+font_size = 18
+
+[node name="MissionObjectives" type="VBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+script = ExtResource("1_pg0np")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "WAKING UP"
+label_settings = SubResource("LabelSettings_2tk4m")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = "- RUN!"
+label_settings = SubResource("LabelSettings_e3s4u")

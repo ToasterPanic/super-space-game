@@ -100,8 +100,6 @@ func _process(delta: float) -> void:
 		if points.size() > 0:
 			if !current_node: current_node = points[0]
 			
-			print(current_node)
-			
 			if $Navagent.is_navigation_finished():
 				if points.find(current_node) + 1 > points.size() - 1:
 					current_node = points[0]
@@ -114,8 +112,6 @@ func _process(delta: float) -> void:
 				
 				horizontial_movement = axes.x
 				vertical_movement = axes.y
-				
-				print(next_position)
 				
 			if !$Navagent.target_position or ($Navagent.target_position != current_node.position): $Navagent.target_position = current_node.position
 		

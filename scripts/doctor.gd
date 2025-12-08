@@ -60,6 +60,8 @@ func _interact(player: Node2D) -> void:
 		
 		await game.dialogue("Follow me.", "doctor_1", false)
 		
+		global.stats.mission_progress = 1
+		
 		await navigate_to(game.get_node("DoctorEscapeWaypoint1").position)
 		
 		while !game.get_node("DoctorEscapeWaypoint1/Area").get_overlapping_bodies().has(player): await get_tree().create_timer(0.2).timeout
@@ -138,6 +140,8 @@ func checkpoint_1():
 	
 	
 	await game.dialogue("RUN!", "doctor_1", false)
+		
+	global.stats.mission_progress = 2
 	
 	while health > 0: await get_tree().create_timer(0.2).timeout
 	

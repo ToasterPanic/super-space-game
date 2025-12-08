@@ -83,6 +83,8 @@ func enter_physical(map):
 	
 	global.stats.location = map
 	
+	global.stats.position = null
+	
 	get_tree().change_scene_to_file("res://scenes/ground.tscn")
 		
 		

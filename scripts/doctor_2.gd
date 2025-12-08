@@ -11,6 +11,8 @@ func _ready() -> void:
 
 func _on_state_1_body_entered(body: Node2D) -> void:
 	if body != game.get_node("PlayerGround"): return
+		
+	global.stats.mission_progress = 3
 	
 	game.get_node("HospitalEscapeD2State1").monitoring = false
 	
@@ -30,6 +32,7 @@ func _on_state_2_body_entered(body: Node2D) -> void:
 	if body != game.get_node("PlayerGround"): return
 	
 	game.get_node("HospitalEscapeD2State2").monitoring = false
+	game.get_node("HospitalEscapeD2State2").queue_free()
 	
 	firing = true
 	
@@ -110,6 +113,8 @@ func _on_state_2_body_entered(body: Node2D) -> void:
 			await game.dialogue("I live here. If I left all my stuff behind like this, I would hate myself.", "doctor_2", true)
 			await game.dialogue("That's not something you should worry about excessively, though. You don't even know me.", "doctor_2", true)
 			
+		global.stats.story_progress = 3
+		
 		game.save_game()
 		
 		checkpoint_2()
@@ -135,4 +140,8 @@ func checkpoint_2():
 	
 	game.get_node("Doctor2DoorToOpen").set_open(true)
 	
-	global.stats.story_progress = 3
+
+
+func _on_state_3_body_entered(body: Node2D) -> void:
+	game.get_node("Doctor2DoorToOpen").set_open(false)
+	

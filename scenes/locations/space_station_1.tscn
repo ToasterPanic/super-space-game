@@ -354,6 +354,12 @@ position = Vector2(1360, -1072)
 [node name="CollisionShape" type="CollisionShape2D" parent="HospitalEscapeD2State2"]
 shape = SubResource("CircleShape2D_janyw")
 
+[node name="HospitalEscapeD2State3" type="Area2D" parent="."]
+position = Vector2(1344, -624)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HospitalEscapeD2State3"]
+shape = SubResource("CircleShape2D_janyw")
+
 [node name="Doctor2" type="CharacterBody2D" parent="."]
 position = Vector2(1664, -1328)
 script = ExtResource("16_bhfm6")
@@ -762,5 +768,6 @@ bus = &"Sound Effects"
 [connection signal="body_exited" from="Doctor/InteractArea" to="Doctor/InteractArea" method="_on_body_exited"]
 [connection signal="body_entered" from="HospitalEscapeD2State1" to="Doctor2" method="_on_state_1_body_entered"]
 [connection signal="body_entered" from="HospitalEscapeD2State2" to="Doctor2" method="_on_state_2_body_entered"]
+[connection signal="body_entered" from="HospitalEscapeD2State3" to="Doctor2" method="_on_state_3_body_entered"]
 [connection signal="body_entered" from="ExitShip/InteractArea" to="ExitShip/InteractArea" method="_on_body_entered"]
 [connection signal="body_exited" from="ExitShip/InteractArea" to="ExitShip/InteractArea" method="_on_body_exited"]

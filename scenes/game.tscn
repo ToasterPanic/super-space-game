@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=43 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -21,6 +21,7 @@
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="15_ir15t"]
 [ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="16_1kice"]
 [ext_resource type="PackedScene" uid="uid://b6bq2viqao61m" path="res://scenes/pause_menu.tscn" id="19_37s47"]
+[ext_resource type="PackedScene" uid="uid://behjlujs230r2" path="res://scenes/mission_objectives.tscn" id="21_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
@@ -193,8 +194,7 @@ rotation = 3.1415927
 position = Vector2(0, -9000)
 texture = ExtResource("10_dinhu")
 
-[node name="NavigationMarker" parent="Navring" node_paths=PackedStringArray("destination") instance=ExtResource("5_264po")]
-destination = NodePath("../../Orbits/SpaceStation1/space_station_1")
+[node name="NavigationMarker" parent="Navring" instance=ExtResource("5_264po")]
 
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(-78, -9043)
@@ -645,6 +645,11 @@ expand_mode = 1
 script = ExtResource("15_ca42v")
 action_name = "navpanel"
 metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="MissionObjectives" parent="UI/Control" instance=ExtResource("21_bt5mj")]
+layout_mode = 1
+offset_left = -256.0
+offset_bottom = 69.0
 
 [node name="SaveIndicator" type="Control" parent="UI/Control"]
 visible = false
