@@ -106,6 +106,8 @@ func _process(delta: float) -> void:
 	
 	ai_tick -= delta
 	
+	$BoostParticles.emitting = boosting
+	
 	if boosting:
 		if boost_pressed:
 			boost -= delta * 40

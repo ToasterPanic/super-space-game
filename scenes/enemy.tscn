@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dy6dv2tio433m"]
+[gd_scene load_steps=15 format=3 uid="uid://dy6dv2tio433m"]
 
 [ext_resource type="Script" uid="uid://8d4jhy3fo32b" path="res://scripts/enemy.gd" id="1_xwavj"]
 [ext_resource type="AudioStream" uid="uid://brqjxveo53kco" path="res://sounds/boost.mp3" id="2_nenq2"]
@@ -6,7 +6,33 @@
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="4_ipns3"]
 [ext_resource type="AudioStream" uid="uid://bney1c4julhfk" path="res://sounds/explode.mp3" id="5_ipns3"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="6_w8i8w"]
-[ext_resource type="PackedScene" path="res://scenes/particles/explosion.tscn" id="7_nenq2"]
+[ext_resource type="PackedScene" uid="uid://bsvwpuwvh3hga" path="res://scenes/particles/explosion.tscn" id="7_nenq2"]
+
+[sub_resource type="Gradient" id="Gradient_nenq2"]
+offsets = PackedFloat32Array(0, 0.575419, 0.75418997)
+colors = PackedColorArray(0, 1, 1, 1, 0, 0.23137255, 0.11764706, 1, 1.8425053e-08, 0.054851376, 0.0168243, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bhx41"]
+gradient = SubResource("Gradient_nenq2")
+
+[sub_resource type="Curve" id="Curve_md484"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kvpfn"]
+curve = SubResource("Curve_md484")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ipns3"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1024.0
+initial_velocity_max = 1024.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.9
+scale_curve = SubResource("CurveTexture_kvpfn")
+color_ramp = SubResource("GradientTexture1D_bhx41")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnu2h"]
 radius = 20.0
@@ -41,6 +67,13 @@ bus = &"Sound Effects"
 [node name="Explode" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ipns3")
 bus = &"Sound Effects"
+
+[node name="BoostParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 32
+texture = ExtResource("6_w8i8w")
+lifetime = 0.25
+process_material = SubResource("ParticleProcessMaterial_ipns3")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("6_w8i8w")

@@ -32,6 +32,8 @@ func _process(delta: float) -> void:
 		
 		get_parent().get_node("Unloadables").add_child(laser)
 	
+	$BoostParticles.emitting = boosting
+	
 	if boosting:
 		if Input.is_action_pressed("boost"):
 			boost -= delta * 40

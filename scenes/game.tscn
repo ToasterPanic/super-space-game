@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=52 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -39,6 +39,32 @@ sources/0 = SubResource("TileSetAtlasSource_ir15t")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvuet"]
 size = Vector2(128, 32)
+
+[sub_resource type="Gradient" id="Gradient_pl11u"]
+offsets = PackedFloat32Array(0, 0.575419, 0.75418997)
+colors = PackedColorArray(0, 1, 1, 1, 0, 0.23137255, 0.11764706, 1, 1.8425053e-08, 0.054851376, 0.0168243, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pl11u"]
+gradient = SubResource("Gradient_pl11u")
+
+[sub_resource type="Curve" id="Curve_p57ef"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bhx41"]
+curve = SubResource("Curve_p57ef")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gee14"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1024.0
+initial_velocity_max = 1024.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.9
+scale_curve = SubResource("CurveTexture_bhx41")
+color_ramp = SubResource("GradientTexture1D_pl11u")
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_trtic"]
 points = PackedVector2Array(-16, 16, 16, 16, 0, -16)
@@ -224,6 +250,7 @@ texture = ExtResource("10_dinhu")
 
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(-78, -9043)
+rotation = 0.5235988
 linear_damp = 6.247
 script = ExtResource("1_yqjtg")
 
@@ -244,6 +271,13 @@ bus = &"Sound Effects"
 [node name="Fire" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("8_vtaks")
 max_polyphony = 4
+
+[node name="BoostParticles" type="GPUParticles2D" parent="Player"]
+emitting = false
+amount = 32
+texture = ExtResource("1_uwrxv")
+lifetime = 0.25
+process_material = SubResource("ParticleProcessMaterial_gee14")
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_uwrxv")
@@ -726,7 +760,6 @@ offset_left = -256.0
 offset_bottom = 69.0
 
 [node name="CombatIndicator" type="Label" parent="UI/Control"]
-visible = false
 material = SubResource("ShaderMaterial_bhx41")
 layout_mode = 1
 anchors_preset = 5
