@@ -164,6 +164,13 @@ func _process(delta: float) -> void:
 		return
 		
 	$UI/DamageVignette.get_material().set("shader_parameter/MainAlpha", 1.0 - ($Player.health / 1000.0))
+	
+	$UI/Control/Repair/InputIconTextureRect.visible = !$Player.repairing
+	
+	if $Player.repairing:
+		$UI/Control/Repair.value = $Player.repair_timer * 6
+	else:
+		$UI/Control/Repair.value = $Player.repair_timer
 		
 	if global.stats.navigation_goal:
 		if !global.stats.navigation_goal.point || (typeof(global.stats.navigation_goal.point) == TYPE_STRING):

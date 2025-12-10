@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=65 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -26,6 +26,7 @@
 [ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="16_1kice"]
 [ext_resource type="PackedScene" uid="uid://b6bq2viqao61m" path="res://scenes/pause_menu.tscn" id="19_37s47"]
 [ext_resource type="PackedScene" uid="uid://behjlujs230r2" path="res://scenes/mission_objectives.tscn" id="21_bt5mj"]
+[ext_resource type="Texture2D" uid="uid://gkvcn8r0m8sh" path="res://textures/repair_wave.png" id="21_wljb1"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
 [ext_resource type="Shader" uid="uid://bteoujesmedu1" path="res://scripts/in_combat.gdshader" id="22_pl11u"]
 [ext_resource type="Texture2D" uid="uid://dwtmsblmgp165" path="res://textures/meter_background.png" id="28_qouja"]
@@ -71,6 +72,29 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.9
 scale_curve = SubResource("CurveTexture_bhx41")
 color_ramp = SubResource("GradientTexture1D_pl11u")
+
+[sub_resource type="Curve" id="Curve_v2yb1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.26829267, 0.3595506), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_js0lu"]
+curve = SubResource("Curve_v2yb1")
+
+[sub_resource type="Curve" id="Curve_gxtfn"]
+_data = [Vector2(0, 0), 0.0, 3.2247193, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_twgab"]
+curve = SubResource("Curve_gxtfn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_02fa5"]
+particle_flag_disable_z = true
+angle_min = -940.5
+angle_max = 720.0
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_twgab")
+alpha_curve = SubResource("CurveTexture_js0lu")
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_trtic"]
 points = PackedVector2Array(-16, 16, 16, 16, 0, -16)
@@ -303,6 +327,22 @@ amount = 32
 texture = ExtResource("1_uwrxv")
 lifetime = 0.25
 process_material = SubResource("ParticleProcessMaterial_gee14")
+
+[node name="RepairWave" type="GPUParticles2D" parent="Player"]
+emitting = false
+texture = ExtResource("21_wljb1")
+lifetime = 0.75
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_02fa5")
+
+[node name="RepairFinalWave" type="GPUParticles2D" parent="Player"]
+emitting = false
+texture = ExtResource("21_wljb1")
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_02fa5")
 
 [node name="Sprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_uwrxv")
@@ -839,7 +879,8 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
-value = 100.0
+max_value = 6.0
+value = 6.0
 fill_mode = 5
 nine_patch_stretch = true
 texture_under = ExtResource("28_qouja")

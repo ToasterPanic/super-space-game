@@ -7,12 +7,35 @@ var time_since_last_collision = 1
 var camera_shake_power = 0
 var boosting = false
 var hyperboosting = false
+var repairing = false
+var repair_timer = 0
 
 var laser_scene = preload("res://scenes/laser.tscn")
 
 func _process(delta: float) -> void:
 	modulate.g = health / 1000.0
 	modulate.b = health / 1000.0
+	
+	
+	
+	$RepairWave.emitting = repairing
+	
+	print(repair_timer, repairing)
+	
+	if repairing:
+		repair_timer -= delta 
+		
+		if repair_timer <= 0:
+			health = 1000.0
+			repairing = false
+			$RepairFinalWave.restart()
+			
+	else:
+		repair_timer += delta
+		
+		if Input.is_action_just_pressed("ability_1") && (repair_timer > 6):
+			repair_timer = 1
+			repairing = true
 	
 	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
 	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
