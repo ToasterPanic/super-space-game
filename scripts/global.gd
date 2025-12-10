@@ -156,7 +156,7 @@ var default_stats = {
 	"speed": 512,
 	"boost_tank_size": 1,
 	"marks": 200,
-	"location": "space_station_1",
+	"location": "ahma_hideout",
 	"position": Vector2(),
 	"rotation": 0,
 	"story_progress": 0,

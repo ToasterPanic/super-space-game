@@ -840,12 +840,7 @@ label_settings = SubResource("LabelSettings_qnb83")
 horizontal_alignment = 1
 
 [node name="PauseMenu" parent="UI/Control" instance=ExtResource("19_37s47")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 
 [node name="Repair" type="TextureProgressBar" parent="UI/Control"]
 custom_minimum_size = Vector2(128, 128)
