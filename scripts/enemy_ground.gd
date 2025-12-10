@@ -43,6 +43,9 @@ var game = null
 
 var current_node = null
 
+var active_alertness_marker = null
+var alertness_marker_scene = preload("res://scenes/alertness_marker.tscn")
+
 var current_point = 0
 
 @export var inaccuracy: int = 15
@@ -73,6 +76,18 @@ func _process(delta: float) -> void:
 	if always_sees_player:
 		ai_mode = AI_MODE_ATTACK
 		last_seen_player_position = player.global_position
+		
+	if reaction_timer > 0:
+		if !active_alertness_marker:
+			active_alertness_marker = alertness_marker_scene.instantiate()
+			
+			active_alertness_marker.enemy = self 
+			
+			player.add_child(active_alertness_marker)
+	else:
+		if active_alertness_marker:
+			active_alertness_marker.queue_free()
+			active_alertness_marker = null
 	
 	if ai_mode == AI_MODE_IDLE:
 		$LineOfSight.look_at(player.global_position)
@@ -95,7 +110,6 @@ func _process(delta: float) -> void:
 			
 		if reaction_timer < 0:
 			reaction_timer = 0
-			
 			
 		if points.size() > 0:
 			if !current_node: current_node = points[0]

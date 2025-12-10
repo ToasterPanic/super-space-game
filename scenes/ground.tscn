@@ -1,10 +1,13 @@
-[gd_scene load_steps=37 format=3 uid="uid://by43ihcec8e8q"]
+[gd_scene load_steps=43 format=3 uid="uid://by43ihcec8e8q"]
 
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
+[ext_resource type="AudioStream" uid="uid://bugpae8rrttjn" path="res://sounds/music/stars.mp3" id="2_rncil"]
+[ext_resource type="AudioStream" uid="uid://ddye34k0ycsql" path="res://sounds/music/clouds_full_of_tears.mp3" id="3_2tk4m"]
 [ext_resource type="Script" uid="uid://dowu512otgyyf" path="res://scripts/player_ground.gd" id="3_8gbjj"]
 [ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="3_26mqe"]
 [ext_resource type="AudioStream" uid="uid://cdl70q0x28717" path="res://sounds/dialogue.mp3" id="3_rncil"]
 [ext_resource type="Texture2D" uid="uid://c0cyhybh30ogt" path="res://textures/player-ground-sheet.png" id="4_2c1ag"]
+[ext_resource type="AudioStream" uid="uid://cfomexnrg5o2b" path="res://sounds/music/loneliness.mp3" id="4_gur08"]
 [ext_resource type="Texture2D" uid="uid://csrlh1sbdroud" path="res://textures/pistol.png" id="5_8gbjj"]
 [ext_resource type="AudioStream" uid="uid://5x8fl2mk082h" path="res://sounds/gunshot_1.mp3" id="6_2c1ag"]
 [ext_resource type="Texture2D" uid="uid://coflscl1w4vtr" path="res://textures/crosshair.png" id="7_modao"]
@@ -12,13 +15,14 @@
 [ext_resource type="Shader" uid="uid://d2e0541hawkml" path="res://scripts/vignette.gdshader" id="9_5vwr8"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="9_257nh"]
 [ext_resource type="PackedScene" uid="uid://bav8ogrhgycaw" path="res://scenes/alertness_marker.tscn" id="9_hby33"]
-[ext_resource type="Script" uid="uid://s7dwusi00l3v" path="res://scripts/alertness_marker.gd" id="10_e3s4u"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="13_176r3"]
 [ext_resource type="PackedScene" uid="uid://b6bq2viqao61m" path="res://scenes/pause_menu.tscn" id="14_vuhkc"]
 [ext_resource type="Texture2D" uid="uid://dauoebs801ngm" path="res://addons/super_awesome_input_icons/textures/keyboard/question.png" id="16_e3s4u"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="16_hby33"]
 [ext_resource type="PackedScene" uid="uid://behjlujs230r2" path="res://scenes/mission_objectives.tscn" id="18_e3s4u"]
 [ext_resource type="PackedScene" uid="uid://dhcfrsf726k68" path="res://scenes/dialogue_select_button.tscn" id="19_qqas2"]
+[ext_resource type="Texture2D" uid="uid://dn01fmw7xwf2q" path="res://textures/darkness.png" id="22_gur08"]
+[ext_resource type="Script" uid="uid://c1xwhdclvibeu" path="res://scripts/field_of_view.gd" id="23_eyphm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jo68p"]
 atlas = ExtResource("4_2c1ag")
@@ -157,9 +161,35 @@ shader_parameter/lens_distortion_strength = 0.0
 
 [sub_resource type="Environment" id="Environment_wky5g"]
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_41adg"]
+texture = ExtResource("22_gur08")
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_dnkg1"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 268435456
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_41adg")
+
 [node name="Ground" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_6ra5r")
+
+[node name="CombatMusic" type="Node2D" parent="."]
+
+[node name="Stars" type="AudioStreamPlayer" parent="CombatMusic"]
+stream = ExtResource("2_rncil")
+volume_db = -8.0
+
+[node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="CombatMusic"]
+stream = ExtResource("3_2tk4m")
+volume_db = -8.0
+
+[node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic"]
+stream = ExtResource("4_gur08")
+volume_db = -8.0
+parameters/looping = true
 
 [node name="Dialogue" type="AudioStreamPlayer" parent="."]
 process_mode = 3
@@ -218,7 +248,6 @@ shape = SubResource("CapsuleShape2D_8gbjj")
 debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="AlertnessMarker" parent="PlayerGround" instance=ExtResource("9_hby33")]
-script = ExtResource("10_e3s4u")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -539,3 +568,17 @@ environment = SubResource("Environment_wky5g")
 
 [node name="IntroSpawn" type="Node2D" parent="."]
 position = Vector2(119, -1755)
+
+[node name="FieldOfView" type="TileMapLayer" parent="."]
+z_index = -4094
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray(0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_dnkg1")
+navigation_enabled = false
+script = ExtResource("23_eyphm")
+
+[node name="Cast" type="RayCast2D" parent="FieldOfView"]
+scale = Vector2(0.5, 0.5)
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
