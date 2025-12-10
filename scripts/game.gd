@@ -163,7 +163,7 @@ func _process(delta: float) -> void:
 	if get_tree().paused:
 		return
 		
-	
+	$UI/DamageVignette.get_material().set("shader_parameter/MainAlpha", 1.0 - ($Player.health / 1000.0))
 		
 	if global.stats.navigation_goal:
 		if !global.stats.navigation_goal.point || (typeof(global.stats.navigation_goal.point) == TYPE_STRING):

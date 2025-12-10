@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=59 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -28,6 +28,9 @@
 [ext_resource type="PackedScene" uid="uid://behjlujs230r2" path="res://scenes/mission_objectives.tscn" id="21_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
 [ext_resource type="Shader" uid="uid://bteoujesmedu1" path="res://scripts/in_combat.gdshader" id="22_pl11u"]
+[ext_resource type="Texture2D" uid="uid://dwtmsblmgp165" path="res://textures/meter_background.png" id="28_qouja"]
+[ext_resource type="Shader" uid="uid://bcb4t8kfimhvv" path="res://scripts/damage_vignette.gdshader" id="28_suyxu"]
+[ext_resource type="Texture2D" uid="uid://cm26juwrh2rp0" path="res://textures/meter_heal.png" id="29_wljb1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
 texture = ExtResource("12_trtic")
@@ -144,6 +147,11 @@ animations = [{
 "name": &"default",
 "speed": 2.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sgl2t"]
+shader = ExtResource("28_suyxu")
+shader_parameter/outerRadius = 5.0
+shader_parameter/MainAlpha = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trtic"]
 shader = ExtResource("12_kvuet")
@@ -817,6 +825,54 @@ position = Vector2(32, 32)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_e1j6l")
 autoplay = "default"
+
+[node name="Repair" type="TextureProgressBar" parent="UI/Control"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+value = 100.0
+fill_mode = 5
+nine_patch_stretch = true
+texture_under = ExtResource("28_qouja")
+texture_progress = ExtResource("29_wljb1")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/Repair"]
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "ability_1"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="DamageVignette" type="ColorRect" parent="UI"]
+process_mode = 3
+material = SubResource("ShaderMaterial_sgl2t")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [node name="FadeToBlack" type="ColorRect" parent="UI"]
 process_mode = 3
