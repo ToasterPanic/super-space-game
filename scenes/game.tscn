@@ -311,6 +311,7 @@ texture = ExtResource("1_uwrxv")
 shape = SubResource("ConvexPolygonShape2D_trtic")
 
 [node name="Camera" type="Camera2D" parent="Player"]
+position = Vector2(0, -200)
 ignore_rotation = false
 limit_enabled = false
 position_smoothing_speed = 8.0

@@ -13,8 +13,14 @@ var laser_scene = preload("res://scenes/laser.tscn")
 func _process(delta: float) -> void:
 	modulate.g = health / 1000.0
 	modulate.b = health / 1000.0
+	
 	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
 	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
+	
+	var screen_size = get_viewport().get_visible_rect()
+	
+	$Camera.zoom.x = ((screen_size.size.x / 1600) + (screen_size.size.y / 900)) / 2.5
+	$Camera.zoom.y = $Camera.zoom.x
 	
 	time_since_last_fire -= delta
 	

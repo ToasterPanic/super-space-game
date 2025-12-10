@@ -14,6 +14,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 	
+	var screen_size = get_viewport().get_visible_rect()
+	
+	$Camera.zoom.x = ((screen_size.size.x / 1600) + (screen_size.size.y / 900)) / 2
+	$Camera.zoom.y = $Camera.zoom.x
+	
 	if dead:
 		if processing_death: return
 		

@@ -186,4 +186,7 @@ func _ready() -> void:
 	LimboConsole.register_command(set_active_mission, "set_active_mission", "Sets the current active_mission variable")
 
 func _process(delta: float) -> void:
+	if !("time" in global.stats):
+		global.stats.time = 0
+	
 	global.stats.time += delta
