@@ -847,26 +847,6 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="SaveIndicator" type="Control" parent="UI/Control"]
-visible = false
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -64.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="SaveIcon" type="AnimatedSprite2D" parent="UI/Control/SaveIndicator"]
-position = Vector2(32, 32)
-scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_e1j6l")
-autoplay = "default"
-
 [node name="Repair" type="TextureProgressBar" parent="UI/Control"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
@@ -875,6 +855,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -136.0
+offset_top = -136.0
 offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 0
@@ -904,6 +886,26 @@ expand_mode = 1
 script = ExtResource("15_ca42v")
 action_name = "ability_1"
 metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="SaveIndicator" type="Control" parent="UI/Control"]
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SaveIcon" type="AnimatedSprite2D" parent="UI/Control/SaveIndicator"]
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_e1j6l")
+autoplay = "default"
 
 [node name="DamageVignette" type="ColorRect" parent="UI"]
 process_mode = 3
