@@ -1,11 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://dh3psx6ilrtql"]
+[gd_scene load_steps=16 format=3 uid="uid://dh3psx6ilrtql"]
 
 [ext_resource type="Script" uid="uid://bv7ymrwe6ciax" path="res://scripts/enemy_ground.gd" id="1_hqfmb"]
 [ext_resource type="AudioStream" uid="uid://dpkn65kpftlmr" path="res://sounds/alerted.mp3" id="2_egpqw"]
 [ext_resource type="AudioStream" uid="uid://boiv2kfau8gop" path="res://sounds/detecting.mp3" id="3_6bsrn"]
+[ext_resource type="Material" uid="uid://dclotedotaa68" path="res://scenes/fov_hide_material.tres" id="4_4hywj"]
 [ext_resource type="Texture2D" uid="uid://c0cyhybh30ogt" path="res://textures/player-ground-sheet.png" id="4_tcxjb"]
 [ext_resource type="Texture2D" uid="uid://csrlh1sbdroud" path="res://textures/pistol.png" id="5_k5k1o"]
 [ext_resource type="AudioStream" uid="uid://5x8fl2mk082h" path="res://sounds/gunshot_1.mp3" id="6_sh8im"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_g4cyr"]
+light_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jo68p"]
 atlas = ExtResource("4_tcxjb")
@@ -77,6 +81,7 @@ radius = 25.0
 height = 148.0
 
 [node name="Enemy" type="CharacterBody2D"]
+material = SubResource("CanvasItemMaterial_g4cyr")
 script = ExtResource("1_hqfmb")
 
 [node name="Alerted" type="AudioStreamPlayer2D" parent="."]
@@ -90,6 +95,7 @@ bus = &"Sound Effects"
 parameters/looping = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = ExtResource("4_4hywj")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vmpfq")
 
@@ -111,6 +117,7 @@ collision_mask = 2
 collide_with_areas = true
 
 [node name="Sprite" type="Sprite2D" parent="HeldItem"]
+material = ExtResource("4_4hywj")
 position = Vector2(56, 0)
 texture = ExtResource("5_k5k1o")
 
