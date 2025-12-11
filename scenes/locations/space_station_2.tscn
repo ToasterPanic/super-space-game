@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="25_4d5im"]
 [ext_resource type="Script" uid="uid://khas1kkt2t3k" path="res://scripts/exit_ship.gd" id="26_45jvp"]
 [ext_resource type="PackedScene" uid="uid://dh3psx6ilrtql" path="res://scenes/enemy_ground.tscn" id="30_uue4a"]
-[ext_resource type="AudioStream" uid="uid://c13fyse8fxmio" path="res://sounds/intrusion_alarm.mp3" id="32_j81pv"]
+[ext_resource type="AudioStream" uid="uid://c13fyse8fxmio" path="res://sounds/ambient/intrusion_alarm.mp3" id="32_j81pv"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vmimc"]
 

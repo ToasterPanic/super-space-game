@@ -217,3 +217,94 @@ func _handle_1():
 func _on_speed_up_area_entered(body: Node2D) -> void:
 	if body.get_parent() == player:
 		player.speed = 128
+
+func _interact(player: Node2D, area: Area2D):
+	if area.get_name() == "Doctor1DeskInteract":
+		player.busy = true
+		
+		await game.dialogue("Ready to leave?", "doctor_1", false, game.get_node("Doctor1"))
+		
+		var option_0 = await game.make_choice({
+			"yes": "Yes",
+			"no": "No"
+		})
+		
+		if option_0 == "no":
+			await game.dialogue("Okay, I'll be here when you're ready.", "doctor_1", true, game.get_node("Doctor1"))
+			
+			player.busy = false
+			
+			return
+			
+		
+		await game.dialogue("Okay! But first...", "doctor_1", true, game.get_node("Doctor1"))
+		
+		await game.dialogue("I'm going to need your name.", "doctor_1", true, game.get_node("Doctor1"))
+		
+		await game.dialogue("If you remember it, of course.", "doctor_1", true, game.get_node("Doctor1"))
+		
+		var option_1 = await game.make_choice({
+			"kendall": "Kendall..."
+		})
+		
+		await game.dialogue("Kendall...", "player", true, player)
+		
+		await game.dialogue("And last name?", "doctor_1", true, game.get_node("Doctor1"))
+	
+		var option_2 = await game.make_choice({
+			"kian": "Kian?",
+			"no_clue": "No clue"
+		})
+		
+		if option_2 == "kian":
+			await game.dialogue("Kian...?", "player", true, player)
+			
+			await game.dialogue("Got it.", "doctor_1", true, game.get_node("Doctor1"))
+		else:
+			await game.dialogue("I have no clue, sorry.", "player", true, player)
+			
+			await game.dialogue("Ah. Unfortunate.", "doctor_1", true, game.get_node("Doctor1"))
+		
+		await game.dialogue("Still woozy?", "doctor_1", true, game.get_node("Doctor1"))
+		
+		await game.dialogue("A little bit.", "player", true, player)
+		
+		await game.dialogue("Okay. You'll be able to sit down", "doctor_1", false, game.get_node("Doctor1"))
+		
+		game.end_dialogue(game.get_node("Doctor1"))
+		
+		$DistantGunshots.play()
+		
+		await get_tree().create_timer(1.5).timeout
+		
+		await game.dialogue("What in the...?", "doctor_1", false, game.get_node("Doctor1"))
+		
+		game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor2Waypoint1").global_position)
+		
+		await get_tree().create_timer(1.5).timeout
+		
+		$IntrusionAlarm.play()
+		
+		await get_tree().create_timer(0.75).timeout
+		
+		await game.dialogue("Oh, great.", "doctor_1", false, game.get_node("Doctor1"))
+		
+		await get_tree().create_timer(1).timeout
+		
+		$DoorBang.play()
+		
+		await get_tree().create_timer(2).timeout
+		
+		game.dialogue("The hell?!", "doctor_2", false, game.get_node("Doctor2"))
+		
+		await game.dialogue("Oh, shit!", "doctor_1", true, game.get_node("Doctor1"))
+		
+		game.end_dialogue(game.get_node("Doctor2"))
+		
+		await game.dialogue("You take this one, I'll go see who it is.", "doctor_2", true, game.get_node("Doctor2"))
+		
+		await game.dialogue("Are you trying to get yourself killed???", "doctor_1", true, game.get_node("Doctor1"))
+		
+		await game.dialogue("I know you'd want that, stop whining.", "doctor_2", true, game.get_node("Doctor2"))
+		
+		game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor2Waypoint1").global_position)

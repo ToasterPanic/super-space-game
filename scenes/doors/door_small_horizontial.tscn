@@ -73,6 +73,7 @@ size = Vector2(32, 32)
 polygon = PackedVector2Array(-16, 0, 16, 0, 16, 32, -16, 32, -16, 0)
 
 [node name="DoorSmallHorizontial" type="StaticBody2D"]
+y_sort_enabled = true
 scale = Vector2(2, 2)
 script = ExtResource("1_vy4yb")
 

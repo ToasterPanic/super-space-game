@@ -31,7 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cmv4wou5glrl7" path="res://textures/bed_foot.png" id="29_lrf36"]
 [ext_resource type="PackedScene" uid="uid://dh3psx6ilrtql" path="res://scenes/enemy_ground.tscn" id="30_cum0r"]
 [ext_resource type="Texture2D" uid="uid://bahp733iqv2us" path="res://textures/desk.png" id="31_l56sy"]
-[ext_resource type="AudioStream" uid="uid://c13fyse8fxmio" path="res://sounds/intrusion_alarm.mp3" id="32_sux6d"]
+[ext_resource type="AudioStream" uid="uid://c13fyse8fxmio" path="res://sounds/ambient/intrusion_alarm.mp3" id="32_sux6d"]
 [ext_resource type="AudioStream" uid="uid://f6l56kvndidj" path="res://sounds/background_gunshots.mp3" id="33_1bxo8"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vmimc"]

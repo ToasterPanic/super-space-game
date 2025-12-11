@@ -88,7 +88,7 @@ func _process(delta: float) -> void:
 		$UI/Control/Interact/End.text = "TO " + (current_interaction_area.interact_text)
 		
 		if Input.is_action_just_pressed("interact"):
-			if "_interact" in current_interaction_area.get_parent(): current_interaction_area.get_parent()._interact($PlayerGround)
+			if "_interact" in current_interaction_area.get_parent(): current_interaction_area.get_parent()._interact($PlayerGround, current_interaction_area)
 	else:
 		$UI/Control/Interact.visible = false
 

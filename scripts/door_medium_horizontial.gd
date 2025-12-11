@@ -8,11 +8,11 @@ func set_open(value: bool) -> void:
 	if open:
 		$Occluder.position.y = INF
 		$Sprite.animation = "open"
-		$Occluder.occluder_light_mask = 1
 	else:
 		$Occluder.position.y = 0
 		$Sprite.animation = "default"
-		$Occluder.occluder_light_mask = 0
+	
+	$CollisionShape.disabled = open
 		
 	$Sprite.play()
 	
