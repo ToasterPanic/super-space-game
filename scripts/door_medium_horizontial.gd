@@ -4,13 +4,15 @@ extends StaticBody2D
 
 func set_open(value: bool) -> void:
 	open = value
+	
 	if open:
-		$CollisionShape.disabled = true
+		$Occluder.position.y = INF
 		$Sprite.animation = "open"
-		
+		$Occluder.occluder_light_mask = 1
 	else:
-		$CollisionShape.disabled = false
+		$Occluder.position.y = 0
 		$Sprite.animation = "default"
+		$Occluder.occluder_light_mask = 0
 		
 	$Sprite.play()
 	

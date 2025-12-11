@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://cdhcklydf5uy1"]
+
+[ext_resource type="Script" uid="uid://b88ykyte6oi3i" path="res://scripts/door_medium_horizontial.gd" id="1_vy4yb"]
+[ext_resource type="Texture2D" uid="uid://sm820dv47sqt" path="res://textures/door_small_horizontial.png" id="2_cmooc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rw57e"]
+atlas = ExtResource("2_cmooc")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mhbb"]
+atlas = ExtResource("2_cmooc")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiiu4"]
+atlas = ExtResource("2_cmooc")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdv7i"]
+atlas = ExtResource("2_cmooc")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcos0"]
+atlas = ExtResource("2_cmooc")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_omvvo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rw57e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mhbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiiu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdv7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcos0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcos0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdv7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiiu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mhbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rw57e")
+}],
+"loop": false,
+"name": &"open",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vy4yb"]
+size = Vector2(32, 32)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vy4yb"]
+polygon = PackedVector2Array(-16, 0, 16, 0, 16, 32, -16, 32, -16, 0)
+
+[node name="DoorSmallHorizontial" type="StaticBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_vy4yb")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_omvvo")
+animation = &"open"
+autoplay = "default"
+frame = 4
+frame_progress = 1.0
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_vy4yb")
+
+[node name="Occluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_vy4yb")

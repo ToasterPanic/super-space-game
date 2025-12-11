@@ -9,7 +9,7 @@ var dialogue_colors = {
 	"player": Color("fff"),
 	"player_woozy": Color("fff"),
 	"doctor_1": Color("00ffffff"),
-	"doctor_2": Color("00a2ffff"),
+	"doctor_2": Color("004bffff"),
 }
 
 var dialogue_speed = {
@@ -116,8 +116,11 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true, 
 		if dialogue_colors.has(type): character.get_node("Dialogue").label_settings.font_color = dialogue_colors[type]
 	else:
 		$UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors.generic
+		$UI/Control/Dialogue/Label.label_settings.outline_color = dialogue_colors.generic
 		
-		if dialogue_colors.has(type): $UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors[type]
+		if dialogue_colors.has(type): 
+			$UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors[type]
+			$UI/Control/Dialogue/Label.label_settings.outline_color = dialogue_colors[type]
 	
 	var displayed_text = ""
 	
@@ -141,7 +144,7 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true, 
 
 		await dialogue_continue
 		
-		$UI/Control/Dialogue.visible = false
+		end_dialogue(character)
 
 func end_dialogue(character: Node2D = null) -> void:
 	$UI/Control/Dialogue.visible = false

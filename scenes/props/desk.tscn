@@ -6,6 +6,7 @@
 size = Vector2(191, 32)
 
 [node name="Desk" type="StaticBody2D"]
+y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)

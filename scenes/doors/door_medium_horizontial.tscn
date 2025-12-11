@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cs30mgkcn74is"]
+[gd_scene load_steps=13 format=3 uid="uid://cs30mgkcn74is"]
 
 [ext_resource type="Script" uid="uid://b88ykyte6oi3i" path="res://scripts/door_medium_horizontial.gd" id="1_8opqd"]
 [ext_resource type="Texture2D" uid="uid://djmlhid6f4xwi" path="res://textures/door_medium_horziontial.png" id="2_8opqd"]
@@ -89,6 +89,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhfm6"]
 size = Vector2(96, 32)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_8opqd"]
+polygon = PackedVector2Array(-32, 0, 32, 0, 32, 32, -32, 32, -32, 0)
+
 [node name="DoorMediumHorizontial" type="StaticBody2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_8opqd")
@@ -102,3 +105,11 @@ frame_progress = 1.0
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_bhfm6")
+
+[node name="NavigationBlocker" type="NavigationObstacle2D" parent="."]
+position = Vector2(-32, 0)
+vertices = PackedVector2Array(0, 0, 64, 0, 64, 32, 0, 32)
+affect_navigation_mesh = true
+
+[node name="Occluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_8opqd")
