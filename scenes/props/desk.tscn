@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aadnw"]
 size = Vector2(191, 32)
 
-[node name="StaticBody2D" type="StaticBody2D"]
+[node name="Desk" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)

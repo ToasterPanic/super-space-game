@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://xcjuahmskv21"]
+
+[ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_hifyb"]
+[ext_resource type="Script" uid="uid://khas1kkt2t3k" path="res://scripts/exit_ship.gd" id="2_rc8d1"]
+[ext_resource type="Script" uid="uid://dxkb8v7w4daw1" path="res://scripts/interact_area.gd" id="3_jqc2j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wcvcg"]
+size = Vector2(40, 40)
+
+[node name="ExitShip" type="Sprite2D"]
+scale = Vector2(8, 8)
+texture = ExtResource("1_hifyb")
+script = ExtResource("2_rc8d1")
+
+[node name="InteractArea" type="Area2D" parent="."]
+scale = Vector2(0.125, 0.125)
+script = ExtResource("3_jqc2j")
+interact_text = "LEAVE"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="InteractArea"]
+scale = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_wcvcg")
+
+[connection signal="body_entered" from="InteractArea" to="InteractArea" method="_on_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="InteractArea" method="_on_body_exited"]

@@ -92,17 +92,32 @@ func _process(delta: float) -> void:
 	else:
 		$UI/Control/Interact.visible = false
 
-func dialogue(text: String, type: String = "generic", allow_input: bool = true) -> void:
+func dialogue(text: String, type: String = "generic", allow_input: bool = true, character: Node2D = null) -> void:
 	$UI/Control/Dialogue/InputIcon.visible = false
 	$UI/Control/Dialogue.visible = true
+	$UI/Control/Dialogue/Label.text = ""
 	
 	var speed = dialogue_speed.generic
 	
 	if dialogue_speed.has(type): speed = dialogue_speed[type]
 	
-	$UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors.generic
+	$UI/Control/Dialogue/Label.visible = !character
 	
-	if dialogue_colors.has(type): $UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors[type]
+	if character:
+		character.get_node("Dialogue").label_settings = character.get_node("Dialogue").label_settings.duplicate()
+		
+		character.get_node("Dialogue").label_settings.outline_color = dialogue_colors.generic
+		character.get_node("Dialogue").label_settings.font_color = dialogue_colors.generic
+	
+		if dialogue_colors.has(type): 
+			character.get_node("Dialogue").label_settings.font_color = dialogue_colors[type]
+			character.get_node("Dialogue").label_settings.outline_color = dialogue_colors[type]
+		
+		if dialogue_colors.has(type): character.get_node("Dialogue").label_settings.font_color = dialogue_colors[type]
+	else:
+		$UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors.generic
+		
+		if dialogue_colors.has(type): $UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors[type]
 	
 	var displayed_text = ""
 	
@@ -110,7 +125,10 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true) 
 	while i < text.length():
 		displayed_text = displayed_text + text[i]
 		
-		$UI/Control/Dialogue/Label.text = displayed_text
+		if character:
+			character.get_node("Dialogue").text = displayed_text
+		else:
+			$UI/Control/Dialogue/Label.text = displayed_text
 		
 		$Dialogue.play()
 		
@@ -125,8 +143,11 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true) 
 		
 		$UI/Control/Dialogue.visible = false
 
-func end_dialogue() -> void:
+func end_dialogue(character: Node2D = null) -> void:
 	$UI/Control/Dialogue.visible = false
+	
+	if character:
+		character.get_node("Dialogue").text = ""
 	
 	return
 	

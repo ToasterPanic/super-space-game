@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://mbaippa75l7h"]
+
+[ext_resource type="Texture2D" uid="uid://ktvnppfhchoj" path="res://textures/bed.png" id="1_16w1d"]
+[ext_resource type="Texture2D" uid="uid://cmv4wou5glrl7" path="res://textures/bed_foot.png" id="2_esql8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycbdn"]
+size = Vector2(64, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16w1d"]
+size = Vector2(64, 24)
+
+[node name="Bed" type="Node2D"]
+
+[node name="Bed" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(2, 2)
+texture = ExtResource("1_16w1d")
+
+[node name="BedFoot" type="StaticBody2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D2" type="Sprite2D" parent="BedFoot"]
+texture = ExtResource("2_esql8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedFoot"]
+position = Vector2(0, 38)
+shape = SubResource("RectangleShape2D_ycbdn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BedFoot"]
+position = Vector2(0, -36)
+shape = SubResource("RectangleShape2D_16w1d")

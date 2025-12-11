@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://usayqpvpuotp"]
+
+[ext_resource type="FontFile" uid="uid://b4iebt7irm0e1" path="res://fonts/Oxanium.ttf" id="1_yw6i1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ttgmv"]
+line_spacing = 2.0
+font = ExtResource("1_yw6i1")
+font_size = 24
+outline_size = 4
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 0)
+
+[node name="Dialogue" type="Label"]
+custom_minimum_size = Vector2(256, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -37.0
+offset_right = 168.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_ttgmv")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
