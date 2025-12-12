@@ -13,7 +13,7 @@ func _ground_ready() -> void:
 		player.position = game.get_node("Waypoints/PlayerIntroSpawn").global_position
 		player.busy = true
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(3).timeout
 	
 		await game.dialogue("... are we just gonna let him go?", "zmg_doctor_1", true)
 	
@@ -67,9 +67,9 @@ func _ground_ready() -> void:
 		elif option_0 == "again":
 			await game.dialogue("... again ..?", "player", true, player)
 			
-			await game.dialogue("Yeah, unfortunately...", "zmg_doctor_1", true, game.get_node("ZMGHideoutCaptain"))
+			await game.dialogue("Yeah, unfortunately...", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
-			await game.dialogue("It's probably wise to tell you where you are.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			await game.dialogue("...well, it's probably wise to tell you where you are.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 			
 			await game.dialogue("You're currently in an ZMG hideout.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		elif option_0 == "where":
@@ -82,11 +82,11 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("we found you on the ground, riddled with bullet holes.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
-		await game.dialogue("The majority of them have healed.", "zmg_doctor_1", true, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("The majority of them have healed.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
-		await game.dialogue("You've been out for... nearing three earth weeks?", "zmg_doctor_1", true, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("You've been out for... almost four earth days?", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
-		await game.dialogue("Curie, if you could wait a second, I'd like to ask them a question.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("Carie, if you could wait a second, I'd like to ask them a question.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
 		await game.dialogue("Do you remember anything from your past life?", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
@@ -102,7 +102,7 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("I'd like to make you a deal.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
-		await game.dialogue("If you're not aware, we're a military for the nation of Atlana.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("If you're not aware, we're a military contractor for the Atlana Alliance.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
 		await game.dialogue("We'll try and find people from your past life.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
@@ -147,6 +147,72 @@ func _ground_ready() -> void:
 				await game.dialogue("Good luck out there.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 				
 				return
+		elif option_2 == "yes":
+			await game.dialogue("Good, good.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			
+		await game.dialogue("I don't think I ever got a name.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("It's Kendall.", "player", true, player)
+		
+		await game.dialogue("Well, I'm Captain Arcten.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("And I'm Dr. Carie.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("I can't wait to see you in my office soon, Kendall.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		_handle_4()
+		
+		await get_tree().create_timer(2).timeout
+		
+		await game.dialogue("I think we should probably get you up.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("You'll need to get used to walking again if you're staying here.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("It's also in your best interest if you get acquainted with everyone else here.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("I guarantee you'll be seeing them a lot.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("You think you can get up on your own?", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("Only one way to find out.", "player", true, player)
+		
+		await game.dialogue("Well, I can help if needed.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		player.speed = 64
+		player.busy = false
+		
+		game.get_node("ZMGDoctor1").navigate_to(game.get_node("Waypoints/DoctorPoint1").global_position)
+		
+		await game.dialogue("Try it.", "zmg_doctor_1", false, game.get_node("ZMGDoctor1"))
+		
+		_handle_3()
+		
+		while (player.global_position - game.get_node("ZMGDoctor1").global_position).length() > 48:
+			await get_tree().create_timer(0.2).timeout
+			
+		player.busy = true
+		
+		await game.dialogue("Got the hang of it?", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("Starting to.", "player", true, player)
+		
+		await game.dialogue("Anything hurt?", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("Nope.", "player", true, player)
+		
+		await game.dialogue("Alright, good. I think I'll let you walk around now.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("Once you're ready, you need to go talk to the Captain.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("He'll give you a room and whatnot.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+			
+		game.stats.story_progress = 2
+		
+		game.save_game()
+			
+		player.busy = false
+		player.speed = 128
+		
 func _handle_1():
 	var i = 0
 	while i < 5:
@@ -158,10 +224,33 @@ func _handle_1():
 		
 
 func _handle_2():
-	var i = 15
+	var i = 5
 	while i < 25:
 		await get_tree().create_timer(0.2).timeout
 		
 		game.set_vignette_parameter("softness", i * 0.02)
 		
 		i += 1
+
+func _handle_3():
+	var i = 25
+	while i < 100:
+		await get_tree().create_timer(0.2).timeout
+		
+		game.set_vignette_parameter("softness", i * 0.04)
+		
+		i += 2
+
+func _handle_4():
+	await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint1").global_position)
+	
+	game.get_node("CaptainDoor1").set_open(true)
+	
+	await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint2").global_position)
+	
+	game.get_node("CaptainDoor1").set_open(false)
+
+
+func _on_speed_up_area_entered(area: Area2D) -> void:
+	if area.get_parent() == player:
+		player.speed = 256

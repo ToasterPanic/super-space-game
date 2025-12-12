@@ -27,14 +27,28 @@ var missions = {
 	"waking_up": {
 		"id": "waking_up",
 		"name": "Waking Up",
-		"desc": "Welcome back, spaceperson.",
+		"desc": "",
+		"rewards": {
+			"marks": 0
+		},
+		"silent": true,
+		"objectives": {
+			"desk": "Visit the Doctor at his desk",
+			"follow": "Follow the Doctor",
+			"run": "There is no escape"
+		}
+	},
+	"welcome_to_the_club": {
+		"id": "welcome_to_the_club",
+		"name": "Welcome to the Club",
+		"desc": "",
 		"rewards": {
 			"marks": 500
 		},
 		"objectives": {
-			"desk": "Visit the doctor at their desk",
-			"follow": "Follow the doctor",
-			"run": "My suggestion: RUN!",
+			"desk": "Visit the Captain at his desk",
+			"follow": "Follow the Captain",
+			"fire_1": "My suggestion: RUN!",
 			"escape": "Escape to your ship"
 		}
 	},

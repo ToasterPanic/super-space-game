@@ -4,6 +4,7 @@ var horizontial_movement = 0
 var vertical_movement = 0
 var speed = 256
 var health = 100
+var max_health: float = 100
 var dead = false
 
 var fire_delay = 0
@@ -66,8 +67,8 @@ func _process(delta: float) -> void:
 	if !$Sprite.is_playing():
 		$Sprite.play()
 		
-	$Sprite.modulate.g = health / 100.0
-	$Sprite.modulate.b = health / 100.0
+	$Sprite.modulate.g = health / max_health
+	$Sprite.modulate.b = health / max_health
 	
 	if health <= 0:
 		dead = true

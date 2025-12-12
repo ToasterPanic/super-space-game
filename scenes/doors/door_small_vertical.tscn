@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://debhgjfa38lo2"]
+
+[ext_resource type="Script" uid="uid://b88ykyte6oi3i" path="res://scripts/door_medium_horizontial.gd" id="1_ln305"]
+[ext_resource type="Texture2D" uid="uid://bi5pmsxr5tyi6" path="res://textures/door_small_vertical.png" id="2_e8e54"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5s7t7"]
+atlas = ExtResource("2_e8e54")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsfur"]
+atlas = ExtResource("2_e8e54")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cvxt"]
+atlas = ExtResource("2_e8e54")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vw4bd"]
+atlas = ExtResource("2_e8e54")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mu2b"]
+atlas = ExtResource("2_e8e54")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7iif4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5s7t7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsfur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cvxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vw4bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mu2b")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mu2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vw4bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cvxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsfur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5s7t7")
+}],
+"loop": false,
+"name": &"open",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ln305"]
+size = Vector2(8, 64)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ln305"]
+polygon = PackedVector2Array(-4, -32, 4, -32, 4, 32, -4, 32, -4, 0)
+
+[node name="DoorSmallHorizontial" type="StaticBody2D"]
+z_as_relative = false
+y_sort_enabled = true
+scale = Vector2(2, 2)
+script = ExtResource("1_ln305")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7iif4")
+animation = &"open"
+autoplay = "default"
+frame = 4
+frame_progress = 1.0
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ln305")
+
+[node name="Occluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ln305")

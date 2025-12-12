@@ -51,6 +51,10 @@ func _ready() -> void:
 	
 	LimboConsole.register_command(give_ground_gun, "give_ground_gun", "Gives a gun for ground mode")
 	
+	var location_scene = load("res://scenes/locations/" + global.stats.location + ".tscn").instantiate()
+	
+	var player_spawn = location_scene.get_node("PlayerSpawn")
+	
 	if global.stats.position:
 		print("AAA ", global.stats.position)
 		$PlayerGround.global_position.x = global.stats.position.x
@@ -58,9 +62,7 @@ func _ready() -> void:
 		
 		global.stats.position = null
 	else:
-		$PlayerGround.global_position = $PlayerSpawn.global_position
-	
-	var location_scene = load("res://scenes/locations/" + global.stats.location + ".tscn").instantiate()
+		$PlayerGround.global_position = player_spawn.global_position
 	
 	for n in location_scene.get_children():
 		location_scene.remove_child(n)

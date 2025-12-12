@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://dfjnikjjynj0e"]
+[gd_scene load_steps=41 format=4 uid="uid://dfjnikjjynj0e"]
 
 [ext_resource type="TileSet" uid="uid://kifa6h2ijui4" path="res://resources/wall_tileset.tres" id="1_4uppp"]
 [ext_resource type="TileSet" uid="uid://diq7a07apv5n5" path="res://resources/floor_tileset.tres" id="4_ir5n7"]
@@ -21,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://w3hai62ji61g" path="res://sounds/ambient/heart_monitor.mp3" id="19_ttgmv"]
 [ext_resource type="PackedScene" uid="uid://dojlc4q0jwjtn" path="res://scenes/props/locker.tscn" id="20_v7oqm"]
 [ext_resource type="PackedScene" uid="uid://dh3psx6ilrtql" path="res://scenes/enemy_ground.tscn" id="22_janyw"]
+[ext_resource type="PackedScene" uid="uid://debhgjfa38lo2" path="res://scenes/doors/door_small_vertical.tscn" id="23_tvsp8"]
 [ext_resource type="AudioStream" uid="uid://f6l56kvndidj" path="res://sounds/background_gunshots.mp3" id="28_vmimc"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1wvab"]
@@ -368,9 +369,6 @@ position = Vector2(224, -320)
 [node name="AssholeOfficeDoor" parent="." instance=ExtResource("17_akl5n")]
 position = Vector2(480, 0)
 
-[node name="test" parent="." instance=ExtResource("17_akl5n")]
-position = Vector2(672, -512)
-
 [node name="test6" parent="." instance=ExtResource("17_akl5n")]
 position = Vector2(2656, -448)
 
@@ -465,6 +463,9 @@ starting_health = 150
 concious = false
 always_sees_player = true
 inaccuracy = 4
+
+[node name="DoorSmallHorizontial" parent="." instance=ExtResource("23_tvsp8")]
+position = Vector2(672, -512)
 
 [connection signal="area_entered" from="Triggers/SpeedUp" to="SpaceStation1Handler" method="_on_speed_up_area_entered"]
 [connection signal="area_entered" from="Triggers/SpeedUp2" to="SpaceStation1Handler" method="_on_speed_up_2_area_entered"]
