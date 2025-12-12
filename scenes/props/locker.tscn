@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dojlc4q0jwjtn"]
+
+[ext_resource type="Texture2D" uid="uid://bgui3ranlk441" path="res://textures/locker.png" id="1_3xmk8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k741b"]
+size = Vector2(32, 64)
+
+[node name="Locker" type="StaticBody2D"]
+scale = Vector2(2, 2)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_3xmk8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k741b")

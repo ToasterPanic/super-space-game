@@ -1,7 +1,7 @@
 [gd_scene load_steps=69 format=4 uid="uid://bl86qva767iwq"]
 
 [ext_resource type="AudioStream" uid="uid://dgv01wy8r7ej2" path="res://sounds/uglyburger.mp3" id="1_12kaa"]
-[ext_resource type="AudioStream" uid="uid://w3hai62ji61g" path="res://sounds/heart_monitor.mp3" id="2_m85es"]
+[ext_resource type="AudioStream" uid="uid://w3hai62ji61g" path="res://sounds/ambient/heart_monitor.mp3" id="2_m85es"]
 [ext_resource type="AudioStream" uid="uid://7cvp5b3mq1tn" path="res://sounds/music/dnbd_sudden.mp3" id="3_7hmt6"]
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="4_bfqmo"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="5_x2s1w"]

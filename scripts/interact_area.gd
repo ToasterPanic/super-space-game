@@ -1,9 +1,11 @@
 extends Area2D
 
-@export var interact_text = "INTERACT"
+@export var interact_text: String = "INTERACT"
+@export var interact_node: Node2D = get_parent()
 var game = null
 
 func _on_body_entered(body: Node2D) -> void:
+	print("dgsijgs")
 	if !game: return
 	
 	if (body.get_name() == "PlayerGround") or (game.get_node("PlayerGround").is_ancestor_of(body)):

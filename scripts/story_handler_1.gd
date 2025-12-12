@@ -149,8 +149,6 @@ func _ground_ready() -> void:
 				"whats_next": "What's next...?",
 			})
 			
-			print(choice_4)
-			
 			if choice_4 == "space":
 				await game.dialogue("Hold on... intergalactic... I'm in space?", "player_slow", false)
 				

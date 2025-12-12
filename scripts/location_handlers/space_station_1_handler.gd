@@ -6,9 +6,7 @@ var game = null
 func _ground_ready() -> void:
 	player = game.get_node("PlayerGround")
 	
-	if global.stats.story_progress < 999:
-		#game.get_node("HeartMonitor").play()
-		
+	if global.stats.story_progress == 0:
 		game.set_vignette_parameter("radius", 0)
 		game.set_vignette_parameter("softness", 0)
 		
@@ -212,6 +210,8 @@ func _handle_1():
 	game.get_node("RosenheimOfficeDoor1").set_open(true)
 		
 	await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint2").global_position)
+			
+	game.get_node("RosenheimOfficeDoor1").set_open(false)
 
 
 func _on_speed_up_area_entered(body: Node2D) -> void:
@@ -221,6 +221,8 @@ func _on_speed_up_area_entered(body: Node2D) -> void:
 func _interact(player: Node2D, area: Area2D):
 	if area.get_name() == "Doctor1DeskInteract":
 		player.busy = true
+		
+		area.monitoring = false
 		
 		await game.dialogue("Ready to leave?", "doctor_1", false, game.get_node("Doctor1"))
 		
@@ -233,6 +235,8 @@ func _interact(player: Node2D, area: Area2D):
 			await game.dialogue("Okay, I'll be here when you're ready.", "doctor_1", true, game.get_node("Doctor1"))
 			
 			player.busy = false
+			
+			area.monitoring = true
 			
 			return
 			
@@ -275,11 +279,11 @@ func _interact(player: Node2D, area: Area2D):
 		
 		$DistantGunshots.play()
 		
+		game.get_node("Doctor2").navigate_to(game.get_node("Waypoints/Doctor2Waypoint2").global_position)
+		
 		await get_tree().create_timer(1.5).timeout
 		
 		await game.dialogue("What in the...?", "doctor_1", false, game.get_node("Doctor1"))
-		
-		game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor2Waypoint1").global_position)
 		
 		await get_tree().create_timer(1.5).timeout
 		
@@ -297,14 +301,54 @@ func _interact(player: Node2D, area: Area2D):
 		
 		game.dialogue("The hell?!", "doctor_2", false, game.get_node("Doctor2"))
 		
-		await game.dialogue("Oh, shit!", "doctor_1", true, game.get_node("Doctor1"))
+		await game.dialogue("?!", "doctor_1", true, game.get_node("Doctor1"))
 		
 		game.end_dialogue(game.get_node("Doctor2"))
 		
-		await game.dialogue("You take this one, I'll go see who it is.", "doctor_2", true, game.get_node("Doctor2"))
+		await game.dialogue("You take them somewhere safe, I'll go see who it is.", "doctor_2", true, game.get_node("Doctor2"))
 		
-		await game.dialogue("Are you trying to get yourself killed???", "doctor_1", true, game.get_node("Doctor1"))
+		await game.dialogue("There were just gunshots!", "doctor_1", true, game.get_node("Doctor1"))
+		
+		await game.dialogue("Are you trying to get yourself killed?!", "doctor_1", true, game.get_node("Doctor1"))
 		
 		await game.dialogue("I know you'd want that, stop whining.", "doctor_2", true, game.get_node("Doctor2"))
 		
-		game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor2Waypoint1").global_position)
+		game.get_node("Doctor2").navigate_to(game.get_node("Waypoints/Doctor2Waypoint3").global_position)
+		
+		await game.dialogue("...you need to come with me.", "doctor_1", true, game.get_node("Doctor1"))
+		
+		player.busy = false
+		
+		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint3").global_position)
+		
+		game.get_node("RosenheimOfficeDoor1").set_open(true)
+		
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		
+		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint4").global_position)
+		
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		
+		game.get_node("RosenheimOfficeDoor1").set_open(false)
+		
+		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint5").global_position)
+		
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		
+		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint6").global_position)
+		
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		
+		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint7").global_position)
+		
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		
+		await game.dialogue("Stay close.", "doctor_1", false, game.get_node("Doctor1"))
+		
+		await get_tree().create_timer(1.75).timeout
+		
+		await game.end_dialogue(game.get_node("Doctor1"))
+		
+		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint8").global_position)
+		
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
