@@ -82,6 +82,7 @@ height = 148.0
 
 [node name="Enemy" type="CharacterBody2D"]
 material = SubResource("CanvasItemMaterial_g4cyr")
+motion_mode = 1
 script = ExtResource("1_hqfmb")
 
 [node name="Alerted" type="AudioStreamPlayer2D" parent="."]

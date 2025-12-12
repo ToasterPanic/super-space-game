@@ -12,6 +12,9 @@ var dialogue_colors = {
 	"doctor_2": Color("004bffff"),
 }
 
+var combat = false
+var combat_track = null
+
 var dialogue_speed = {
 	"generic": 0.037,
 	"player_slow": 0.06,
@@ -91,6 +94,25 @@ func _process(delta: float) -> void:
 			if "_interact" in current_interaction_area.interact_node: current_interaction_area.interact_node._interact($PlayerGround, current_interaction_area)
 	else:
 		$UI/Control/Interact.visible = false
+		
+	if has_node("Enemies"):
+		for n in $Enemies.get_children():
+			if "ai_mode" in n:
+				if n.ai_mode == n.AI_MODE_ATTACK:
+					combat = true
+						
+		if combat:
+			if !combat_track:
+				var combat_tracks = $CombatMusic.get_children()
+				
+				combat_track = combat_tracks[randi_range(0, combat_tracks.size() - 1)]
+				
+				combat_track.play()
+		else:
+			if combat_track:
+				combat_track.stop()
+				
+				combat_track = null
 
 func dialogue(text: String, type: String = "generic", allow_input: bool = true, character: Node2D = null) -> void:
 	$UI/Control/Dialogue/InputIcon.visible = false

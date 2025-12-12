@@ -1,8 +1,12 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://cbmx3klr6k4mt"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cbmx3klr6k4mt"]
 
 [sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_j3pel"]
 resource_name = "LowPassFilter"
 cutoff_hz = 10000.0
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_g28q7"]
+resource_name = "LowPassFilter"
+db = 3
 
 [resource]
 bus/0/effect/0/effect = SubResource("AudioEffectLowPassFilter_j3pel")
@@ -19,3 +23,11 @@ bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
 bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectLowPassFilter_g28q7")
+bus/2/effect/0/enabled = false
+bus/3/name = &"Death Effects"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"

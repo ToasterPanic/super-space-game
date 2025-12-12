@@ -347,8 +347,33 @@ func _interact(player: Node2D, area: Area2D):
 		
 		await get_tree().create_timer(1.75).timeout
 		
-		await game.end_dialogue(game.get_node("Doctor1"))
+		game.end_dialogue(game.get_node("Doctor1"))
+		
+		game.get_node("MedbayMaintDoor1").set_open(true)
 		
 		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint8").global_position)
 		
 		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		
+		await game.dialogue("OH SH", "doctor_1", false, game.get_node("Doctor1"))
+		
+		game.get_node("Doctor1").health = 20
+		
+		game.get_node("Enemies/IntroEnemy1/HeldItem").look_at(game.get_node("Doctor1").global_position)
+		game.get_node("Enemies/IntroEnemy1").firing = true
+		
+		#game.dialogue("AARRRGHH!!!!!", "doctor_1", false, game.get_node("Doctor1"))
+		
+		while game.get_node("Doctor1").health > 0: await get_tree().create_timer(0.1).timeout
+		
+		game.end_dialogue(game.get_node("Doctor1"))
+		
+		await get_tree().create_timer(0.5).timeout
+		
+		game.get_node("Enemies/IntroEnemy1").firing = false
+		game.get_node("Enemies/IntroEnemy1").concious = true
+
+
+func _on_speed_up_2_area_entered(area: Area2D) -> void:
+	if area.get_parent() == player:
+		player.speed = 256

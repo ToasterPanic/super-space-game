@@ -24,7 +24,6 @@ var ai_state = AI_STATE_DEFAULT
 var last_seen_player_position = null
 
 @onready var player = null 
-var game = null
 
 ## The enemy's starting gun. Leave blank for no weapon
 @export var starting_gun: String = &"pistol"

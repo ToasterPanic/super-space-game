@@ -2,6 +2,7 @@ extends "res://scripts/character_ground.gd"
 
 var last_aim_direction = Vector2(0, 0)
 var processing_death = false
+var camera_shake_power = 0
 
 func _ready() -> void:
 	super()
@@ -19,17 +20,38 @@ func _process(delta: float) -> void:
 	$Camera.zoom.x = ((screen_size.size.x / 1600) + (screen_size.size.y / 900)) / 2.5
 	$Camera.zoom.y = $Camera.zoom.x
 	
+	camera_shake_power -= delta * 20
+	if camera_shake_power < 0:
+		camera_shake_power = 0
+	
+	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
+	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
+	
 	if dead:
 		if processing_death: return
 		
 		processing_death = true
 		
-		await get_tree().create_timer(1).timeout
+		AudioServer.set_bus_effect_enabled(2, 0, true)
 		
-		if global.checkpoint:
-			global.load_game()
-			get_tree().change_scene_to_file("res://scenes/ground.tscn")
-		return
+		AudioServer.set_bus_volume_linear(3, AudioServer.get_bus_volume_linear(2))
+		
+		$Death.play()
+		
+		var i = 21
+		while i > -1:
+			await get_tree().create_timer(0.05).timeout
+			
+			get_parent().set_vignette_parameter("softness", i * 0.05)
+			
+			i -= 1
+			
+		await get_tree().create_timer(4).timeout
+		
+		AudioServer.set_bus_effect_enabled(2, 0, false)
+		
+		global.load_game()
+		get_tree().change_scene_to_file("res://scenes/ground.tscn")
 	
 	if input_icon.using_gamepad:
 		if !((Input.get_axis("aim_left", "aim_right") == 0) and (Input.get_axis("aim_up", "aim_down") == 0)):

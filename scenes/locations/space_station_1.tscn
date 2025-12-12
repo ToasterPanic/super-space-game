@@ -173,6 +173,7 @@ script = ExtResource("6_a5j23")
 
 [node name="Doctor1" type="CharacterBody2D" parent="."]
 position = Vector2(1504, -904)
+motion_mode = 1
 script = ExtResource("14_vmimc")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Doctor1"]
@@ -210,6 +211,7 @@ offset_bottom = -67.0
 
 [node name="Doctor2" type="CharacterBody2D" parent="."]
 position = Vector2(1544, -856)
+motion_mode = 1
 script = ExtResource("14_vmimc")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Doctor2"]
@@ -320,6 +322,9 @@ position = Vector2(-224, -232)
 [node name="Doctor1Waypoint7" type="Node2D" parent="Waypoints"]
 position = Vector2(-224, -616)
 
+[node name="Doctor1Waypoint8" type="Node2D" parent="Waypoints"]
+position = Vector2(-224, -832)
+
 [node name="Doctor1Waypoint2" type="Node2D" parent="Waypoints"]
 position = Vector2(-992, 528)
 
@@ -332,6 +337,15 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SpeedUp"]
+shape = SubResource("RectangleShape2D_83fjc")
+
+[node name="SpeedUp2" type="Area2D" parent="Triggers"]
+position = Vector2(152, 392)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/SpeedUp2"]
+position = Vector2(-1200, 16)
 shape = SubResource("RectangleShape2D_83fjc")
 
 [node name="Doctor1DeskInteract" type="Area2D" parent="Triggers" node_paths=PackedStringArray("interact_node")]
@@ -358,9 +372,6 @@ position = Vector2(2656, -448)
 position = Vector2(800, 0)
 
 [node name="MedbayMaintDoor1" parent="." instance=ExtResource("17_akl5n")]
-position = Vector2(1184, -1600)
-
-[node name="MedbayMaintDoor2" parent="." instance=ExtResource("17_akl5n")]
 position = Vector2(1184, -1600)
 
 [node name="MedbayDoorLargeVertical" type="StaticBody2D" parent="."]
@@ -402,24 +413,30 @@ script = ExtResource("14_kpeax")
 [node name="IntrusionAlarm" type="AudioStreamPlayer" parent="SpaceStation1Handler"]
 stream = ExtResource("17_83fjc")
 volume_db = -8.0
+bus = &"Sound Effects"
+parameters/looping = true
 
 [node name="DistantGunshots" type="AudioStreamPlayer2D" parent="SpaceStation1Handler"]
 position = Vector2(2864, -552)
 stream = ExtResource("28_vmimc")
 max_distance = 99999.0
+bus = &"Sound Effects"
 
 [node name="HeartMonitor" type="AudioStreamPlayer2D" parent="SpaceStation1Handler"]
 position = Vector2(1448, -872)
 stream = ExtResource("19_ttgmv")
+volume_db = 8.0
 autoplay = true
 max_distance = 352.0
 attenuation = 0.32987696
+bus = &"Sound Effects"
 parameters/looping = true
 
 [node name="DoorBang" type="AudioStreamPlayer2D" parent="SpaceStation1Handler"]
 position = Vector2(2056, -160)
 stream = ExtResource("19_akl5n")
 max_distance = 3500.0
+bus = &"Sound Effects"
 
 [node name="Locker" parent="." instance=ExtResource("20_v7oqm")]
 position = Vector2(1120, -1280)
@@ -444,5 +461,6 @@ always_sees_player = true
 inaccuracy = 4
 
 [connection signal="area_entered" from="Triggers/SpeedUp" to="SpaceStation1Handler" method="_on_speed_up_area_entered"]
+[connection signal="area_entered" from="Triggers/SpeedUp2" to="SpaceStation1Handler" method="_on_speed_up_2_area_entered"]
 [connection signal="body_entered" from="Triggers/Doctor1DeskInteract" to="Triggers/Doctor1DeskInteract" method="_on_body_entered"]
 [connection signal="body_exited" from="Triggers/Doctor1DeskInteract" to="Triggers/Doctor1DeskInteract" method="_on_body_exited"]

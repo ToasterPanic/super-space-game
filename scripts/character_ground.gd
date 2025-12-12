@@ -17,6 +17,8 @@ var sprinting = false
 var equipped_ground_gun = "pistol"
 var ammo_in_mag = 12
 
+var game = null
+
 func set_ground_gun(value):
 	equipped_ground_gun = value
 	
@@ -102,7 +104,6 @@ func _process(delta: float) -> void:
 			$HeldItem.visible = true
 			
 			if firing and (fire_delay < 0):
-	
 				$HeldItem/Cast.force_raycast_update()
 				
 				var hit_target = $HeldItem/Cast.get_collider()
@@ -136,6 +137,10 @@ func _process(delta: float) -> void:
 				bullet_trail.play()
 				
 				$HeldItem/Gunshot.play()
+				
+				if game:
+					if game.get_node("PlayerGround").camera_shake_power <= 2:
+						game.get_node("PlayerGround").camera_shake_power = 2
 				
 				fire_delay = global.ground_guns[equipped_ground_gun].fire_rate
 	
