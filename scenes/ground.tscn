@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://by43ihcec8e8q"]
+[gd_scene load_steps=44 format=3 uid="uid://by43ihcec8e8q"]
 
 [ext_resource type="Script" uid="uid://b2sw6ymaf4t0s" path="res://scripts/game_ground.gd" id="1_6ra5r"]
 [ext_resource type="AudioStream" uid="uid://bugpae8rrttjn" path="res://sounds/music/stars.mp3" id="2_rncil"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://denof8w45mail" path="res://sounds/death.mp3" id="8_41adg"]
 [ext_resource type="Shader" uid="uid://d2e0541hawkml" path="res://scripts/vignette.gdshader" id="9_5vwr8"]
 [ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="9_257nh"]
+[ext_resource type="AudioStream" uid="uid://8tb5t0nk2u0y" path="res://sounds/knockout.mp3" id="9_dnkg1"]
 [ext_resource type="PackedScene" uid="uid://bav8ogrhgycaw" path="res://scenes/alertness_marker.tscn" id="9_hby33"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="13_176r3"]
 [ext_resource type="Texture2D" uid="uid://dibsut6ee6qd5" path="res://textures/asteroid_medium.png" id="13_eyphm"]
@@ -94,6 +95,14 @@ height = 48.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8gbjj"]
 height = 94.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8gbjj"]
+shader = ExtResource("9_5vwr8")
+shader_parameter/radius = 1.0
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 2.0
+shader_parameter/contrast = 2.2
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_5vwr8"]
 font = ExtResource("16_eyphm")
 font_size = 32
@@ -141,14 +150,6 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8gbjj"]
-shader = ExtResource("9_5vwr8")
-shader_parameter/radius = 1.0
-shader_parameter/softness = 1.0
-shader_parameter/intensity = 2.0
-shader_parameter/contrast = 2.2
-shader_parameter/vignette_color = Color(0, 0, 0, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ypt7u"]
 shader = ExtResource("9_257nh")
 shader_parameter/shake = 0.002000000095
@@ -175,14 +176,17 @@ script = ExtResource("1_6ra5r")
 [node name="Stars" type="AudioStreamPlayer" parent="CombatMusic"]
 stream = ExtResource("2_rncil")
 volume_db = -8.0
+bus = &"Music"
 
 [node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="CombatMusic"]
 stream = ExtResource("3_2tk4m")
 volume_db = -8.0
+bus = &"Music"
 
 [node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic"]
 stream = ExtResource("4_gur08")
 volume_db = -8.0
+bus = &"Music"
 parameters/looping = true
 
 [node name="Dialogue" type="AudioStreamPlayer" parent="."]
@@ -204,6 +208,11 @@ script = ExtResource("3_8gbjj")
 
 [node name="Death" type="AudioStreamPlayer" parent="PlayerGround"]
 stream = ExtResource("8_41adg")
+volume_db = 8.0
+bus = &"Death Effects"
+
+[node name="Knockout" type="AudioStreamPlayer" parent="PlayerGround"]
+stream = ExtResource("9_dnkg1")
 volume_db = 8.0
 bus = &"Death Effects"
 
@@ -265,6 +274,16 @@ offset_right = 128.0
 offset_bottom = -67.0
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Vignette" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_8gbjj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [node name="Control" type="Control" parent="UI"]
 layout_mode = 3
@@ -558,16 +577,6 @@ layout_mode = 1
 layout_mode = 1
 offset_left = -256.0
 offset_bottom = 69.0
-
-[node name="Vignette" type="ColorRect" parent="UI"]
-material = SubResource("ShaderMaterial_8gbjj")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(1, 1, 1, 0)
 
 [node name="Shader" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_ypt7u")

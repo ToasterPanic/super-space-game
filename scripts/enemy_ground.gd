@@ -113,33 +113,33 @@ func _process(delta: float) -> void:
 		if points.size() > 0:
 			if !current_node: current_node = points[0]
 			
-			if $Navagent.is_navigation_finished():
+			if $Navigation/Agent.is_navigation_finished():
 				if points.find(current_node) + 1 > points.size() - 1:
 					current_node = points[0]
 				else:
 					current_node = points[points.find(current_node) + 1]
 			else:
-				var next_position = $Navagent.get_next_path_position()
+				var next_position = $Navigation/Agent.get_next_path_position()
 				next_position.y -= 32
 				var axes = global_position.direction_to(next_position)
 				
 				horizontial_movement = axes.x
 				vertical_movement = axes.y
 				
-			if !$Navagent.target_position or ($Navagent.target_position != current_node.position): $Navagent.target_position = current_node.position
+			if !$Navigation/Agent.target_position or ($Navigation/Agent.target_position != current_node.position): $Navigation/Agent.target_position = current_node.position
 		
 	elif ai_mode == AI_MODE_ATTACK:
 		$Detecting.playing = false
 		
 		$LineOfSight.look_at(player.global_position)
 		if player.is_ancestor_of($LineOfSight.get_collider()):
-			if !$Navagent.target_position or ($Navagent.target_position != player.global_position):
-				$Navagent.target_position = player.global_position
+			if !$Navigation/Agent.target_position or ($Navigation/Agent.target_position != player.global_position):
+				$Navigation/Agent.target_position = player.global_position
 				
 			ai_state = AI_STATE_CHASE
 		elif last_seen_player_position:
-			if !$Navagent.target_position or ($Navagent.target_position != last_seen_player_position):
-				$Navagent.target_position = last_seen_player_position
+			if !$Navigation/Agent.target_position or ($Navigation/Agent.target_position != last_seen_player_position):
+				$Navigation/Agent.target_position = last_seen_player_position
 				
 			ai_state = AI_STATE_CHASE_LAST_SEEN
 			
@@ -147,11 +147,11 @@ func _process(delta: float) -> void:
 		
 		if ai_state == AI_STATE_CHASE:
 			if (player.global_position - global_position).length() > 256:
-				if $Navagent.is_navigation_finished():
+				if $Navigation/Agent.is_navigation_finished():
 					last_seen_player_position = null
 					ai_mode = AI_MODE_IDLE
 				else:
-					var next_position = $Navagent.get_next_path_position()
+					var next_position = $Navigation/Agent.get_next_path_position()
 					next_position.y -= 32
 					var axes = global_position.direction_to(next_position)
 					
@@ -174,11 +174,11 @@ func _process(delta: float) -> void:
 		elif ai_state == AI_STATE_CHASE_LAST_SEEN:
 			firing = false 
 			
-			if $Navagent.is_navigation_finished():
+			if $Navigation/Agent.is_navigation_finished():
 				last_seen_player_position = null
 				ai_mode = AI_MODE_IDLE
 			else:
-				var next_position = $Navagent.get_next_path_position()
+				var next_position = $Navigation/Agent.get_next_path_position()
 				next_position.y -= 32
 				var axes = global_position.direction_to(next_position)
 				

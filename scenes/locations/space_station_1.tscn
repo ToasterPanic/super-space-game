@@ -190,11 +190,6 @@ limit_enabled = false
 position = Vector2(0, 40)
 shape = SubResource("CapsuleShape2D_83fjc")
 
-[node name="Navagent" type="NavigationAgent2D" parent="Doctor1"]
-path_desired_distance = 34.0
-target_desired_distance = 34.0
-path_postprocessing = 1
-
 [node name="Hitbox" type="Area2D" parent="Doctor1"]
 collision_layer = 2
 collision_mask = 2
@@ -208,6 +203,14 @@ offset_left = -128.0
 offset_top = -92.0
 offset_right = 128.0
 offset_bottom = -67.0
+
+[node name="Navigation" type="Node2D" parent="Doctor1"]
+position = Vector2(0, 48)
+
+[node name="Agent" type="NavigationAgent2D" parent="Doctor1/Navigation"]
+path_desired_distance = 34.0
+target_desired_distance = 34.0
+path_postprocessing = 1
 
 [node name="Doctor2" type="CharacterBody2D" parent="."]
 position = Vector2(1544, -856)
@@ -228,11 +231,6 @@ limit_enabled = false
 position = Vector2(0, 40)
 shape = SubResource("CapsuleShape2D_83fjc")
 
-[node name="Navagent" type="NavigationAgent2D" parent="Doctor2"]
-path_desired_distance = 34.0
-target_desired_distance = 34.0
-path_postprocessing = 1
-
 [node name="Hitbox" type="Area2D" parent="Doctor2"]
 collision_layer = 2
 collision_mask = 2
@@ -246,6 +244,14 @@ offset_left = -128.0
 offset_top = -92.0
 offset_right = 128.0
 offset_bottom = -67.0
+
+[node name="Navigation" type="Node2D" parent="Doctor2"]
+position = Vector2(0, 48)
+
+[node name="Agent" type="NavigationAgent2D" parent="Doctor2/Navigation"]
+path_desired_distance = 34.0
+target_desired_distance = 34.0
+path_postprocessing = 1
 
 [node name="Bed4" parent="." instance=ExtResource("10_1wvab")]
 position = Vector2(768, -888)

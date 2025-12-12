@@ -32,11 +32,15 @@ func _process(delta: float) -> void:
 		
 		processing_death = true
 		
+		AudioServer.set_bus_effect_enabled(1, 0, true)
 		AudioServer.set_bus_effect_enabled(2, 0, true)
 		
 		AudioServer.set_bus_volume_linear(3, AudioServer.get_bus_volume_linear(2))
 		
-		$Death.play()
+		if global.stats.story_progress == 0:
+			$Knockout.play()
+		else:
+			$Death.play()
 		
 		var i = 21
 		while i > -1:
@@ -45,12 +49,23 @@ func _process(delta: float) -> void:
 			get_parent().set_vignette_parameter("softness", i * 0.05)
 			
 			i -= 1
-			
-		await get_tree().create_timer(4).timeout
 		
+		
+		if global.stats.story_progress == 0:
+			await get_tree().create_timer(2).timeout
+			
+			global.stats.location = "ahma_hideout"
+			global.stats.story_progress = 1
+		else:
+			await get_tree().create_timer(4).timeout
+			
+			global.load_game()
+		
+		AudioServer.set_bus_effect_enabled(1, 0, false)
 		AudioServer.set_bus_effect_enabled(2, 0, false)
 		
-		global.load_game()
+		get_parent().set_vignette_parameter("softness", 0)
+		
 		get_tree().change_scene_to_file("res://scenes/ground.tscn")
 	
 	if input_icon.using_gamepad:

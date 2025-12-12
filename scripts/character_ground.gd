@@ -27,11 +27,11 @@ func set_ground_gun(value):
 		ammo_in_mag = global.ground_guns
 	
 func navigate_to(goal: Vector2):
-	if has_node("Navagent"):
-		$Navagent.target_position = goal
+	if has_node("Navigation/Agent"):
+		$Navigation/Agent.target_position = goal
 		
-		while !$Navagent.is_navigation_finished():
-			var next_position = $Navagent.get_next_path_position()
+		while !$Navigation/Agent.is_navigation_finished():
+			var next_position = $Navigation/Agent.get_next_path_position()
 			next_position.y -= 32
 			
 			var axes = global_position.direction_to(next_position)
