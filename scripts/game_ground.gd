@@ -10,6 +10,8 @@ var dialogue_colors = {
 	"player_woozy": Color("fff"),
 	"doctor_1": Color("00ffffff"),
 	"doctor_2": Color("004bffff"),
+	"zmg_doctor_1": Color("e170ffff"),
+	"zmg_hideout_captain": Color("a74700ff"),
 }
 
 var combat = false
@@ -49,7 +51,14 @@ func _ready() -> void:
 	
 	LimboConsole.register_command(give_ground_gun, "give_ground_gun", "Gives a gun for ground mode")
 	
-	print(global.stats.location)
+	if global.stats.position:
+		print("AAA ", global.stats.position)
+		$PlayerGround.global_position.x = global.stats.position.x
+		$PlayerGround.global_position.y = global.stats.position.y
+		
+		global.stats.position = null
+	else:
+		$PlayerGround.global_position = $PlayerSpawn.global_position
 	
 	var location_scene = load("res://scenes/locations/" + global.stats.location + ".tscn").instantiate()
 	
@@ -70,15 +79,6 @@ func _ready() -> void:
 			n._ground_ready()
 		
 	location_scene.free()
-	
-	if global.stats.position:
-		print("AAA ", global.stats.position)
-		$PlayerGround.global_position.x = global.stats.position.x
-		$PlayerGround.global_position.y = global.stats.position.y
-		
-		global.stats.position = null
-	else:
-		$PlayerGround.global_position = $PlayerSpawn.global_position
 		
 	if global.stats.loaded:
 		save_game()

@@ -54,7 +54,7 @@ func _process(delta: float) -> void:
 		if global.stats.story_progress == 0:
 			await get_tree().create_timer(2).timeout
 			
-			global.stats.location = "ahma_hideout"
+			global.stats.location = "zmg_hideout"
 			global.stats.story_progress = 1
 		else:
 			await get_tree().create_timer(4).timeout
