@@ -16,11 +16,7 @@ func _process(delta: float) -> void:
 	modulate.g = health / 1000.0
 	modulate.b = health / 1000.0
 	
-	
-	
 	$RepairWave.emitting = repairing
-	
-	print(repair_timer, repairing)
 	
 	if repairing:
 		repair_timer -= delta 

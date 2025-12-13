@@ -55,8 +55,6 @@ func _ground_ready() -> void:
 			"again": "... again ...?",
 		})
 		
-		print("ASS DICK")
-		
 		if option_0 == "dont_hurt_me":
 			await game.dialogue("... don't hurt me ...", "player", true, player)
 			

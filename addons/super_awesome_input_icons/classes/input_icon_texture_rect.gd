@@ -21,8 +21,6 @@ func _update_icon():
 	var events = InputMap.action_get_events(action_name)
 	
 	for n in events:
-		print(n)
-		
 		# If it's a keyboard input and we're not using a gamepad, use a keyboard input icon
 		
 		if n.is_class("InputEventKey") and !input_icon.using_gamepad:
