@@ -105,9 +105,9 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("You just yelled at me for...!", "doctor_1", true, game.get_node("Doctor1"))
 		
-		await game.dialogue("Ugh.", "doctor_1", true, game.get_node("Doctor1"))
+		await game.dialogue("...", "doctor_1", true, game.get_node("Doctor1"))
 		
-		await game.dialogue("Sorry for the rough wakeup...", "doctor_1", true, game.get_node("Doctor1"))
+		await game.dialogue("Sorry for that...", "doctor_1", true, game.get_node("Doctor1"))
 	
 		var option_1 = await game.make_choice({
 			"where": "Where am I..?",
@@ -147,7 +147,7 @@ func _ground_ready() -> void:
 				
 				await game.dialogue("At its worst, such as in your case, it causes limb spasms,", "doctor_1", true, game.get_node("Doctor1"))
 				
-				await game.dialogue("alongside short-term memory loss, intermittent unconciousness,", "doctor_1", true, game.get_node("Doctor1"))
+				await game.dialogue("alongside complete short-term memory loss, intermittent unconciousness,", "doctor_1", true, game.get_node("Doctor1"))
 				
 				await game.dialogue("and an inability to think clearly.", "doctor_1", true, game.get_node("Doctor1"))
 				
@@ -163,13 +163,13 @@ func _ground_ready() -> void:
 				
 				await game.dialogue("You'd think I would remember that, though...", "player", true, player)
 				
-				await game.dialogue("The condition you have likely caused long-term memory loss.", "doctor_1", true, game.get_node("Doctor1"))
+				await game.dialogue("The condition you have likely caused severe long-term memory loss.", "doctor_1", true, game.get_node("Doctor1"))
 				
 				await game.dialogue("That's probably why you don't remember.", "doctor_1", true, game.get_node("Doctor1"))
 				
 		await game.dialogue("So, what now?", "player", true, player)
 		
-		await game.dialogue("Well, I'm going to go to my desk to do paperwork.", "doctor_1", true, game.get_node("Doctor1"))
+		await game.dialogue("Well, I'm going to go to my desk to do paperwork and whatnot.", "doctor_1", true, game.get_node("Doctor1"))
 		
 		await game.dialogue("Once you feel ready, you can come up to my desk and I'll get you discharged.", "doctor_1", true, game.get_node("Doctor1"))
 		
@@ -315,7 +315,9 @@ func _interact(player: Node2D, area: Area2D):
 		
 		game.get_node("Doctor2").navigate_to(game.get_node("Waypoints/Doctor2Waypoint3").global_position)
 		
-		await game.dialogue("...you need to come with me.", "doctor_1", true, game.get_node("Doctor1"))
+		await game.dialogue("...", "doctor_1", true, game.get_node("Doctor1"))
+		
+		await game.dialogue("You need to come with me.", "doctor_1", true, game.get_node("Doctor1"))
 		
 		player.busy = false
 		

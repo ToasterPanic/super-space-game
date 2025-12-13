@@ -173,6 +173,8 @@ tile_set = ExtResource("4_ir5n7")
 script = ExtResource("6_a5j23")
 
 [node name="Doctor1" type="CharacterBody2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(1504, -904)
 motion_mode = 1
 script = ExtResource("14_vmimc")
@@ -214,6 +216,8 @@ target_desired_distance = 34.0
 path_postprocessing = 1
 
 [node name="Doctor2" type="CharacterBody2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(1544, -856)
 motion_mode = 1
 script = ExtResource("14_vmimc")

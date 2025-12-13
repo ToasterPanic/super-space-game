@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://d33gf2ex54bcn"]
+[gd_scene load_steps=47 format=4 uid="uid://d33gf2ex54bcn"]
 
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="1_eequg"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="2_tu2kf"]
@@ -76,6 +76,9 @@ sources/4 = SubResource("TileSetAtlasSource_wnnh8")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uguvc"]
 size = Vector2(384, 39.999992)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ksyeb"]
+radius = 96.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_464b5"]
 atlas = ExtResource("14_fgxsr")
@@ -267,6 +270,15 @@ collision_mask = 2
 [node name="CollisionShape" type="CollisionShape2D" parent="Triggers/SpeedUp"]
 position = Vector2(-7.454468, 27.261642)
 shape = SubResource("RectangleShape2D_uguvc")
+
+[node name="Captain1DeskInteract" type="Area2D" parent="Triggers" node_paths=PackedStringArray("interact_node")]
+position = Vector2(416, 288)
+script = ExtResource("20_ia5tc")
+interact_text = "TALK"
+interact_node = NodePath("../../ZMGHideoutHandler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Captain1DeskInteract"]
+shape = SubResource("CircleShape2D_ksyeb")
 
 [node name="StaticBody2D" parent="." instance=ExtResource("10_nnlyd")]
 z_as_relative = false
@@ -477,9 +489,6 @@ offset_top = -92.0
 offset_right = 128.0
 offset_bottom = -67.0
 
-[node name="ZMGHideoutHandler" type="Node2D" parent="."]
-script = ExtResource("17_rh51h")
-
 [node name="Locker" parent="." instance=ExtResource("18_4crwl")]
 position = Vector2(1376, 64)
 
@@ -548,4 +557,9 @@ position = Vector2(4512, 96)
 [node name="TinyDesk3" parent="." instance=ExtResource("21_fw8r5")]
 position = Vector2(4640, 96)
 
+[node name="ZMGHideoutHandler" type="Node2D" parent="."]
+script = ExtResource("17_rh51h")
+
 [connection signal="area_entered" from="Triggers/SpeedUp" to="ZMGHideoutHandler" method="_on_speed_up_area_entered"]
+[connection signal="body_entered" from="Triggers/Captain1DeskInteract" to="Triggers/Captain1DeskInteract" method="_on_body_entered"]
+[connection signal="body_exited" from="Triggers/Captain1DeskInteract" to="Triggers/Captain1DeskInteract" method="_on_body_exited"]

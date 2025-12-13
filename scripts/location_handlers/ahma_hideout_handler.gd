@@ -92,13 +92,20 @@ func _ground_ready() -> void:
 		
 		var option_1 = await game.make_choice({
 			"uhhh": "Uhhhhh...",
+			"...": "...",
 			"no": "No...",
 		})
 		
 		if option_1 == "uhhh":
-			await game.dialogue("I will take that as a no.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			await game.dialogue("Uuuuuuhhhhhhhhh....", "player", true, player)
+			
+			await game.dialogue("I'll take that as a no.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		elif option_1 == "...":
+			await game.dialogue("I'll take that as a no.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		elif option_1 == "no":
-			await game.dialogue("That's what I thought.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			await game.dialogue("No, unfortunately.", "player", true, player)
+			
+			await game.dialogue("That's what I had assumed.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
 		await game.dialogue("I'd like to make you a deal.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
@@ -134,7 +141,7 @@ func _ground_ready() -> void:
 			})
 			
 			if option_3 == "take_offer":
-				await game.dialogue("Actually... I'll take it.", "player", true, player)
+				await game.dialogue("Actually... I change my mind.", "player", true, player)
 				
 				await game.dialogue("Wise choice.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 			elif option_3 == "leave":
@@ -158,7 +165,7 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("And I'm Dr. Carie.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
-		await game.dialogue("I can't wait to see you in my office soon, Kendall.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("I'll be seeing you in my office soon.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
 		_handle_4()
 		
@@ -205,8 +212,12 @@ func _ground_ready() -> void:
 		await game.dialogue("Once you're ready, you need to go talk to the Captain.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
 		await game.dialogue("He'll give you a room and whatnot.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("He's at his desk in the Bridge, look for the purple floors.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("Good luck out there.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 			
-		game.stats.story_progress = 2
+		global.stats.story_progress = 2
 		
 		game.save_game()
 			
@@ -254,3 +265,27 @@ func _handle_4():
 func _on_speed_up_area_entered(area: Area2D) -> void:
 	if area.get_parent() == player:
 		player.speed = 256
+
+
+func _interact(player: Node2D, area: Area2D):
+	if area.get_name() == "Captain1DeskInteract":
+		player.busy = true 
+		
+		await game.dialogue("Are you ready to get settled in?", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		var option_0 = game.make_choice({
+			"yes": "Yes",
+			"no": "Not yet"
+		})
+		
+		if option_0 == "no":
+			await game.dialogue("No, not yet.", "zmg_hideout_captain", true, player)
+			
+			await game.dialogue("I suggest you come back soon when you're ready.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			
+			player.busy = false
+			return
+			
+		await game.dialogue("Yes, I am.", "player", true, player)
+			
+		await game.dialogue("Good. Follow me.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
