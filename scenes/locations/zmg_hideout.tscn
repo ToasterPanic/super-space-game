@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://d33gf2ex54bcn"]
+[gd_scene load_steps=49 format=4 uid="uid://d33gf2ex54bcn"]
 
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="1_eequg"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="2_tu2kf"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://dj1r5f0vgolpl" path="res://scripts/firing_dummy.gd" id="17_ksyeb"]
 [ext_resource type="Script" uid="uid://d3dy1742cpre8" path="res://scripts/location_handlers/ahma_hideout_handler.gd" id="17_rh51h"]
 [ext_resource type="PackedScene" uid="uid://dojlc4q0jwjtn" path="res://scenes/props/locker.tscn" id="18_4crwl"]
+[ext_resource type="Texture2D" uid="uid://brhkav3q6wo6" path="res://textures/characters/firing_dummy.png" id="18_ia5tc"]
 [ext_resource type="PackedScene" uid="uid://debhgjfa38lo2" path="res://scenes/doors/door_small_vertical.tscn" id="19_4crwl"]
 [ext_resource type="Script" uid="uid://dxkb8v7w4daw1" path="res://scripts/interact_area.gd" id="20_ia5tc"]
 [ext_resource type="Texture2D" uid="uid://b0c5hws6ki8p5" path="res://textures/door_large_vertical.png" id="20_uguvc"]
@@ -187,6 +188,37 @@ animations = [{
 "name": &"walk",
 "speed": 6.0
 }]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ei5ag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_ia5tc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_ia5tc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_ia5tc")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nnlyd"]
+radius = 16.0
+height = 112.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fw8r5"]
 size = Vector2(10, 97)
@@ -444,7 +476,8 @@ script = ExtResource("17_ksyeb")
 material = ExtResource("7_ksyeb")
 position = Vector2(0, -8)
 scale = Vector2(-2, 2)
-sprite_frames = SubResource("SpriteFrames_5wrhp")
+sprite_frames = SubResource("SpriteFrames_ei5ag")
+animation = &"idle"
 
 [node name="Camera" type="Camera2D" parent="FiringDummy"]
 enabled = false
@@ -468,7 +501,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape2D" parent="FiringDummy/Hitbox"]
-shape = SubResource("CapsuleShape2D_l4cxd")
+shape = SubResource("CapsuleShape2D_nnlyd")
 debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="Dialogue" parent="FiringDummy" instance=ExtResource("15_te8nn")]
