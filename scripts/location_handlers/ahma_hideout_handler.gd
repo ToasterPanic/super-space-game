@@ -47,13 +47,15 @@ func _ground_ready() -> void:
 	
 		await game.dialogue("Oh, they're awake!", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 	
-		await game.dialogue("Wow, this soon?", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("Frankly, it's shocking they're up this soon.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
 		var option_0 = await game.make_choice({
 			"where": "... where am I ...",
 			"dont_hurt_me": "... don't hurt me ...",
 			"again": "... again ...?",
 		})
+		
+		print("ASS DICK")
 		
 		if option_0 == "dont_hurt_me":
 			await game.dialogue("... don't hurt me ...", "player", true, player)
@@ -85,6 +87,8 @@ func _ground_ready() -> void:
 		await game.dialogue("The majority of them have healed.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
 		await game.dialogue("You've been out for... almost four earth days?", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		await game.dialogue("It's a miracle you survived at all.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
 		await game.dialogue("Carie, if you could wait a second, I'd like to ask them a question.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
@@ -121,12 +125,29 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("we'll just give you a ride to the nearest space station.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
-		await game.dialogue("Is that a deal or no?", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("Is that a deal or no?", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
 		var option_2 = await game.make_choice({
 			"yes": "Yes",
 			"no": "No",
+			"alliance": "Atlanta Alliance?"
 		})
+		
+		game.end_dialogue(game.get_node("ZMGHideoutCaptain"))
+		
+		if option_2 == "alliance":
+			await game.dialogue("What's the Atlanta Alliance?", "player", true, player)
+			
+			await game.dialogue("It's a group of countries from Earth and Mars that stop intergalactic terrorists.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			
+			await game.dialogue("You'll learn more once you're well and properly back in society again.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			
+			await game.dialogue("I do have to urge you to give me an answer on that deal, though.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+			
+			option_2 = await game.make_choice({
+				"yes": "Yes",
+				"no": "No",
+			})
 		
 		if option_2 == "no":
 			await game.dialogue("Ehhhh, not sure I want to take that.", "player", true, player)
@@ -289,3 +310,22 @@ func _interact(player: Node2D, area: Area2D):
 		await game.dialogue("Yes, I am.", "player", true, player)
 			
 		await game.dialogue("Good. Follow me.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint3"))
+	
+		game.get_node("CaptainDoor1").set_open(true)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint4"))
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+	
+		game.get_node("CaptainDoor1").set_open(false)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint5"))
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+			
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint6"))
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout

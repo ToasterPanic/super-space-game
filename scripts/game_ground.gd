@@ -14,6 +14,11 @@ var dialogue_colors = {
 	"zmg_hideout_captain": Color("a74700ff"),
 }
 
+@onready var dialogue_sounds = {
+	"zmg_hideout_captain": $DialogueSounds/Male2,
+	"zmg_doctor_1": $DialogueSounds/Female1
+}
+
 var combat = false
 var combat_track = null
 
@@ -122,8 +127,12 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true, 
 	$UI/Control/Dialogue/Label.text = ""
 	
 	var speed = dialogue_speed.generic
+	var sound = $Dialogue
 	
 	if dialogue_speed.has(type): speed = dialogue_speed[type]
+	
+	if dialogue_sounds.has(type):
+		sound = dialogue_sounds[type]
 	
 	$UI/Control/Dialogue/Label.visible = !character
 	
@@ -157,7 +166,7 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true, 
 		else:
 			$UI/Control/Dialogue/Label.text = displayed_text
 		
-		$Dialogue.play()
+		sound.play()
 		
 		await get_tree().create_timer(speed).timeout
 		
@@ -165,10 +174,12 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true, 
 		
 	if allow_input:
 		$UI/Control/Dialogue/InputIcon.visible = true
-
+		
 		await dialogue_continue
 		
 		end_dialogue(character)
+		
+	return
 
 func end_dialogue(character: Node2D = null) -> void:
 	$UI/Control/Dialogue.visible = false

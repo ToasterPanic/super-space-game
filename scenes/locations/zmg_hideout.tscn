@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://d33gf2ex54bcn"]
+[gd_scene load_steps=48 format=4 uid="uid://d33gf2ex54bcn"]
 
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="1_eequg"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="2_tu2kf"]
@@ -79,6 +79,9 @@ size = Vector2(384, 39.999992)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ksyeb"]
 radius = 96.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ia5tc"]
+radius = 64.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_464b5"]
 atlas = ExtResource("14_fgxsr")
@@ -256,6 +259,24 @@ position = Vector2(224, 352)
 [node name="CaptainPoint2" type="Node2D" parent="Waypoints"]
 position = Vector2(416, 232)
 
+[node name="CaptainPoint3" type="Node2D" parent="Waypoints"]
+position = Vector2(224, 224)
+
+[node name="CaptainPoint4" type="Node2D" parent="Waypoints"]
+position = Vector2(1312, 416)
+
+[node name="CaptainPoint5" type="Node2D" parent="Waypoints"]
+position = Vector2(2208, 416)
+
+[node name="CaptainPoint6" type="Node2D" parent="Waypoints"]
+position = Vector2(2912, 416)
+
+[node name="CaptainPoint7" type="Node2D" parent="Waypoints"]
+position = Vector2(4256, 416)
+
+[node name="CaptainPoint8" type="Node2D" parent="Waypoints"]
+position = Vector2(4576, 416)
+
 [node name="DoctorPoint1" type="Node2D" parent="Waypoints"]
 position = Vector2(1912, -128)
 
@@ -279,6 +300,15 @@ interact_node = NodePath("../../ZMGHideoutHandler")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Captain1DeskInteract"]
 shape = SubResource("CircleShape2D_ksyeb")
+
+[node name="ArmoryLockerInteract" type="Area2D" parent="Triggers" node_paths=PackedStringArray("interact_node")]
+position = Vector2(4448, 192)
+script = ExtResource("20_ia5tc")
+interact_text = "TALK"
+interact_node = NodePath("../../ZMGHideoutHandler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/ArmoryLockerInteract"]
+shape = SubResource("CircleShape2D_ia5tc")
 
 [node name="StaticBody2D" parent="." instance=ExtResource("10_nnlyd")]
 z_as_relative = false
@@ -563,3 +593,5 @@ script = ExtResource("17_rh51h")
 [connection signal="area_entered" from="Triggers/SpeedUp" to="ZMGHideoutHandler" method="_on_speed_up_area_entered"]
 [connection signal="body_entered" from="Triggers/Captain1DeskInteract" to="Triggers/Captain1DeskInteract" method="_on_body_entered"]
 [connection signal="body_exited" from="Triggers/Captain1DeskInteract" to="Triggers/Captain1DeskInteract" method="_on_body_exited"]
+[connection signal="body_entered" from="Triggers/ArmoryLockerInteract" to="Triggers/ArmoryLockerInteract" method="_on_body_entered"]
+[connection signal="body_exited" from="Triggers/ArmoryLockerInteract" to="Triggers/ArmoryLockerInteract" method="_on_body_exited"]
