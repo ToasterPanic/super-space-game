@@ -138,6 +138,5 @@ debug_color = Color(1, 0, 0, 0.41960785)
 position = Vector2(0, 48)
 
 [node name="Agent" type="NavigationAgent2D" parent="Navigation"]
-path_desired_distance = 34.0
-target_desired_distance = 34.0
+target_desired_distance = 24.0
 path_postprocessing = 1

@@ -4,6 +4,8 @@ var last_aim_direction = Vector2(0, 0)
 var processing_death = false
 var camera_shake_power = 0
 
+var can_holster = false
+
 func _ready() -> void:
 	super()
 	
@@ -95,7 +97,7 @@ func _process(delta: float) -> void:
 		$HeldItem/Crosshair.visible = false
 		$HeldItem/Line.visible = false
 		
-	if Input.is_action_just_pressed("toggle_holster"):
+	if Input.is_action_just_pressed("toggle_holster") and can_holster:
 		if global.stats.equipped_ground_gun:
 			global.stats.gun_holstered = !global.stats.gun_holstered
 			

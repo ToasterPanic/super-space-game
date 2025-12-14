@@ -25,7 +25,6 @@ func set_ground_gun(value):
 	
 	if value:
 		$HeldItem/Sprite.texture = load("res://textures/" + equipped_ground_gun + ".png")
-		ammo_in_mag = global.ground_guns
 	
 func navigate_to(goal: Vector2):
 	if has_node("Navigation/Agent"):
@@ -104,7 +103,7 @@ func _process(delta: float) -> void:
 		else:
 			$HeldItem.visible = true
 			
-			if firing and (fire_delay < 0):
+			if firing and (fire_delay < 0) and (ammo_in_mag > 0):
 				$HeldItem/Cast.force_raycast_update()
 				
 				var hit_target = $HeldItem/Cast.get_collider()
@@ -140,8 +139,10 @@ func _process(delta: float) -> void:
 				$HeldItem/Gunshot.play()
 				
 				if game:
-					if game.get_node("PlayerGround").camera_shake_power <= 2:
-						game.get_node("PlayerGround").camera_shake_power = 2
+					if game.get_node("PlayerGround").camera_shake_power <= 4:
+						game.get_node("PlayerGround").camera_shake_power = 4
+						
+				ammo_in_mag -= 1
 				
 				fire_delay = global.ground_guns[equipped_ground_gun].fire_rate
 	

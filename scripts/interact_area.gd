@@ -5,7 +5,6 @@ extends Area2D
 var game = null
 
 func _on_body_entered(body: Node2D) -> void:
-	print("dgsijgs")
 	if !game: return
 	
 	if (body.get_name() == "PlayerGround") or (game.get_node("PlayerGround").is_ancestor_of(body)):

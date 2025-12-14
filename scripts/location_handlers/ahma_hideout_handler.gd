@@ -243,6 +243,11 @@ func _ground_ready() -> void:
 		player.busy = false
 		player.speed = 128
 		
+	
+	elif global.stats.story_progress == 2:
+		game.get_node("ZMGHideoutCaptain").global_position = game.get_node("Waypoints/CaptainPoint2").global_position
+		player.global_position = game.get_node("Waypoints/PlayerIntroSpawn2").global_position
+
 func _handle_1():
 	var i = 0
 	while i < 5:
@@ -287,12 +292,19 @@ func _on_speed_up_area_entered(area: Area2D) -> void:
 
 
 func _interact(player: Node2D, area: Area2D):
-	if area.get_name() == "Captain1DeskInteract":
+	if area.get_name() == "ArmoryLockerInteract":
+		player.can_holster = false
+		
+		global.stats.equipped_ground_gun = "pistol"
+		player.ammo_in_mag = 6
+		
+		game.get_node("Triggers/ArmoryLockerInteract").monitoring = false
+	elif area.get_name() == "Captain1DeskInteract":
 		player.busy = true 
 		
 		await game.dialogue("Are you ready to get settled in?", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
-		var option_0 = game.make_choice({
+		var option_0 = await game.make_choice({
 			"yes": "Yes",
 			"no": "Not yet"
 		})
@@ -309,21 +321,68 @@ func _interact(player: Node2D, area: Area2D):
 			
 		await game.dialogue("Good. Follow me.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
-		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint3"))
+		player.busy = false
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint3").global_position)
 	
 		game.get_node("CaptainDoor1").set_open(true)
 		
-		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint4"))
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint4").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
 			await get_tree().create_timer(0.2).timeout
 	
 		game.get_node("CaptainDoor1").set_open(false)
 		
-		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint5"))
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint5").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
 			await get_tree().create_timer(0.2).timeout
 			
 		
-		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint6"))
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint6").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("RangeExternalLockDoor").set_open(true)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint7").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("RangeExternalLockDoor").set_open(false)
+			
+		game.get_node("RangeInternalLockDoor").set_open(true)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint8").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 200:
+			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("RangeInternalLockDoor").set_open(false)
+			
+		await game.dialogue("Take a pistol from that locker.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		while global.stats.equipped_ground_gun != "pistol":
+			await get_tree().create_timer(0.2).timeout
+		
+		await game.dialogue("Enter station one and unholster your weapon.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		while !game.get_node("Triggers/StationOneDetect").get_overlapping_bodies().has(player):
+			await get_tree().create_timer(0.2).timeout
+		
+		player.can_holster = true
+		
+		while global.stats.gun_holstered:
+			await get_tree().create_timer(0.2).timeout
+		
+		await game.dialogue("Use the laser sight to hit the target downrange.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		game.get_node("FiringTargets/Target1").set_up(true)
+		
+		while player.ammo_in_mag > 0:
+			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("FiringTargets/Target1").set_up(false)
+		
+		await game.dialogue("Reload.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		while player.ammo_in_mag == 0:
 			await get_tree().create_timer(0.2).timeout

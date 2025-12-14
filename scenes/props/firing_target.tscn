@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0hporqf0td5t"]
+
+[ext_resource type="Texture2D" uid="uid://xx7mv2j7umxi" path="res://textures/firing_target.png" id="1_mgqak"]
+[ext_resource type="Script" uid="uid://d3kbucan2pgnj" path="res://scripts/firing_target.gd" id="1_msypi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia5tc"]
+atlas = ExtResource("1_mgqak")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei5ag"]
+atlas = ExtResource("1_mgqak")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnlyd"]
+atlas = ExtResource("1_mgqak")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvj0o"]
+atlas = ExtResource("1_mgqak")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5pxn"]
+atlas = ExtResource("1_mgqak")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k784t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ia5tc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei5ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnlyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvj0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5pxn")
+}],
+"loop": false,
+"name": &"down",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5pxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvj0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnlyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei5ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ia5tc")
+}],
+"loop": false,
+"name": &"up",
+"speed": 18.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cja0b"]
+radius = 15.0
+
+[node name="FiringTarget" type="CharacterBody2D"]
+script = ExtResource("1_msypi")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_k784t")
+animation = &"down"
+autoplay = "down"
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -2)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_cja0b")
