@@ -369,7 +369,7 @@ func _interact(player: Node2D, area: Area2D):
 		if option_1 == "yes":
 			await game.dialogue("Good, then this should just be review.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		elif option_1 == "no":
-			await game.dialogue("Well, you're about to learn how.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			await game.dialogue("Well, you're about to find out.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 			
 		await game.dialogue("Take a pistol from that locker.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
@@ -378,17 +378,23 @@ func _interact(player: Node2D, area: Area2D):
 		while global.stats.equipped_ground_gun != "pistol":
 			await get_tree().create_timer(0.2).timeout
 		
-		await game.dialogue("Enter station one and unholster your weapon.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		await game.dialogue("Enter the left-most booth and unholster your weapon.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
 		while !game.get_node("Triggers/StationOneDetect").get_overlapping_bodies().has(player):
 			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("UI/Control/UnholsterTutorial").visible = true
 		
 		player.can_holster = true
 		
 		while global.stats.gun_holstered:
 			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("UI/Control/UnholsterTutorial").visible = false
 		
 		await game.dialogue("Use the laser sight to hit the target downrange.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+			
+		game.get_node("UI/Control/GunTutorial").visible = true
 		
 		game.get_node("FiringTargets/Target1").set_up(true)
 		
@@ -397,12 +403,20 @@ func _interact(player: Node2D, area: Area2D):
 			
 		game.get_node("FiringTargets/Target1").set_up(false)
 		
+		game.get_node("UI/Control/GunTutorial").visible = false
+		
 		await game.dialogue("Reload.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		game.get_node("UI/Control/ReloadTutorial").visible = true
 		
 		while player.ammo_in_mag == 0:
 			await get_tree().create_timer(0.2).timeout
 		
+		game.get_node("UI/Control/ReloadTutorial").visible = false
+		
 		await game.dialogue("Now you'll need to hit multiple targets.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		game.get_node("UI/Control/GunTutorial").visible = true
 		
 		game.get_node("FiringTargets/Target1").set_up(true)
 		game.get_node("FiringTargets/Target1").health = 10
@@ -416,10 +430,16 @@ func _interact(player: Node2D, area: Area2D):
 		while game.get_node("FiringTargets/Target1").up or game.get_node("FiringTargets/Target2").up or game.get_node("FiringTargets/Target3").up:
 			await get_tree().create_timer(0.2).timeout
 		
+		game.get_node("UI/Control/GunTutorial").visible = false
+		
 		await game.dialogue("Not bad. Holster your weapon.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+			
+		game.get_node("UI/Control/UnholsterTutorial").visible = true
 		
 		while !global.stats.gun_holstered:
 			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("UI/Control/UnholsterTutorial").visible = false
 			
 		player.busy = true
 		

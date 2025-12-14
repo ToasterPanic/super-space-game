@@ -102,6 +102,25 @@ func _process(delta: float) -> void:
 	else:
 		$UI/Control/Interact.visible = false
 		
+	if $PlayerGround.equipped_ground_gun:
+		$UI/Control/WeaponUI.visible = true 
+		
+		if $PlayerGround.reloading:
+			$UI/Control/WeaponUI.value = 0
+			$UI/Control/WeaponUI/Texture.modulate.a = 0.5
+			
+			$UI/Control/WeaponUI/RichTextLabel.text = "RELOAD"
+		else:
+			var mag_size = global.ground_guns[$PlayerGround.equipped_ground_gun].magazine_size
+			
+			$UI/Control/WeaponUI.value = $PlayerGround.ammo_in_mag / floorf(mag_size)
+			$UI/Control/WeaponUI/RichTextLabel.text = """[font size=32]%s[/font]/%s""" % [str($PlayerGround.ammo_in_mag), str(mag_size)]
+			
+			$UI/Control/WeaponUI/Texture.modulate.a = 1
+			$UI/Control/WeaponUI/Texture.texture = load("res://textures/" + $PlayerGround.equipped_ground_gun + ".png")
+	else:
+		$UI/Control/WeaponUI.visible = false
+		
 	if has_node("Enemies"):
 		for n in $Enemies.get_children():
 			if "ai_mode" in n:
