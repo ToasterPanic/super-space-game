@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://dy6dv2tio433m"]
+[gd_scene load_steps=16 format=3 uid="uid://dy6dv2tio433m"]
 
 [ext_resource type="Script" uid="uid://8d4jhy3fo32b" path="res://scripts/enemy.gd" id="1_xwavj"]
 [ext_resource type="AudioStream" uid="uid://brqjxveo53kco" path="res://sounds/boost.mp3" id="2_nenq2"]
 [ext_resource type="AudioStream" uid="uid://b1ung55xg31l3" path="res://sounds/boost_finish.mp3" id="3_md484"]
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="4_ipns3"]
 [ext_resource type="AudioStream" uid="uid://bney1c4julhfk" path="res://sounds/explode.mp3" id="5_ipns3"]
+[ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="5_md484"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="6_w8i8w"]
 [ext_resource type="PackedScene" path="res://scenes/particles/explosion.tscn" id="7_nenq2"]
 
@@ -61,7 +62,8 @@ pitch_scale = 0.75
 bus = &"Sound Effects"
 
 [node name="Fire" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_ipns3")
+stream = ExtResource("5_md484")
+pitch_scale = 0.8
 bus = &"Sound Effects"
 
 [node name="Explode" type="AudioStreamPlayer" parent="."]

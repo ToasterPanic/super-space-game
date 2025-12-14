@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=83 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -32,11 +32,14 @@
 [ext_resource type="PackedScene" uid="uid://b6bq2viqao61m" path="res://scenes/pause_menu.tscn" id="19_37s47"]
 [ext_resource type="PackedScene" uid="uid://behjlujs230r2" path="res://scenes/mission_objectives.tscn" id="21_bt5mj"]
 [ext_resource type="Texture2D" uid="uid://gkvcn8r0m8sh" path="res://textures/repair_wave.png" id="21_wljb1"]
+[ext_resource type="AudioStream" uid="uid://bney1c4julhfk" path="res://sounds/explode.mp3" id="22_0sl42"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
 [ext_resource type="Shader" uid="uid://bteoujesmedu1" path="res://scripts/in_combat.gdshader" id="22_pl11u"]
 [ext_resource type="FontFile" uid="uid://b4iebt7irm0e1" path="res://fonts/Oxanium.ttf" id="26_nepv3"]
+[ext_resource type="Shader" uid="uid://d2e0541hawkml" path="res://scripts/vignette.gdshader" id="28_pr1ej"]
 [ext_resource type="Texture2D" uid="uid://dwtmsblmgp165" path="res://textures/meter_background.png" id="28_qouja"]
 [ext_resource type="Shader" uid="uid://bcb4t8kfimhvv" path="res://scripts/damage_vignette.gdshader" id="28_suyxu"]
+[ext_resource type="PackedScene" path="res://scenes/particles/explosion.tscn" id="29_oaba0"]
 [ext_resource type="Texture2D" uid="uid://cm26juwrh2rp0" path="res://textures/meter_heal.png" id="29_wljb1"]
 [ext_resource type="Texture2D" uid="uid://dauoebs801ngm" path="res://addons/super_awesome_input_icons/textures/keyboard/question.png" id="31_m4url"]
 [ext_resource type="Script" uid="uid://b2k55og46f3c" path="res://scripts/location_handlers/space_handler.gd" id="36_twgab"]
@@ -55,6 +58,9 @@ sources/0 = SubResource("TileSetAtlasSource_ir15t")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvuet"]
 size = Vector2(64.99997, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ool0"]
+size = Vector2(64.99997, 33.63086)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4url"]
 size = Vector2(445.50006, 240)
@@ -128,6 +134,14 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssvqc"]
 bg_color = Color(1, 0, 0, 1)
 corner_detail = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05nbr"]
+shader = ExtResource("28_pr1ej")
+shader_parameter/radius = 1.0
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 2.0
+shader_parameter/contrast = 2.2
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_7025r"]
 font = ExtResource("26_nepv3")
@@ -226,14 +240,17 @@ script = ExtResource("1_u5sy4")
 [node name="Stars" type="AudioStreamPlayer" parent="CombatMusic"]
 stream = ExtResource("2_qnb83")
 volume_db = -8.0
+bus = &"Music"
 
 [node name="CloudsFullOfTears" type="AudioStreamPlayer" parent="CombatMusic"]
 stream = ExtResource("2_bhx41")
 volume_db = -8.0
+bus = &"Music"
 
 [node name="Loneliness" type="AudioStreamPlayer" parent="CombatMusic"]
 stream = ExtResource("2_e1j6l")
 volume_db = -8.0
+bus = &"Music"
 parameters/looping = true
 
 [node name="Enemies" type="Node2D" parent="."]
@@ -330,7 +347,7 @@ rotation = 3.1415927
 [node name="ZMGHideout" type="Node2D" parent="Orbits"]
 rotation = 0.43633232
 script = ExtResource("9_sww3w")
-orbit_speed = 0.06
+orbit_speed = 0.02
 metadata/orbit_speed = -0.1
 
 [node name="zmg_hideout" type="Sprite2D" parent="Orbits/ZMGHideout"]
@@ -348,9 +365,9 @@ tile_set = SubResource("TileSet_ca42v")
 position = Vector2(0, 176)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/ZMGHideout/zmg_hideout/EnterHitbox"]
-position = Vector2(-3.5952148, -0.0009765625)
-scale = Vector2(1.0000004, 1.0000004)
-shape = SubResource("RectangleShape2D_kvuet")
+position = Vector2(-3.5966797, -19.186523)
+scale = Vector2(1.0000006, 1.0000006)
+shape = SubResource("RectangleShape2D_8ool0")
 
 [node name="ExitPoint" type="Node2D" parent="Orbits/ZMGHideout/zmg_hideout"]
 position = Vector2(0, 245.5)
@@ -469,6 +486,10 @@ rotation = 0.5235988
 linear_damp = 6.247
 script = ExtResource("1_yqjtg")
 
+[node name="Explode" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("22_0sl42")
+bus = &"Sound Effects"
+
 [node name="Boost" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_iywne")
 volume_db = -5.0
@@ -523,6 +544,8 @@ limit_enabled = false
 position_smoothing_speed = 8.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 15.0
+
+[node name="Explosion" parent="Player" instance=ExtResource("29_oaba0")]
 
 [node name="Hitbox" type="Area2D" parent="Player"]
 
@@ -610,6 +633,16 @@ vertical_alignment = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="Vignette" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_05nbr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
 [node name="Control" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
@@ -619,6 +652,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Dialogue" type="HFlowContainer" parent="UI/Control"]
+visible = false
 custom_minimum_size = Vector2(640, 0)
 layout_mode = 1
 anchors_preset = 7

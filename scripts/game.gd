@@ -197,6 +197,12 @@ func _ready() -> void:
 		$Stars.add_child(star)
 		
 		i += 1
+	
+func get_vignette_parameter(name: String) -> float:
+	return $UI/Vignette.material.get_shader_parameter(name)
+	
+func set_vignette_parameter(name: String, value: float) -> void:
+	$UI/Vignette.material.set_shader_parameter(name, value)
 
 func _process(delta: float) -> void:
 	if get_tree().paused:

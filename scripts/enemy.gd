@@ -135,6 +135,8 @@ func _process(delta: float) -> void:
 	if (time_since_last_fire <= 0) and firing:
 		time_since_last_fire = 0.25
 		
+		$Fire.play()
+		
 		var laser = laser_scene.instantiate() 
 		
 		laser.creator = self 

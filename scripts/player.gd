@@ -8,13 +8,52 @@ var camera_shake_power = 0
 var boosting = false
 var hyperboosting = false
 var repairing = false
+var dead = false
 var repair_timer = 0
 
 var laser_scene = preload("res://scenes/laser.tscn")
 
 func _process(delta: float) -> void:
+	if dead: return
+	
 	modulate.g = health / 1000.0
 	modulate.b = health / 1000.0
+	
+	if health <= 0:
+		dead = true
+		
+		modulate = Color(1, 1, 1, 1)
+		
+		$Sprite.queue_free()
+		
+		$Explosion.play()
+		$Explode.play()
+		
+		AudioServer.set_bus_effect_enabled(1, 0, true)
+		AudioServer.set_bus_effect_enabled(2, 0, true)
+		
+		AudioServer.set_bus_volume_linear(3, AudioServer.get_bus_volume_linear(2))
+		
+		get_parent().set_vignette_parameter("radius", 0)
+		
+		var i = 21
+		while i > -1:
+			await get_tree().create_timer(0.05).timeout
+			
+			get_parent().set_vignette_parameter("softness", i * 0.05)
+			
+			i -= 1
+		
+		await get_tree().create_timer(4).timeout
+		
+		AudioServer.set_bus_effect_enabled(1, 0, false)
+		AudioServer.set_bus_effect_enabled(2, 0, false)
+		
+		get_parent().set_vignette_parameter("softness", 0)
+		get_parent().set_vignette_parameter("radius", 1)
+		
+		global.load_game()
+		get_tree().change_scene_to_file("res://scenes/game.tscn")
 	
 	$RepairWave.emitting = repairing
 	
@@ -36,7 +75,13 @@ func _process(delta: float) -> void:
 	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
 	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
 	
-	var screen_size = get_viewport().get_visible_rect()
+	# Don't understand why I need this but when you reload the current scene,
+	# get_viewport() likes to return null. I don't know why, I don't want to
+	# know why, I just want this to work.
+	var screen_size = get_viewport()
+	if !screen_size: return
+	
+	screen_size = screen_size.get_visible_rect()
 	
 	$Camera.zoom.x = ((screen_size.size.x / 1600) + (screen_size.size.y / 900)) / 2.5
 	$Camera.zoom.y = $Camera.zoom.x
