@@ -110,5 +110,7 @@ func _process(delta: float) -> void:
 			
 			set_ground_gun(null)
 			
+	if Input.is_action_just_pressed("reload") and !reloading and equipped_ground_gun and (global.ground_guns[equipped_ground_gun].magazine_size > ammo_in_mag):
+		reloading = true
 	
 	firing = Input.is_action_pressed("fire")

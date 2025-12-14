@@ -76,6 +76,7 @@ var ground_guns = {
 		"type": "kinetic",
 		"damage": 10,
 		"magazine_size": 12,
+		"reload_time": 0.666,
 		"fire_rate": 0.3
 	},
 	"docgun": {
@@ -83,6 +84,7 @@ var ground_guns = {
 		"type": "kinetic",
 		"damage": 150,
 		"magazine_size": 12,
+		"reload_time": 0.666,
 		"fire_rate": 0.25
 	},
 	"smg": {
@@ -90,6 +92,7 @@ var ground_guns = {
 		"type": "energy",
 		"damage": 8,
 		"magazine_size": 24,
+		"reload_time": 0.666,
 		"fire_rate": 1.0/6.0
 	}
 }

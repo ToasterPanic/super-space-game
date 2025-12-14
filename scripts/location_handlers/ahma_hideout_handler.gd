@@ -17,7 +17,7 @@ func _ground_ready() -> void:
 	
 		await game.dialogue("... are we just gonna let him go?", "zmg_doctor_1", true)
 	
-		await game.dialogue("No reason not to.", "zmg_head_manager", true)
+		await game.dialogue("No reason not to.", "zmg_hideout_captain", true)
 		
 		_handle_1()
 	
@@ -34,14 +34,6 @@ func _ground_ready() -> void:
 		await game.dialogue("Ehhhh...", "zmg_hideout_captain", true)
 	
 		await game.dialogue("You know what? Sure.", "zmg_hideout_captain")
-		
-		var i = 0
-		while i < 15:
-			await get_tree().create_timer(0.2).timeout
-			
-			game.set_vignette_parameter("softness", i * 0.02)
-			
-			i += 1
 			
 		_handle_2()
 	
@@ -302,6 +294,8 @@ func _interact(player: Node2D, area: Area2D):
 	elif area.get_name() == "Captain1DeskInteract":
 		player.busy = true 
 		
+		game.get_node("Triggers/Captain1DeskInteract").monitoring = false
+		
 		await game.dialogue("Are you ready to get settled in?", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
 		var option_0 = await game.make_choice({
@@ -310,11 +304,12 @@ func _interact(player: Node2D, area: Area2D):
 		})
 		
 		if option_0 == "no":
-			await game.dialogue("No, not yet.", "zmg_hideout_captain", true, player)
+			await game.dialogue("No, not yet.", "player", true, player)
 			
 			await game.dialogue("I suggest you come back soon when you're ready.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 			
 			player.busy = false
+			game.get_node("Triggers/Captain1DeskInteract").monitoring = true
 			return
 			
 		await game.dialogue("Yes, I am.", "player", true, player)
@@ -357,6 +352,20 @@ func _interact(player: Node2D, area: Area2D):
 			await get_tree().create_timer(0.2).timeout
 			
 		game.get_node("RangeInternalLockDoor").set_open(false)
+		
+		player.busy = true
+		
+		await game.dialogue("You know how to handle a firearm?", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		var option_1 = await game.make_choice({
+			"yes": "Yes",
+			"no": "No"
+		})
+		
+		if option_1 == "yes":
+			await game.dialogue("Good, then this should just be review.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		elif option_1 == "no":
+			await game.dialogue("Well, you're about to learn how.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 			
 		await game.dialogue("Take a pistol from that locker.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
@@ -386,3 +395,28 @@ func _interact(player: Node2D, area: Area2D):
 		
 		while player.ammo_in_mag == 0:
 			await get_tree().create_timer(0.2).timeout
+		
+		await game.dialogue("Now you'll need to hit multiple targets.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		game.get_node("FiringTargets/Target1").set_up(true)
+		game.get_node("FiringTargets/Target1").health = 10
+		
+		game.get_node("FiringTargets/Target2").set_up(true)
+		game.get_node("FiringTargets/Target2").health = 10
+		
+		game.get_node("FiringTargets/Target3").set_up(true)
+		game.get_node("FiringTargets/Target3").health = 10
+		
+		while game.get_node("FiringTargets/Target1").up or game.get_node("FiringTargets/Target2").up or game.get_node("FiringTargets/Target3").up:
+			await get_tree().create_timer(0.2).timeout
+		
+		await game.dialogue("Not bad. Holster your weapon.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		while !global.stats.gun_holstered:
+			await get_tree().create_timer(0.2).timeout
+			
+		player.busy = true
+		
+		await game.dialogue("That pistol's yours now. Don't lose it.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("I've arranged you a room and ship. Follow.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))

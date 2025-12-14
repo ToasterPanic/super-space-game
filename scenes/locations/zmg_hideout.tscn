@@ -282,6 +282,21 @@ position = Vector2(4256, 416)
 [node name="CaptainPoint8" type="Node2D" parent="Waypoints"]
 position = Vector2(4576, 416)
 
+[node name="CaptainPoint9" type="Node2D" parent="Waypoints"]
+position = Vector2(4384, 416)
+
+[node name="CaptainPoint10" type="Node2D" parent="Waypoints"]
+position = Vector2(3040, 416)
+
+[node name="CaptainPoint11" type="Node2D" parent="Waypoints"]
+position = Vector2(2848, 416)
+
+[node name="CaptainPoint12" type="Node2D" parent="Waypoints"]
+position = Vector2(2848, -736)
+
+[node name="CaptainPoint13" type="Node2D" parent="Waypoints"]
+position = Vector2(2272, -800)
+
 [node name="DoctorPoint1" type="Node2D" parent="Waypoints"]
 position = Vector2(1912, -128)
 
@@ -564,15 +579,27 @@ scale = Vector2(2, 2)
 position = Vector2(4384, -352)
 scale = Vector2(2, 2)
 
+[node name="FiringTarget5" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
+position = Vector2(4256, -480)
+scale = Vector2(2, 2)
+
+[node name="FiringTarget6" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
+position = Vector2(4384, -480)
+scale = Vector2(2, 2)
+
+[node name="FiringTarget7" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
+position = Vector2(4512, -480)
+scale = Vector2(2, 2)
+
 [node name="FiringTarget4" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
 position = Vector2(4256, -352)
 scale = Vector2(2, 2)
 
-[node name="FiringTarget7" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
+[node name="Target2" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
 position = Vector2(4256, -224)
 scale = Vector2(2, 2)
 
-[node name="FiringTarget6" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
+[node name="Target3" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
 position = Vector2(4512, -352)
 scale = Vector2(2, 2)
 

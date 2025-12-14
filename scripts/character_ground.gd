@@ -14,6 +14,8 @@ var busy = false
 
 var firing = false
 var sprinting = false
+var reloading = false
+var reload_clock = 0
 
 var equipped_ground_gun = "pistol"
 var ammo_in_mag = 12
@@ -103,7 +105,20 @@ func _process(delta: float) -> void:
 		else:
 			$HeldItem.visible = true
 			
-			if firing and (fire_delay < 0) and (ammo_in_mag > 0):
+			if reloading:
+				$HeldItem.rotation_degrees = 90
+				$HeldItem.modulate.a = 0.5
+				reload_clock += delta
+				
+				if reload_clock > global.ground_guns[equipped_ground_gun].reload_time:
+					reload_clock = 0
+					reloading = false
+					ammo_in_mag = global.ground_guns[equipped_ground_gun].magazine_size
+			else:
+				reload_clock = 0
+				$HeldItem.modulate.a = 1
+			
+			if firing and !reloading and (fire_delay < 0) and (ammo_in_mag > 0):
 				$HeldItem/Cast.force_raycast_update()
 				
 				var hit_target = $HeldItem/Cast.get_collider()
