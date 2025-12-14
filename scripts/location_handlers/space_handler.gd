@@ -39,9 +39,35 @@ func _ready() -> void:
 		
 		game.get_node("UI/Control/FireTutorial").visible = true
 		
-		while !game.get_node("Enemies/TargetPractice").health > 0:
+		while !game.get_node("Enemies/TargetPractice").dead:
 			await get_tree().create_timer(0.2).timeout
 		
 		game.get_node("UI/Control/FireTutorial").visible = false
 		
 		await game.dialogue("Not bad. Proceed further.", "zmg_hideout_captain")
+			
+		game.get_node("Orbits/TrainingCourse/Barrier2").queue_free()
+		
+		while !game.get_node("Orbits/TrainingCourse/TutorialHitbox4").get_overlapping_bodies().has(player):
+			await get_tree().create_timer(0.2).timeout
+			
+		player.health = 150
+		
+		await game.dialogue("Sometimes, you may take significant damage. Use your quick repair ability to heal.", "zmg_hideout_captain")
+		
+		game.get_node("UI/Control/RepairTutorial").visible = true
+		
+		while player.health < 900:
+			await get_tree().create_timer(0.2).timeout
+		
+		game.get_node("UI/Control/RepairTutorial").visible = false
+		
+		await game.dialogue("Note that if you take damage while repairing, your repair will cancel itself.", "zmg_hideout_captain")
+		
+		await get_tree().create_timer(2).timeout
+			
+		game.get_node("Orbits/TrainingCourse/Barrier3").queue_free()
+		
+		await game.dialogue("Proceed into the landing zone. It's marked with yellow arrows.", "zmg_hideout_captain")
+		
+		global.stats.story_progress = 4
