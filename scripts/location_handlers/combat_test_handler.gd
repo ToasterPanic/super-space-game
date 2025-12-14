@@ -29,13 +29,19 @@ func _interact(player: CharacterBody2D, area: Node2D):
 		global.stats.gun_holstered = false
 	elif button_name == "SummonCombatEnemies":
 		var i = 0
-		while i < 7:
-			var enemy = enemy_scene.instantiate()
+		while i < 1:
+			var enemy = preload("res://scenes/enemy_ground.tscn").instantiate()
 			enemy.always_sees_player = true
 			enemy.inaccuracy = 10
+			enemy.game = game
+			enemy.reaction_time = 0.55
 			
 			var random_point = game.get_node("Waypoints/" + combat_spawns[randi_range(0, combat_spawns.size() - 1)])
 			
 			enemy.global_position = random_point.global_position
 			
+			print(random_point)
+			
 			game.get_node("Enemies").add_child(enemy)
+			
+			i += 1
