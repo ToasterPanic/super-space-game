@@ -3,10 +3,10 @@ extends Panel
 @onready var game = get_parent().get_parent().get_parent()
 
 func _resume() -> void:
-	$UiBack.play()
-	
 	while Input.is_action_pressed("pause"):
-		await get_tree().create_timer(0, false).timeout
+		await get_tree().create_timer(0).timeout
+		
+	$UiBack.play()
 		
 	visible = false
 	get_tree().paused = false
@@ -22,6 +22,11 @@ func _input(event: InputEvent) -> void:
 			$Settings._on_back_pressed()
 			
 			$Settings.visible = false
+			$Panel/Flow/Resume.grab_focus()
+		elif $AreYouSure.visible:
+			$AreYouSure.visible = false
+			$Panel.visible = true
+			
 			$Panel/Flow/Resume.grab_focus()
 		elif visible:
 			_resume()
