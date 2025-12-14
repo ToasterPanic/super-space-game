@@ -302,6 +302,23 @@ text = "utilities"
 label_settings = SubResource("LabelSettings_0c6sd")
 horizontal_alignment = 1
 
+[node name="Label14" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 864.0
+offset_right = 203.0
+offset_bottom = 899.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "utilities"
+label_settings = SubResource("LabelSettings_0c6sd")
+horizontal_alignment = 1
+
 [node name="SummonCombatEnemies" type="Sprite2D" parent="."]
 position = Vector2(-384, -32)
 scale = Vector2(2, 2)

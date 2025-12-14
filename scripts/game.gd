@@ -14,10 +14,16 @@ var star_scene = preload("res://scenes/star.tscn")
 
 @onready var spawn_points = {
 	"space_station_1": $Orbits/SpaceStation1/space_station_1/ExitPoint,
-	"space_station_2": $Orbits/SpaceStation2/space_station_2/ExitPoint
+	"space_station_2": $Orbits/SpaceStation2/space_station_2/ExitPoint,
+	"zmg_hideout": $Orbits/ZMGHideout/zmg_hideout/ExitPoint
 }
 
 @onready var navigation_points = [
+	{
+		"name": "Home",
+		"id": "zmg",
+		"point": $Orbits/ZMGHideout/zmg_hideout
+	},
 	{
 		"name": "Space Station 01",
 		"id": "ss1",
@@ -143,6 +149,26 @@ func _ready() -> void:
 		
 		$UI/Control/Navpanel/ContractsList/Scroll/Box.add_child(contract_item)
 		
+	if global.stats.story_progress == 3:
+	
+		$Player.global_position = $Orbits/TrainingCourse/ExitPoint.global_position
+		$Player.rotation = $Orbits/TrainingCourse/ExitPoint.rotation
+	elif (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
+		$Player.global_position = spawn_points[global.stats.location].global_position
+		$Player.rotation = spawn_points[global.stats.location].rotation
+	elif global.stats.position:
+		$Player.global_position.x = global.stats.position.x
+		$Player.global_position.y = global.stats.position.y
+		
+		global.stats.position = null
+	
+	global.stats.location = "space"
+	
+	if global.stats.loaded:
+		save_game()
+	else:
+		global.stats.loaded = true
+		
 	var i = 0
 	while i < 1024 / 3:
 		var star = star_scene.instantiate() 
@@ -171,26 +197,6 @@ func _ready() -> void:
 		$Stars.add_child(star)
 		
 		i += 1
-		
-	if global.stats.story_progress == 3:
-	
-		$Player.global_position = $Orbits/TrainingCourse/ExitPoint.global_position
-		$Player.rotation = $Orbits/TrainingCourse/ExitPoint.rotation
-	elif (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
-		$Player.global_position = spawn_points[global.stats.location].global_position
-		$Player.rotation = spawn_points[global.stats.location].rotation
-	elif global.stats.position:
-		$Player.global_position.x = global.stats.position.x
-		$Player.global_position.y = global.stats.position.y
-		
-		global.stats.position = null
-	
-	global.stats.location = "space"
-	
-	if global.stats.loaded:
-		save_game()
-	else:
-		global.stats.loaded = true
 
 func _process(delta: float) -> void:
 	if get_tree().paused:
