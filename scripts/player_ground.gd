@@ -64,7 +64,7 @@ func _process(delta: float) -> void:
 		
 		var i = 21
 		while i > -1:
-			await get_tree().create_timer(0.05).timeout
+			await get_tree().create_timer(0.05, false).timeout
 			
 			get_parent().set_vignette_parameter("softness", i * 0.05)
 			
@@ -72,12 +72,12 @@ func _process(delta: float) -> void:
 		
 		
 		if global.stats.story_progress == 0:
-			await get_tree().create_timer(2).timeout
+			await get_tree().create_timer(2, false).timeout
 			
 			global.stats.location = "zmg_hideout"
 			global.stats.story_progress = 1
 		else:
-			await get_tree().create_timer(4).timeout
+			await get_tree().create_timer(4, false).timeout
 			
 			global.load_game()
 		

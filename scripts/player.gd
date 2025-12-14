@@ -38,13 +38,13 @@ func _process(delta: float) -> void:
 		
 		var i = 21
 		while i > -1:
-			await get_tree().create_timer(0.05).timeout
+			await get_tree().create_timer(0.05, false).timeout
 			
 			get_parent().set_vignette_parameter("softness", i * 0.05)
 			
 			i -= 1
 		
-		await get_tree().create_timer(4).timeout
+		await get_tree().create_timer(4, false).timeout
 		
 		AudioServer.set_bus_effect_enabled(1, 0, false)
 		AudioServer.set_bus_effect_enabled(2, 0, false)

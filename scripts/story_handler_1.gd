@@ -18,24 +18,24 @@ func _ground_ready() -> void:
 		player.position = game.get_node("PlayerSpawnIntro").global_position
 		player.busy = true
 			
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.5, false).timeout
 		
 		await game.dialogue("ugh...", "player_woozy", false)
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1, false).timeout
 		
 		game.end_dialogue()
 		
 		var i = 0
 		while i < 5:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
 			i += 1
 			
 		while i > 0:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
@@ -43,11 +43,11 @@ func _ground_ready() -> void:
 			
 		await game.dialogue("Is he concious..?", "doctor_1", false)
 		
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(2, false).timeout
 		
 		await game.dialogue("Franky, I doubt it. You know the recovery rates.", "doctor_2", false)
 		
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5, false).timeout
 		
 		await game.dialogue("Monitor's probably just bugging out, per the usual...", "doctor_2", false)
 		
@@ -76,10 +76,10 @@ func _ground_ready() -> void:
 		elif choice_2 == "yeah2":
 			await game.dialogue("...yea...", "player_woozy", false)
 		
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.5, false).timeout
 		
 		while i < 5:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
@@ -88,32 +88,32 @@ func _ground_ready() -> void:
 		await game.dialogue("Woah, that's...", "doctor_1", false)
 		
 		while i < 10:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
 			i += 1
 		
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5, false).timeout
 			
 		await game.dialogue("...well, what do we do now?", "doctor_2", false)
 		
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(2, false).timeout
 			
 		await game.dialogue("I can handle it if you want.", "doctor_1", false)
 		
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5, false).timeout
 			
 		await game.dialogue("Well, if you need any help, ping me.", "doctor_2", false)
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1, false).timeout
 		
 		await game.dialogue("Don't worry, I won't.", "doctor_1", false)
 		
 		i = 0
 		
 		while i < 35:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.04)
 			
@@ -127,11 +127,11 @@ func _ground_ready() -> void:
 		if choice_3 == "where_am_i":
 			await game.dialogue("...where am I..?", "player_slow", false)
 		
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(0.5, false).timeout
 		elif choice_3 == "who_are_you":
 			await game.dialogue("...who are you..?", "player_slow", false)
 		
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(0.5, false).timeout
 			
 			await game.dialogue("Well, I'm Doctor Hohm.", "doctor_1")
 			
@@ -152,7 +152,7 @@ func _ground_ready() -> void:
 			if choice_4 == "space":
 				await game.dialogue("Hold on... intergalactic... I'm in space?", "player_slow", false)
 				
-				await get_tree().create_timer(0.5).timeout
+				await get_tree().create_timer(0.5, false).timeout
 				
 				await game.dialogue("Yes, you're in space.", "doctor_1")
 				
@@ -164,7 +164,7 @@ func _ground_ready() -> void:
 			elif choice_4 == "coma":
 				await game.dialogue("A coma..?", "player_slow", false)
 				
-				await get_tree().create_timer(0.5).timeout
+				await get_tree().create_timer(0.5, false).timeout
 				
 				await game.dialogue("Well, it's not actually a coma.", "doctor_1")
 				
@@ -199,14 +199,14 @@ func _ground_ready() -> void:
 		game.get_node("UI/Control/MoveTutorial").visible = true
 		
 		while i < 100:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.04)
 			
 			i += 2
 		
 		while player.velocity.length() == 0:
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(0.1, false).timeout
 		
 		game.get_node("UI/Control/MoveTutorial").visible = false
 		

@@ -42,7 +42,7 @@ func navigate_to(goal: Vector2):
 			vertical_movement = axes.y
 			
 			# This is a bad way to do this, to be honest. However, I am lazy
-			await get_tree().create_timer(0.05).timeout
+			await get_tree().create_timer(0.05, false).timeout
 			
 		horizontial_movement = 0
 		vertical_movement = 0

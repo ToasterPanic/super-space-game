@@ -13,7 +13,7 @@ func _ground_ready() -> void:
 		player.position = game.get_node("Waypoints/PlayerIntroSpawn").global_position
 		player.busy = true
 		
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3, false).timeout
 	
 		await game.dialogue("... are we just gonna let him go?", "zmg_doctor_1", true)
 	
@@ -180,7 +180,7 @@ func _ground_ready() -> void:
 		
 		_handle_4()
 		
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(2, false).timeout
 		
 		await game.dialogue("I think we should probably get you up.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
@@ -206,7 +206,7 @@ func _ground_ready() -> void:
 		_handle_3()
 		
 		while (player.global_position - game.get_node("ZMGDoctor1").global_position).length() > 48:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		player.busy = true
 		
@@ -254,7 +254,7 @@ func _ground_ready() -> void:
 func _handle_1():
 	var i = 0
 	while i < 5:
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		game.set_vignette_parameter("softness", i * 0.02)
 		
@@ -264,7 +264,7 @@ func _handle_1():
 func _handle_2():
 	var i = 5
 	while i < 25:
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		game.set_vignette_parameter("softness", i * 0.02)
 		
@@ -273,7 +273,7 @@ func _handle_2():
 func _handle_3():
 	var i = 25
 	while i < 100:
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		game.set_vignette_parameter("softness", i * 0.04)
 		
@@ -335,24 +335,24 @@ func _interact(player: Node2D, area: Area2D):
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint4").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 	
 		game.get_node("CaptainDoor1").set_open(false)
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint5").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint6").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("RangeExternalLockDoor").set_open(true)
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint7").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("RangeExternalLockDoor").set_open(false)
 			
@@ -360,7 +360,7 @@ func _interact(player: Node2D, area: Area2D):
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint8").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 200:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("RangeInternalLockDoor").set_open(false)
 		
@@ -383,19 +383,19 @@ func _interact(player: Node2D, area: Area2D):
 		player.busy = false
 		
 		while global.stats.equipped_ground_gun != "pistol":
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 		
 		await game.dialogue("Enter the left-most booth and unholster your weapon.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
 		while !game.get_node("Triggers/StationOneDetect").get_overlapping_bodies().has(player):
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("UI/Control/UnholsterTutorial").visible = true
 		
 		player.can_holster = true
 		
 		while global.stats.gun_holstered:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("UI/Control/UnholsterTutorial").visible = false
 		
@@ -406,7 +406,7 @@ func _interact(player: Node2D, area: Area2D):
 		game.get_node("FiringTargets/Target1").set_up(true)
 		
 		while player.ammo_in_mag > 0:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("FiringTargets/Target1").set_up(false)
 		
@@ -417,7 +417,7 @@ func _interact(player: Node2D, area: Area2D):
 		game.get_node("UI/Control/ReloadTutorial").visible = true
 		
 		while player.ammo_in_mag == 0:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 		
 		game.get_node("UI/Control/ReloadTutorial").visible = false
 		
@@ -435,7 +435,7 @@ func _interact(player: Node2D, area: Area2D):
 		game.get_node("FiringTargets/Target3").health = 10
 		
 		while game.get_node("FiringTargets/Target1").up or game.get_node("FiringTargets/Target2").up or game.get_node("FiringTargets/Target3").up:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 		
 		game.get_node("UI/Control/GunTutorial").visible = false
 		
@@ -444,7 +444,7 @@ func _interact(player: Node2D, area: Area2D):
 		game.get_node("UI/Control/UnholsterTutorial").visible = true
 		
 		while !global.stats.gun_holstered:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("UI/Control/UnholsterTutorial").visible = false
 			
@@ -458,13 +458,13 @@ func _interact(player: Node2D, area: Area2D):
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint9").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("RangeInternalLockDoor").set_open(true)
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint10").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("RangeInternalLockDoor").set_open(false)
 			
@@ -472,17 +472,17 @@ func _interact(player: Node2D, area: Area2D):
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint11").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		game.get_node("RangeExternalLockDoor").set_open(false)
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint12").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint13").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 200:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		player.busy = true
 		
@@ -543,21 +543,21 @@ func _interact(player: Node2D, area: Area2D):
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint14").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 	
 		game.get_node("CaptainDoor1").set_open(false)
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint15").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint16").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 		
 		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint17").global_position)
 		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 200:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 		player.busy = true
 			

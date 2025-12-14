@@ -102,7 +102,7 @@ func _process(delta: float) -> void:
 		linear_velocity = Vector2()
 		
 		
-		await get_tree().create_timer(10.5).timeout
+		await get_tree().create_timer(10.5, false).timeout
 		
 		queue_free()
 	

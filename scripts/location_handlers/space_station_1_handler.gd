@@ -13,7 +13,7 @@ func _ground_ready() -> void:
 		player.position = game.get_node("Waypoints/PlayerIntroSpawn").global_position
 		player.busy = true
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1, false).timeout
 	
 		game.dialogue("... we don't even ... their family ... !", "doctor_1", false)
 		
@@ -21,51 +21,51 @@ func _ground_ready() -> void:
 		
 		var i = 0
 		while i < 8:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
 			i += 1
 			
 		while i > 0:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
 			i -= 1
 		
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(2, false).timeout
 		
 		game.end_dialogue()
 	
 		game.dialogue("... and we don't have infinite resources ...", "doctor_2", false)
 		
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3, false).timeout
 	
 		game.dialogue("... please! ...", "doctor_1", false)
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1, false).timeout
 	
 		await game.dialogue("... he's been here for two months!", "doctor_2", false)
 		
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5, false).timeout
 	
 		game.dialogue("I can't bleed station money for this one guy!", "doctor_2", false)
 		
 		i = 0
 		while i < 5:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
 			i += 1
 		
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(3, false).timeout
 	
 		game.dialogue("If he doesn't magically wake up in the next five seconds...", "doctor_2", false)
 		
 		while i < 25:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
@@ -177,7 +177,7 @@ func _ground_ready() -> void:
 		
 		_handle_1()
 		
-		await get_tree().create_timer(1.25).timeout
+		await get_tree().create_timer(1.25, false).timeout
 		
 		player.busy = false
 		
@@ -187,18 +187,18 @@ func _ground_ready() -> void:
 		
 		while player.velocity.length() < 32:
 			if i < 100:
-				await get_tree().create_timer(0.2).timeout
+				await get_tree().create_timer(0.2, false).timeout
 				
 				game.set_vignette_parameter("softness", i * 0.02)
 				
 				i += 1
 		
-		await get_tree().create_timer(1.25).timeout
+		await get_tree().create_timer(1.25, false).timeout
 
 		game.get_node("UI/Control/MoveTutorial").visible = false
 		
 		while i < 100:
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			game.set_vignette_parameter("softness", i * 0.02)
 			
@@ -281,23 +281,23 @@ func _interact(player: Node2D, area: Area2D):
 		
 		game.get_node("Doctor2").navigate_to(game.get_node("Waypoints/Doctor2Waypoint2").global_position)
 		
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5, false).timeout
 		
 		await game.dialogue("What in the...?", "doctor_1", false, game.get_node("Doctor1"))
 		
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(1.5, false).timeout
 		
 		$IntrusionAlarm.play()
 		
-		await get_tree().create_timer(0.75).timeout
+		await get_tree().create_timer(0.75, false).timeout
 		
 		await game.dialogue("Oh, great.", "doctor_1", false, game.get_node("Doctor1"))
 		
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(1, false).timeout
 		
 		$DoorBang.play()
 		
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(2, false).timeout
 		
 		game.dialogue("The hell?!", "doctor_2", false, game.get_node("Doctor2"))
 		
@@ -325,29 +325,29 @@ func _interact(player: Node2D, area: Area2D):
 		
 		game.get_node("RosenheimOfficeDoor1").set_open(true)
 		
-		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1, false).timeout
 		
 		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint4").global_position)
 		
-		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1, false).timeout
 		
 		game.get_node("RosenheimOfficeDoor1").set_open(false)
 		
 		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint5").global_position)
 		
-		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1, false).timeout
 		
 		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint6").global_position)
 		
-		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1, false).timeout
 		
 		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint7").global_position)
 		
-		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1, false).timeout
 		
 		await game.dialogue("Stay close.", "doctor_1", false, game.get_node("Doctor1"))
 		
-		await get_tree().create_timer(1.75).timeout
+		await get_tree().create_timer(1.75, false).timeout
 		
 		game.end_dialogue(game.get_node("Doctor1"))
 		
@@ -355,7 +355,7 @@ func _interact(player: Node2D, area: Area2D):
 		
 		await game.get_node("Doctor1").navigate_to(game.get_node("Waypoints/Doctor1Waypoint8").global_position)
 		
-		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1).timeout
+		while (player.global_position - game.get_node("Doctor1").global_position).length() > 56: await get_tree().create_timer(0.1, false).timeout
 		
 		await game.dialogue("OH SH", "doctor_1", false, game.get_node("Doctor1"))
 		
@@ -366,11 +366,11 @@ func _interact(player: Node2D, area: Area2D):
 		
 		#game.dialogue("AARRRGHH!!!!!", "doctor_1", false, game.get_node("Doctor1"))
 		
-		while game.get_node("Doctor1").health > 0: await get_tree().create_timer(0.1).timeout
+		while game.get_node("Doctor1").health > 0: await get_tree().create_timer(0.1, false).timeout
 		
 		game.end_dialogue(game.get_node("Doctor1"))
 		
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.5, false).timeout
 		
 		game.get_node("Enemies/IntroEnemy1").firing = false
 		game.get_node("Enemies/IntroEnemy1").concious = true

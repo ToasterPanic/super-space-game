@@ -68,7 +68,7 @@ func save_game() -> void:
 	
 	global.save_game()
 	
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(2, false).timeout
 	
 	$UI/Control/SaveIndicator.visible = false
 	
@@ -121,7 +121,7 @@ func dialogue(text: String, type: String = "generic") -> void:
 		
 		sound.play()
 		
-		await get_tree().create_timer(speed).timeout
+		await get_tree().create_timer(speed, false).timeout
 		
 		i += 1
 

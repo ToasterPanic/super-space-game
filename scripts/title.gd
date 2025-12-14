@@ -22,7 +22,7 @@ func _on_continue_pressed() -> void:
 	while i < 6:
 		$UI/Control/ControllerInfo.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -36,7 +36,7 @@ func _on_continue_pressed() -> void:
 	while i < 6:
 		$UI/Control/Title.modulate.a += 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -58,7 +58,7 @@ func _on_quit_pressed() -> void:
 	while i < 6:
 		$UI/FadeToBlack.modulate.a += 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -78,7 +78,7 @@ func _on_credits_pressed() -> void:
 	while i < 6:
 		$UI/Control/Title.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -92,7 +92,7 @@ func _on_credits_pressed() -> void:
 	while i < 6:
 		$UI/Control/Credits.modulate.a += 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -113,7 +113,7 @@ func _on_exit_credits_pressed() -> void:
 	while i < 6:
 		$UI/Control/Credits.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -127,7 +127,7 @@ func _on_exit_credits_pressed() -> void:
 	while i < 6:
 		$UI/Control/Title.modulate.a += 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -149,7 +149,7 @@ func _on_settings_pressed() -> void:
 	while i < 6:
 		$UI/Control/Title.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -163,7 +163,7 @@ func _on_settings_pressed() -> void:
 	while i < 6:
 		$UI/Control/Settings.modulate.a += 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -184,7 +184,7 @@ func _on_settings_back_pressed() -> void:
 	while i < 6:
 		$UI/Control/Settings.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -198,7 +198,7 @@ func _on_settings_back_pressed() -> void:
 	while i < 6:
 		$UI/Control/Title.modulate.a += 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -224,7 +224,7 @@ func _on_new_game_pressed() -> void:
 		while i < 6:
 			$UI/Control/Title.modulate.a -= 0.2
 			
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			i += 1
 			
@@ -239,7 +239,7 @@ func _on_new_game_pressed() -> void:
 		while i < 6:
 			$UI/Control/OverrideSave.modulate.a += 0.2
 			
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			i += 1
 			
@@ -255,7 +255,7 @@ func _on_new_game_pressed() -> void:
 			$UI/Control/Title.modulate.a -= 0.2
 			$Stars.modulate.a -= 0.2
 			
-			await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2, false).timeout
 			
 			i += 1
 			
@@ -280,7 +280,7 @@ func _on_load_game_pressed() -> void:
 		$UI/Control/Title.modulate.a -= 0.2
 		$Stars.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -310,7 +310,7 @@ func _on_yes_override_pressed() -> void:
 		$UI/Control/OverrideSave.modulate.a -= 0.2
 		$Stars.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -337,7 +337,7 @@ func _on_no_override_pressed() -> void:
 	while i < 6:
 		$UI/Control/OverrideSave.modulate.a -= 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		
@@ -351,7 +351,7 @@ func _on_no_override_pressed() -> void:
 	while i < 6:
 		$UI/Control/Title.modulate.a += 0.2
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 		i += 1
 		

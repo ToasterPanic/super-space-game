@@ -275,10 +275,12 @@ volume_db = -10.0
 bus = &"Music"
 
 [node name="UiSelect" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("4_5newe")
 bus = &"Sound Effects"
 
 [node name="UiBack" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("5_37s47")
 bus = &"Sound Effects"
 

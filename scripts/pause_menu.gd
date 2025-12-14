@@ -6,7 +6,7 @@ func _resume() -> void:
 	$UiBack.play()
 	
 	while Input.is_action_pressed("pause"):
-		await get_tree().create_timer(0).timeout
+		await get_tree().create_timer(0, false).timeout
 		
 	visible = false
 	get_tree().paused = false

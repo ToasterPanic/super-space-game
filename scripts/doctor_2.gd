@@ -21,7 +21,7 @@ func _on_state_1_body_entered(body: Node2D) -> void:
 	vertical_movement = -1
 	horizontial_movement = -1
 	
-	while global_position.y > -1376.0: await get_tree().create_timer(0.1).timeout
+	while global_position.y > -1376.0: await get_tree().create_timer(0.1, false).timeout
 	
 	vertical_movement = 0
 	horizontial_movement = 0
@@ -39,21 +39,21 @@ func _on_state_2_body_entered(body: Node2D) -> void:
 	while game.get_node("Camper1").health > 0:
 		$HeldItem.look_at(game.get_node("Camper1").global_position)
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 	while game.get_node("Camper2").health > 0:
 		$HeldItem.look_at(game.get_node("Camper2").global_position)
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 		
 	while game.get_node("Camper4").health > 0:
 		$HeldItem.look_at(game.get_node("Camper4").global_position)
 		
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(0.2, false).timeout
 	
 	firing = false
 	
-	await get_tree().create_timer(0.666).timeout
+	await get_tree().create_timer(0.666, false).timeout
 	
 	set_ground_gun(null)
 	
@@ -69,7 +69,7 @@ func _on_state_2_body_entered(body: Node2D) -> void:
 	if (global_position - player.global_position).length() > 200:
 		await game.dialogue("Come.", "doctor_2", false)
 		
-		while (global_position - player.global_position).length() > 200: await get_tree().create_timer(0.25).timeout
+		while (global_position - player.global_position).length() > 200: await get_tree().create_timer(0.25, false).timeout
 	
 	player.busy = true
 	

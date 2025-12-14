@@ -28,6 +28,6 @@ func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index
 		if "health" in body:
 			body.health -= 75
 		
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(1.0, false).timeout
 		
 		queue_free()
