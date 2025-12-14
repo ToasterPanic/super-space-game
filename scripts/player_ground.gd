@@ -3,6 +3,8 @@ extends "res://scripts/character_ground.gd"
 var last_aim_direction = Vector2(0, 0)
 var processing_death = false
 var camera_shake_power = 0
+var time_since_last_damage = 0
+var last_health = 100
 
 var can_holster = true
 
@@ -16,6 +18,18 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
+	
+	if health != last_health:
+		if health < last_health:
+			time_since_last_damage = 0
+		
+		last_health = health
+		
+	if time_since_last_damage > 2:
+		health += delta * 15
+		
+		if health > 100:
+			health = 100
 	
 	var screen_size = get_viewport().get_visible_rect()
 	

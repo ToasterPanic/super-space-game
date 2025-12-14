@@ -110,7 +110,7 @@ func _process(delta: float) -> void:
 	if has_node("Enemies"):
 		for n in $Enemies.get_children():
 			if "ai_mode" in n:
-				if n.ai_mode == n.AI_MODE_ATTACK:
+				if !n.dead and n.concious and (n.ai_mode == n.AI_MODE_ATTACK):
 					combat = true
 						
 		if combat:
