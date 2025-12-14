@@ -38,3 +38,25 @@ func _on_settings_back_pressed() -> void:
 		$UiBack.play()
 		$Settings.visible = false
 		$Panel/Flow/Resume.grab_focus()
+
+
+func _on_quit_to_title_pressed() -> void:
+	if visible:
+		$UiSelect.play()
+		$Panel.visible = false
+		$AreYouSure.visible = true
+		$AreYouSure/Flow/AreYouSureBack.grab_focus()
+
+
+func _on_are_you_sure_back_pressed() -> void:
+	if visible:
+		$UiBack.play()
+		$Panel.visible = true
+		$AreYouSure.visible = false
+		$Panel/Flow/Resume.grab_focus()
+
+
+func _on_yes_quit_to_title_pressed() -> void:
+	if visible:
+		get_tree().paused = false
+		get_tree().change_scene_to_file("res://scenes/title.tscn" )
