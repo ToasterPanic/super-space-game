@@ -380,6 +380,7 @@ position = Vector2(2656, -448)
 position = Vector2(800, 0)
 
 [node name="MedbayMaintDoor1" parent="." instance=ExtResource("17_akl5n")]
+z_index = -1
 position = Vector2(1184, -1600)
 
 [node name="MedbayDoorLargeVertical" type="StaticBody2D" parent="."]
