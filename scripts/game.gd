@@ -89,6 +89,36 @@ func enter_physical(map):
 	
 	get_tree().change_scene_to_file("res://scenes/ground.tscn")
 		
+func dialogue(text: String, type: String = "generic") -> void:
+	$UI/Control/Dialogue.visible = true
+	$UI/Control/Dialogue/Label.text = ""
+	
+	var speed = global.dialogue_speed.generic
+	var sound = $Dialogue
+	
+	if global.dialogue_speed.has(type): speed = global.dialogue_speed[type]
+	
+	$UI/Control/Dialogue/Label.label_settings.font_color = global.dialogue_colors.generic
+	$UI/Control/Dialogue/Label.label_settings.outline_color = global.dialogue_colors.generic
+	
+	if global.dialogue_colors.has(type): 
+		$UI/Control/Dialogue/Label.label_settings.font_color = global.dialogue_colors[type]
+		$UI/Control/Dialogue/Label.label_settings.outline_color = global.dialogue_colors[type]
+	
+	var displayed_text = ""
+	
+	var i = 0
+	while i < text.length():
+		displayed_text = displayed_text + text[i]
+		
+		$UI/Control/Dialogue/Label.text = displayed_text
+		
+		sound.play()
+		
+		await get_tree().create_timer(speed).timeout
+		
+		i += 1
+
 		
 func _ready() -> void:
 	LimboConsole.register_command(ship_health, "ship_health", "Sets the ship's health.")
@@ -146,8 +176,6 @@ func _ready() -> void:
 	
 		$Player.global_position = $Orbits/TrainingCourse/ExitPoint.global_position
 		$Player.rotation = $Orbits/TrainingCourse/ExitPoint.rotation
-		
-		global.stats.story_progress = 4
 	elif (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
 		$Player.global_position = spawn_points[global.stats.location].global_position
 		$Player.rotation = spawn_points[global.stats.location].rotation
@@ -158,8 +186,6 @@ func _ready() -> void:
 		global.stats.position = null
 	
 	global.stats.location = "space"
-	
-	if global.stats.story_progress < 4: global.stats.story_progress = 4
 	
 	if global.stats.loaded:
 		save_game()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=78 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://cwidt34ehvre4" path="res://sounds/ui_select.mp3" id="4_5newe"]
 [ext_resource type="AudioStream" uid="uid://bff3l15ivkcyi" path="res://sounds/ui_back.mp3" id="5_37s47"]
 [ext_resource type="PackedScene" uid="uid://gofibd3kwx3r" path="res://scenes/navigation_marker.tscn" id="5_264po"]
+[ext_resource type="AudioStream" uid="uid://cdl70q0x28717" path="res://sounds/dialogue.mp3" id="5_7025r"]
 [ext_resource type="AudioStream" uid="uid://y7lhonymtk3t" path="res://sounds/fire.mp3" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://lq1qqo2xdarj" path="res://scripts/orbiter.gd" id="9_sww3w"]
 [ext_resource type="Texture2D" uid="uid://dsdd1830ilu1" path="res://textures/navigation_ring.png" id="10_dinhu"]
@@ -23,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://hgfmjw6gbdnn" path="res://textures/blank.png" id="12_trtic"]
 [ext_resource type="Script" uid="uid://d0txwo63hlrsy" path="res://scripts/enterable.gd" id="13_trtic"]
 [ext_resource type="Texture2D" uid="uid://bejybm10wbp32" path="res://textures/zmg_hideout.png" id="14_js0lu"]
+[ext_resource type="Texture2D" uid="uid://dmj1wocoorru8" path="res://textures/tutorial_barrier.png" id="15_02fa5"]
 [ext_resource type="Script" uid="uid://b2maxk5g6yb0i" path="res://addons/super_awesome_input_icons/classes/input_icon_texture_rect.gd" id="15_ca42v"]
 [ext_resource type="Texture2D" uid="uid://cbd8iu7mhhw7s" path="res://textures/spaceflight_training_course.png" id="15_gxtfn"]
 [ext_resource type="Theme" uid="uid://dtc7h6gpwpend" path="res://scenes/ui.tres" id="15_ir15t"]
@@ -32,10 +34,13 @@
 [ext_resource type="Texture2D" uid="uid://gkvcn8r0m8sh" path="res://textures/repair_wave.png" id="21_wljb1"]
 [ext_resource type="Texture2D" uid="uid://cwa4uu7hrw2l0" path="res://textures/save_indicator.png" id="22_bt5mj"]
 [ext_resource type="Shader" uid="uid://bteoujesmedu1" path="res://scripts/in_combat.gdshader" id="22_pl11u"]
+[ext_resource type="FontFile" uid="uid://b4iebt7irm0e1" path="res://fonts/Oxanium.ttf" id="26_nepv3"]
 [ext_resource type="Texture2D" uid="uid://dwtmsblmgp165" path="res://textures/meter_background.png" id="28_qouja"]
 [ext_resource type="Shader" uid="uid://bcb4t8kfimhvv" path="res://scripts/damage_vignette.gdshader" id="28_suyxu"]
 [ext_resource type="Texture2D" uid="uid://cm26juwrh2rp0" path="res://textures/meter_heal.png" id="29_wljb1"]
+[ext_resource type="Texture2D" uid="uid://dauoebs801ngm" path="res://addons/super_awesome_input_icons/textures/keyboard/question.png" id="31_m4url"]
 [ext_resource type="Script" uid="uid://b2k55og46f3c" path="res://scripts/location_handlers/space_handler.gd" id="36_twgab"]
+[ext_resource type="PackedScene" uid="uid://dy6dv2tio433m" path="res://scenes/enemy.tscn" id="38_8ool0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ir15t"]
 texture = ExtResource("12_trtic")
@@ -49,7 +54,13 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ir15t")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvuet"]
-size = Vector2(65.27515, 32)
+size = Vector2(64.99997, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m4url"]
+size = Vector2(445.50006, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nepv3"]
+size = Vector2(15.000004, 80)
 
 [sub_resource type="Gradient" id="Gradient_pl11u"]
 offsets = PackedFloat32Array(0, 0.575419, 0.75418997)
@@ -118,6 +129,13 @@ outline_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 0, 0, 1)
 corner_detail = 1
 
+[sub_resource type="LabelSettings" id="LabelSettings_7025r"]
+font = ExtResource("26_nepv3")
+font_size = 32
+outline_size = 6
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_5newe"]
 font = ExtResource("16_1kice")
 font_size = 28
@@ -139,6 +157,11 @@ font_size = 14
 
 [sub_resource type="LabelSettings" id="LabelSettings_pl11u"]
 font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ool0"]
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bhx41"]
 shader = ExtResource("22_pl11u")
@@ -215,6 +238,10 @@ parameters/looping = true
 
 [node name="Enemies" type="Node2D" parent="."]
 
+[node name="Dialogue" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7025r")
+bus = &"Sound Effects"
+
 [node name="BalladOfTheCats" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_gee14")
 volume_db = -10.0
@@ -229,6 +256,11 @@ bus = &"Music"
 stream = ExtResource("4_5newe")
 bus = &"Sound Effects"
 
+[node name="TargetPractice" parent="UiSelect" instance=ExtResource("38_8ool0")]
+position = Vector2(238, -599774)
+speed = 0
+concious = false
+
 [node name="UiBack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_37s47")
 bus = &"Sound Effects"
@@ -236,28 +268,6 @@ bus = &"Sound Effects"
 [node name="Stars" type="Node2D" parent="."]
 
 [node name="Unloadables" type="Node2D" parent="."]
-
-[node name="TrainingCourse" type="Sprite2D" parent="."]
-position = Vector2(0, -20000)
-scale = Vector2(2, 2)
-texture = ExtResource("12_dinhu")
-script = ExtResource("10_v2yb1")
-
-[node name="Collision" type="TileMapLayer" parent="TrainingCourse"]
-visible = false
-scale = Vector2(0.5, 0.5)
-tile_map_data = PackedByteArray("AAD6/wgAAAAAAAAAAAD6/wkAAAAAAAAAAAD6/woAAAAAAAAAAAD6/wsAAAAAAAAAAAD6/wwAAAAAAAAAAAD6/w0AAAAAAAAAAAD6/w4AAAAAAAAAAAD6/w8AAAAAAAAAAAD7/w8AAAAAAAAAAAD8/w8AAAAAAAAAAAD9/w8AAAAAAAAAAAD9/w4AAAAAAAAAAAD8/w4AAAAAAAAAAAD7/w4AAAAAAAAAAAD7/w0AAAAAAAAAAAD7/wwAAAAAAAAAAAD7/wsAAAAAAAAAAAD7/woAAAAAAAAAAAD7/wkAAAAAAAAAAAD7/wgAAAAAAAAAAAD8/wgAAAAAAAAAAAD9/wgAAAAAAAAAAAD9/wkAAAAAAAAAAAD9/woAAAAAAAAAAAD9/wsAAAAAAAAAAAD9/wwAAAAAAAAAAAD8/wwAAAAAAAAAAAD8/w0AAAAAAAAAAAD8/wsAAAAAAAAAAAD8/woAAAAAAAAAAAD8/wkAAAAAAAAAAAD+/wkAAAAAAAAAAAD//wkAAAAAAAAAAAAAAAkAAAAAAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAABAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAD//wgAAAAAAAAAAAD+/wgAAAAAAAAAAAD+/wcAAAAAAAAAAAD+/wYAAAAAAAAAAAD//wYAAAAAAAAAAAAAAAYAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAACAAgAAAAAAAAAAAADAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAADAAoAAAAAAAAAAAACAAoAAAAAAAAAAAACAAsAAAAAAAAAAAACAAwAAAAAAAAAAAACAA0AAAAAAAAAAAACAA4AAAAAAAAAAAACAA8AAAAAAAAAAAADAA8AAAAAAAAAAAAEAA8AAAAAAAAAAAAFAA8AAAAAAAAAAAAFAA4AAAAAAAAAAAAEAA4AAAAAAAAAAAADAA4AAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAFAAwAAAAAAAAAAAAEAAwAAAAAAAAAAAADAAwAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAFAAoAAAAAAAAAAAAEAAoAAAAAAAAAAAAFAAkAAAAAAAAAAAD4/wEAAAAAAAAAAAD4/wIAAAAAAAAAAAD4/wMAAAAAAAAAAAD4/wQAAAAAAAAAAAD5/wEAAAAAAAAAAAD5/wIAAAAAAAAAAAD5/wMAAAAAAAAAAAD5/wQAAAAAAAAAAAD6/wEAAAAAAAAAAAD6/wIAAAAAAAAAAAD6/wMAAAAAAAAAAAD6/wQAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD8/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD8/wQAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wQAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAAAAAAAAAD//wQAAAAAAAAAAAD//wUAAAAAAAAAAADz/wYAAAAAAAAAAADz/wcAAAAAAAAAAADz/wgAAAAAAAAAAADz/wkAAAAAAAAAAAD0/wYAAAAAAAAAAAD0/wcAAAAAAAAAAAD0/wgAAAAAAAAAAAD0/wkAAAAAAAAAAAD1/wYAAAAAAAAAAAD1/wcAAAAAAAAAAAD1/wgAAAAAAAAAAAD1/wkAAAAAAAAAAAD2/wYAAAAAAAAAAAD2/wcAAAAAAAAAAAD2/wgAAAAAAAAAAAD2/wkAAAAAAAAAAAD3/wYAAAAAAAAAAAD3/wcAAAAAAAAAAAD3/wgAAAAAAAAAAAD3/wkAAAAAAAAAAAD4/wYAAAAAAAAAAAD4/wcAAAAAAAAAAAD4/wgAAAAAAAAAAAD4/wkAAAAAAAAAAAD5/wcAAAAAAAAAAAD5/wgAAAAAAAAAAAD6/wcAAAAAAAAAAAD7/wcAAAAAAAAAAAD8/wcAAAAAAAAAAAD9/wcAAAAAAAAAAAD0//3/AAAAAAAAAAD0//7/AAAAAAAAAAD0////AAAAAAAAAAD0/wAAAAAAAAAAAAD0/wEAAAAAAAAAAAD0/wIAAAAAAAAAAAD0/wMAAAAAAAAAAAD0/wQAAAAAAAAAAAD0/wUAAAAAAAAAAAD1//3/AAAAAAAAAAD1//7/AAAAAAAAAAD1////AAAAAAAAAAD1/wAAAAAAAAAAAAD1/wEAAAAAAAAAAAD1/wIAAAAAAAAAAAD1/wMAAAAAAAAAAAD1/wQAAAAAAAAAAAD1/wUAAAAAAAAAAADx//3/AAAAAAAAAADy//3/AAAAAAAAAADz//3/AAAAAAAAAAD2//3/AAAAAAAAAADx//7/AAAAAAAAAADx/wIAAAAAAAAAAADx/wMAAAAAAAAAAADy//7/AAAAAAAAAADy////AAAAAAAAAADy/wAAAAAAAAAAAADy/wEAAAAAAAAAAADy/wIAAAAAAAAAAADy/wMAAAAAAAAAAADz//7/AAAAAAAAAADz////AAAAAAAAAADz/wAAAAAAAAAAAADz/wEAAAAAAAAAAADz/wIAAAAAAAAAAADz/wMAAAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAADw//D/AAAAAAAAAADw//H/AAAAAAAAAADw//L/AAAAAAAAAADw//P/AAAAAAAAAADw//T/AAAAAAAAAADw//X/AAAAAAAAAADw//b/AAAAAAAAAADx//D/AAAAAAAAAADx//H/AAAAAAAAAADx//L/AAAAAAAAAADx//P/AAAAAAAAAADx//T/AAAAAAAAAADx//X/AAAAAAAAAADx//b/AAAAAAAAAADy//D/AAAAAAAAAADy//H/AAAAAAAAAADy//L/AAAAAAAAAADy//P/AAAAAAAAAADy//T/AAAAAAAAAADy//X/AAAAAAAAAADy//b/AAAAAAAAAADz//D/AAAAAAAAAADz//H/AAAAAAAAAADz//L/AAAAAAAAAADz//P/AAAAAAAAAADz//T/AAAAAAAAAADz//X/AAAAAAAAAADz//b/AAAAAAAAAAD0//D/AAAAAAAAAAD0//H/AAAAAAAAAAD0//L/AAAAAAAAAAD0//P/AAAAAAAAAAD0//T/AAAAAAAAAAD0//X/AAAAAAAAAAD0//b/AAAAAAAAAAD1//D/AAAAAAAAAAD1//H/AAAAAAAAAAD1//L/AAAAAAAAAAD1//P/AAAAAAAAAAD1//T/AAAAAAAAAAD1//X/AAAAAAAAAAD1//b/AAAAAAAAAAD2//D/AAAAAAAAAAD2//H/AAAAAAAAAAD2//L/AAAAAAAAAAD2//P/AAAAAAAAAAD2//T/AAAAAAAAAAD2//X/AAAAAAAAAAD2//b/AAAAAAAAAAD1//f/AAAAAAAAAAD1//j/AAAAAAAAAAD1//n/AAAAAAAAAAD1//r/AAAAAAAAAAD1//v/AAAAAAAAAAD1//z/AAAAAAAAAAD0//j/AAAAAAAAAAD0//n/AAAAAAAAAAD0//r/AAAAAAAAAAD0//v/AAAAAAAAAAD2//j/AAAAAAAAAAD2//n/AAAAAAAAAAD2//r/AAAAAAAAAAD2//v/AAAAAAAAAAD4//r/AAAAAAAAAAD4//v/AAAAAAAAAAD4//z/AAAAAAAAAAD4//3/AAAAAAAAAAD4//7/AAAAAAAAAAD4////AAAAAAAAAAD5//r/AAAAAAAAAAD5//v/AAAAAAAAAAD5//z/AAAAAAAAAAD5//3/AAAAAAAAAAD5//7/AAAAAAAAAAD5////AAAAAAAAAAD6//r/AAAAAAAAAAD6//v/AAAAAAAAAAD6//z/AAAAAAAAAAD6//3/AAAAAAAAAAD6//7/AAAAAAAAAAD6////AAAAAAAAAAD7//r/AAAAAAAAAAD7//v/AAAAAAAAAAD7//z/AAAAAAAAAAD7//3/AAAAAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD8//r/AAAAAAAAAAD8//v/AAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD9//r/AAAAAAAAAAD9//v/AAAAAAAAAAD9//z/AAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD6/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAD6//X/AAAAAAAAAAD6//b/AAAAAAAAAAD6//f/AAAAAAAAAAD6//j/AAAAAAAAAAD7//X/AAAAAAAAAAD7//b/AAAAAAAAAAD7//f/AAAAAAAAAAD7//j/AAAAAAAAAAD8//X/AAAAAAAAAAD8//b/AAAAAAAAAAD8//f/AAAAAAAAAAD8//j/AAAAAAAAAAD9//X/AAAAAAAAAAD9//b/AAAAAAAAAAD9//f/AAAAAAAAAAD9//j/AAAAAAAAAAD7//n/AAAAAAAAAAD+//z/AAAAAAAAAAD///z/AAAAAAAAAAAAAPz/AAAAAAAAAAABAPz/AAAAAAAAAAACAPz/AAAAAAAAAAADAPz/AAAAAAAAAAD///v/AAAAAAAAAAD///3/AAAAAAAAAAAAAPv/AAAAAAAAAAAAAP3/AAAAAAAAAAABAPv/AAAAAAAAAAABAP3/AAAAAAAAAAACAPv/AAAAAAAAAAACAP3/AAAAAAAAAAADAPv/AAAAAAAAAAADAP3/AAAAAAAAAAACAP7/AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAQAAAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAQAAAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAQAAAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAP//AAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAP//AAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAQAAAAAAAAAAAD9/w0AAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_ca42v")
-
-[node name="EnterHitbox" type="Area2D" parent="TrainingCourse"]
-position = Vector2(0, 176)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TrainingCourse/EnterHitbox"]
-shape = SubResource("RectangleShape2D_kvuet")
-
-[node name="ExitPoint" type="Node2D" parent="TrainingCourse"]
-position = Vector2(0, 245.5)
-rotation = 3.1415927
 
 [node name="Orbits" type="Node2D" parent="."]
 
@@ -351,7 +361,7 @@ script = ExtResource("10_v2yb1")
 metadata/orbit_speed = -0.1
 
 [node name="EnterHitbox" type="Area2D" parent="Orbits/TrainingCourse"]
-position = Vector2(-385.99997, -99378)
+position = Vector2(-411, -600000)
 scale = Vector2(1.9999999, 1.9999999)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/TrainingCourse/EnterHitbox"]
@@ -359,10 +369,61 @@ position = Vector2(-3.5952148, -0.0009765625)
 scale = Vector2(1.0000004, 1.0000004)
 shape = SubResource("RectangleShape2D_kvuet")
 
+[node name="TutorialHitbox1" type="Area2D" parent="Orbits/TrainingCourse"]
+position = Vector2(-687, -599111)
+scale = Vector2(1.9999999, 1.9999999)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/TrainingCourse/TutorialHitbox1"]
+position = Vector2(-4, 4)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_kvuet")
+
+[node name="TutorialHitbox2" type="Area2D" parent="Orbits/TrainingCourse"]
+position = Vector2(905.9999, -599111)
+scale = Vector2(1.9999999, 1.9999999)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/TrainingCourse/TutorialHitbox2"]
+position = Vector2(-4, 4)
+scale = Vector2(1.0000001, 1.0000001)
+shape = SubResource("RectangleShape2D_kvuet")
+
+[node name="TutorialHitbox3" type="Area2D" parent="Orbits/TrainingCourse"]
+position = Vector2(227.00006, -599765)
+scale = Vector2(1.9999999, 1.9999999)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/TrainingCourse/TutorialHitbox3"]
+position = Vector2(20.74997, -4.5)
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_m4url")
+
 [node name="ExitPoint" type="Node2D" parent="Orbits/TrainingCourse"]
 position = Vector2(-895, -599804)
 rotation = -3.1415925
 scale = Vector2(1.9999999, 1.9999999)
+
+[node name="Barrier1" type="StaticBody2D" parent="Orbits/TrainingCourse"]
+position = Vector2(799, -599111)
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="TutorialBarrier" type="Sprite2D" parent="Orbits/TrainingCourse/Barrier1"]
+scale = Vector2(1.9999999, 1.9999999)
+texture = ExtResource("15_02fa5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/TrainingCourse/Barrier1"]
+scale = Vector2(1.9999998, 1.9999998)
+shape = SubResource("RectangleShape2D_nepv3")
+
+[node name="Barrier2" type="StaticBody2D" parent="Orbits/TrainingCourse"]
+position = Vector2(-196, -599765)
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="TutorialBarrier" type="Sprite2D" parent="Orbits/TrainingCourse/Barrier2"]
+scale = Vector2(1.9999999, 1.9999999)
+texture = ExtResource("15_02fa5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/TrainingCourse/Barrier2"]
+scale = Vector2(1.9999998, 1.9999998)
+shape = SubResource("RectangleShape2D_nepv3")
 
 [node name="Sprite" type="Sprite2D" parent="Orbits/TrainingCourse"]
 position = Vector2(0, -600000)
@@ -534,6 +595,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Dialogue" type="HFlowContainer" parent="UI/Control"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -48.0
+offset_right = 320.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Control/Dialogue"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "How may I help you?"
+label_settings = SubResource("LabelSettings_7025r")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Navpanel" type="PanelContainer" parent="UI/Control"]
 visible = false
@@ -903,6 +989,150 @@ script = ExtResource("15_ca42v")
 action_name = "navpanel"
 metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
 
+[node name="MoveTutorial" type="HFlowContainer" parent="UI/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -122.5
+offset_bottom = -122.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="End2" type="Label" parent="UI/Control/MoveTutorial"]
+layout_mode = 2
+text = "MOVE"
+label_settings = SubResource("LabelSettings_8ool0")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("31_m4url")
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "forward"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect2" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("31_m4url")
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "backward"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="End3" type="Label" parent="UI/Control/MoveTutorial"]
+layout_mode = 2
+text = "      ROTATE"
+label_settings = SubResource("LabelSettings_8ool0")
+
+[node name="InputIconTextureRect3" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("31_m4url")
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "turn_left"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="InputIconTextureRect4" type="TextureRect" parent="UI/Control/MoveTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("31_m4url")
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "turn_right"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="FireTutorial" type="HFlowContainer" parent="UI/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -122.5
+offset_bottom = -122.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="End2" type="Label" parent="UI/Control/FireTutorial"]
+layout_mode = 2
+text = "FIRE"
+label_settings = SubResource("LabelSettings_8ool0")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/FireTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("31_m4url")
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "fire"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="BoostTutorial" type="HFlowContainer" parent="UI/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -122.5
+offset_bottom = -122.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="End2" type="Label" parent="UI/Control/BoostTutorial"]
+layout_mode = 2
+text = "BOOST"
+label_settings = SubResource("LabelSettings_8ool0")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/BoostTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("31_m4url")
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "boost"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
+[node name="RepairTutorial" type="HFlowContainer" parent="UI/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0.53333336)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -122.5
+offset_bottom = -122.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="End2" type="Label" parent="UI/Control/RepairTutorial"]
+layout_mode = 2
+text = "QUICK HEAL"
+label_settings = SubResource("LabelSettings_8ool0")
+
+[node name="InputIconTextureRect" type="TextureRect" parent="UI/Control/RepairTutorial"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("31_m4url")
+expand_mode = 1
+script = ExtResource("15_ca42v")
+action_name = "ability_1"
+metadata/_custom_type_script = "uid://b2maxk5g6yb0i"
+
 [node name="MissionObjectives" parent="UI/Control" instance=ExtResource("21_bt5mj")]
 layout_mode = 1
 offset_left = -256.0
@@ -1020,8 +1250,6 @@ color = Color(1, 1, 1, 0)
 script = ExtResource("36_twgab")
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="area_entered" from="TrainingCourse/EnterHitbox" to="TrainingCourse" method="_on_enter_hitbox_area_entered"]
-[connection signal="body_entered" from="TrainingCourse/EnterHitbox" to="TrainingCourse" method="_on_enter_hitbox_body_entered"]
 [connection signal="area_entered" from="Orbits/SpaceStation1/space_station_1/EnterHitbox" to="Orbits/SpaceStation1/space_station_1" method="_on_enter_hitbox_area_entered"]
 [connection signal="body_entered" from="Orbits/SpaceStation1/space_station_1/EnterHitbox" to="Orbits/SpaceStation1/space_station_1" method="_on_enter_hitbox_body_entered"]
 [connection signal="area_entered" from="Orbits/SpaceStation2/space_station_2/EnterHitbox" to="Orbits/SpaceStation2/space_station_2" method="_on_enter_hitbox_area_entered"]

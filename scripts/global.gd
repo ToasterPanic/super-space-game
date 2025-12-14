@@ -27,6 +27,22 @@ var orbit_zones = [
 	},
 ]
 
+var dialogue_colors = {
+	"generic": Color("fff"),
+	"player": Color("fff"),
+	"player_woozy": Color("fff"),
+	"doctor_1": Color("00ffffff"),
+	"doctor_2": Color("004bffff"),
+	"zmg_doctor_1": Color("e170ffff"),
+	"zmg_hideout_captain": Color("a74700ff"),
+}
+
+var dialogue_speed = {
+	"generic": 0.037,
+	"player_slow": 0.06,
+	"player_woozy": 0.2,
+}
+
 var missions = {
 	"waking_up": {
 		"id": "waking_up",

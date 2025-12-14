@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://5tr30e1tmdp6" path="res://sounds/collision.mp3" id="4_ipns3"]
 [ext_resource type="AudioStream" uid="uid://bney1c4julhfk" path="res://sounds/explode.mp3" id="5_ipns3"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="6_w8i8w"]
-[ext_resource type="PackedScene" uid="uid://bsvwpuwvh3hga" path="res://scenes/particles/explosion.tscn" id="7_nenq2"]
+[ext_resource type="PackedScene" path="res://scenes/particles/explosion.tscn" id="7_nenq2"]
 
 [sub_resource type="Gradient" id="Gradient_nenq2"]
 offsets = PackedFloat32Array(0, 0.575419, 0.75418997)

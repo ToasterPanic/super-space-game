@@ -4,16 +4,6 @@ var current_interaction_area = null
 signal dialogue_continue
 signal choice_made
 
-var dialogue_colors = {
-	"generic": Color("fff"),
-	"player": Color("fff"),
-	"player_woozy": Color("fff"),
-	"doctor_1": Color("00ffffff"),
-	"doctor_2": Color("004bffff"),
-	"zmg_doctor_1": Color("e170ffff"),
-	"zmg_hideout_captain": Color("a74700ff"),
-}
-
 @onready var dialogue_sounds = {
 	"zmg_hideout_captain": $DialogueSounds/Male2,
 	"zmg_doctor_1": $DialogueSounds/Female1
@@ -21,12 +11,6 @@ var dialogue_colors = {
 
 var combat = false
 var combat_track = null
-
-var dialogue_speed = {
-	"generic": 0.037,
-	"player_slow": 0.06,
-	"player_woozy": 0.2,
-}
 
 func save_game() -> void:
 	$UI/Control/SaveIndicator.visible = true
@@ -145,10 +129,10 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true, 
 	$UI/Control/Dialogue.visible = true
 	$UI/Control/Dialogue/Label.text = ""
 	
-	var speed = dialogue_speed.generic
+	var speed = global.dialogue_speed.generic
 	var sound = $Dialogue
 	
-	if dialogue_speed.has(type): speed = dialogue_speed[type]
+	if global.dialogue_speed.has(type): speed = global.dialogue_speed[type]
 	
 	if dialogue_sounds.has(type):
 		sound = dialogue_sounds[type]
@@ -158,21 +142,21 @@ func dialogue(text: String, type: String = "generic", allow_input: bool = true, 
 	if character:
 		character.get_node("Dialogue").label_settings = character.get_node("Dialogue").label_settings.duplicate()
 		
-		character.get_node("Dialogue").label_settings.outline_color = dialogue_colors.generic
-		character.get_node("Dialogue").label_settings.font_color = dialogue_colors.generic
+		character.get_node("Dialogue").label_settings.outline_color = global.dialogue_colors.generic
+		character.get_node("Dialogue").label_settings.font_color = global.dialogue_colors.generic
 	
-		if dialogue_colors.has(type): 
-			character.get_node("Dialogue").label_settings.font_color = dialogue_colors[type]
-			character.get_node("Dialogue").label_settings.outline_color = dialogue_colors[type]
+		if global.dialogue_colors.has(type): 
+			character.get_node("Dialogue").label_settings.font_color = global.dialogue_colors[type]
+			character.get_node("Dialogue").label_settings.outline_color = global.dialogue_colors[type]
 		
-		if dialogue_colors.has(type): character.get_node("Dialogue").label_settings.font_color = dialogue_colors[type]
+		if global.dialogue_colors.has(type): character.get_node("Dialogue").label_settings.font_color = global.dialogue_colors[type]
 	else:
-		$UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors.generic
-		$UI/Control/Dialogue/Label.label_settings.outline_color = dialogue_colors.generic
+		$UI/Control/Dialogue/Label.label_settings.font_color = global.dialogue_colors.generic
+		$UI/Control/Dialogue/Label.label_settings.outline_color = global.dialogue_colors.generic
 		
-		if dialogue_colors.has(type): 
-			$UI/Control/Dialogue/Label.label_settings.font_color = dialogue_colors[type]
-			$UI/Control/Dialogue/Label.label_settings.outline_color = dialogue_colors[type]
+		if global.dialogue_colors.has(type): 
+			$UI/Control/Dialogue/Label.label_settings.font_color = global.dialogue_colors[type]
+			$UI/Control/Dialogue/Label.label_settings.outline_color = global.dialogue_colors[type]
 	
 	var displayed_text = ""
 	

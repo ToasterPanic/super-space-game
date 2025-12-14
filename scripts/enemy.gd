@@ -2,12 +2,14 @@ extends RigidBody2D
 
 var health = 500
 var boost = 100
-var speed = 372
+@export var speed = 372
 var time_since_last_collision = 1
 var time_since_last_fire = 0
 var boosting = false
-var firing = true
+var firing = false
 var dead = false
+
+@export var concious = true
 
 var axis = 0
 var movement_axis = -1
@@ -20,7 +22,7 @@ enum {
 	AI_MODE_ATTACK
 }
 
-var ai_mode = AI_MODE_ATTACK
+var ai_mode = AI_MODE_IDLE
 
 enum {
 	AI_STATE_EVADE_OBJECT,
@@ -104,7 +106,7 @@ func _process(delta: float) -> void:
 		
 		queue_free()
 	
-	ai_tick -= delta
+	if concious: ai_tick -= delta
 	
 	$BoostParticles.emitting = boosting
 	
@@ -162,7 +164,8 @@ func _process(delta: float) -> void:
 				front_cast = cast(0)
 		
 		$SightCast.position.x = 0
-		
+		if ai_mode == AI_MODE_IDLE:
+			ai_mode = AI_MODE_ATTACK
 		if ai_mode == AI_MODE_ATTACK:
 			firing = false
 			
