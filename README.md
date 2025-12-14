@@ -12,7 +12,7 @@ This is a more polished, more complete version of my previous prototype. The con
 Above all else: THIS IS A GAME THAT IS UNFINISHED. More importantly, it's a DEMO that is unfinished. While I'm definitely making this into a proper game, it's still a prototype. It's not perfect. It's probably buggy. But I've put a lot of effort into it, so I get a gold star for effort (I will eats it :3)
 
 - You can press the SELECT/BACK/SHARE/- button to open your navpanel. Use the D-PAD, A/CROSS and B/CIRCLE buttons to select stuff.
-- Use the command `go_to_ground combat_test` to find the combat testing room.
+- Use the command `go_to_ground combat_test` to go to a combat testing zone. There's a bunch of buttons to fiddle around with.
 - While in space, use the `summon_enemy` command to summon an enemy behind you. They probably won't work well with more than one, so try not to spawn more than one of them.
 
 - Try to avoid unfocusing the window. This game is currently prone to softlocking for unknown reasons.
