@@ -8,8 +8,10 @@ var last_health = 100
 
 var can_holster = true
 
-func _ready() -> void:
-	super()
+func _ready(``) -> void:
+	super()`
+	
+	game = get_parent()
 	
 	if global.stats.gun_holstered:
 		set_ground_gun(null)

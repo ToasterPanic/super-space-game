@@ -29,6 +29,11 @@ window/size/viewport_width=1600
 window/size/viewport_height=900
 window/stretch/scale_mode="integer"
 
+[editor]
+
+movie_writer/movie_file="/home/lukas/Videos/game_thumbnail.png"
+movie_writer/fps=10
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/super_awesome_input_icons/plugin.cfg")
