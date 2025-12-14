@@ -115,7 +115,9 @@ func _ground_ready() -> void:
 			"bundle_of_joy": "Bundle of joy, huh?"
 		})
 		
-		if option_1 == "who":
+		if option_1 == "where":
+			await game.dialogue("Where am I..?", "player", true, player)
+		elif option_1 == "who":
 			await game.dialogue("Who are you..?", "player", true, player)
 				
 			await game.dialogue("I'm Doctor Rosenheim.", "doctor_1", true, game.get_node("Doctor1"))
