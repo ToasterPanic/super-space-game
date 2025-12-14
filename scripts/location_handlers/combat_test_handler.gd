@@ -10,6 +10,10 @@ var combat_spawns = [
 
 var enemy_scene = preload("res://scenes/enemy_ground.tscn")
 
+func _random_point():
+	var points = game.get_node("Waypoints").get_children()
+	return points[randi_range(0, points.size() - 1)]
+
 func _interact(player: CharacterBody2D, area: Node2D):
 	var button_name = area.get_parent().get_name()
 	
@@ -43,6 +47,34 @@ func _interact(player: CharacterBody2D, area: Node2D):
 			enemy.global_position += Vector2(randf_range(-24, 24), randf_range(-24, 24))
 			
 			print(random_point)
+			
+			game.get_node("Enemies").add_child(enemy)
+			
+			i += 1
+	elif button_name == "SummonStealthEnemies":
+		var i = 0
+		while i < 4:
+			var enemy = preload("res://scenes/enemy_ground.tscn").instantiate()
+			
+			enemy.inaccuracy = 9
+			enemy.speed = 140
+			enemy.game = game
+			enemy.reaction_time = 0.566
+			
+			var random_point = game.get_node("Waypoints/" + combat_spawns[randi_range(0, combat_spawns.size() - 1)])
+			
+			enemy.global_position = random_point.global_position
+			enemy.global_position += Vector2(randf_range(-24, 24), randf_range(-24, 24))
+			
+			var pointlist: Array[Node2D] = [
+				random_point,
+				_random_point(),
+				_random_point(),
+			]
+			
+			
+			
+			enemy.points = pointlist
 			
 			game.get_node("Enemies").add_child(enemy)
 			
