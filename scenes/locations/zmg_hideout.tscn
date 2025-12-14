@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://d33gf2ex54bcn"]
+[gd_scene load_steps=50 format=4 uid="uid://d33gf2ex54bcn"]
 
 [ext_resource type="Texture2D" uid="uid://btcap3oh2dqt8" path="res://textures/wall_tile.png" id="1_eequg"]
 [ext_resource type="Texture2D" uid="uid://xs6tjca62pw1" path="res://textures/wall_side_tile.png" id="2_tu2kf"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dtvwg35460r5d" path="res://scripts/map.gd" id="6_bno5q"]
 [ext_resource type="Material" uid="uid://dclotedotaa68" path="res://scenes/fov_hide_material.tres" id="7_ksyeb"]
 [ext_resource type="TileSet" uid="uid://diq7a07apv5n5" path="res://resources/floor_tileset.tres" id="8_tu2kf"]
+[ext_resource type="Texture2D" uid="uid://oh8y7lbiprs4" path="res://textures/bag.png" id="10_ia5tc"]
 [ext_resource type="PackedScene" uid="uid://udpwphfxtuf2" path="res://scenes/props/desk.tscn" id="10_nnlyd"]
 [ext_resource type="PackedScene" uid="uid://cdhcklydf5uy1" path="res://scenes/doors/door_small_horizontial.tscn" id="10_tu2kf"]
 [ext_resource type="PackedScene" uid="uid://mbaippa75l7h" path="res://scenes/props/bed.tscn" id="11_rvj0o"]
@@ -232,7 +233,7 @@ position = Vector2(1696, -896)
 [node name="BedroomDoor4" parent="." instance=ExtResource("10_tu2kf")]
 position = Vector2(2016, -896)
 
-[node name="BedroomDoor5" parent="." instance=ExtResource("10_tu2kf")]
+[node name="PlayerBedroomDoor" parent="." instance=ExtResource("10_tu2kf")]
 position = Vector2(2336, -896)
 
 [node name="BedroomDoor6" parent="." instance=ExtResource("10_tu2kf")]
@@ -250,6 +251,13 @@ position = Vector2(2208, -576)
 [node name="BrigDoor" parent="." instance=ExtResource("10_tu2kf")]
 position = Vector2(2336, 0)
 
+[node name="Backpack" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(2272, -1264)
+scale = Vector2(2, 2)
+texture = ExtResource("10_ia5tc")
+
 [node name="Waypoints" type="Node2D" parent="."]
 
 [node name="PlayerIntroSpawn" type="Node2D" parent="Waypoints"]
@@ -257,6 +265,9 @@ position = Vector2(2048, -128)
 
 [node name="PlayerIntroSpawn2" type="Node2D" parent="Waypoints"]
 position = Vector2(1728, 384)
+
+[node name="PlayerIntroSpawn3" type="Node2D" parent="Waypoints"]
+position = Vector2(2272, -1056)
 
 [node name="CaptainPoint1" type="Node2D" parent="Waypoints"]
 position = Vector2(224, 352)
@@ -606,6 +617,12 @@ scale = Vector2(2, 2)
 [node name="FiringTarget8" parent="FiringTargets" instance=ExtResource("23_ksyeb")]
 position = Vector2(4512, -224)
 scale = Vector2(2, 2)
+
+[node name="TinyDesk4" parent="." instance=ExtResource("21_fw8r5")]
+position = Vector2(2272, -1216)
+
+[node name="TinyDesk5" parent="." instance=ExtResource("21_fw8r5")]
+position = Vector2(2336, -1216)
 
 [connection signal="area_entered" from="Triggers/SpeedUp" to="ZMGHideoutHandler" method="_on_speed_up_area_entered"]
 [connection signal="body_entered" from="Triggers/Captain1DeskInteract" to="Triggers/Captain1DeskInteract" method="_on_body_entered"]

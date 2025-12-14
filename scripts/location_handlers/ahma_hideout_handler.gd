@@ -239,6 +239,10 @@ func _ground_ready() -> void:
 	elif global.stats.story_progress == 2:
 		game.get_node("ZMGHideoutCaptain").global_position = game.get_node("Waypoints/CaptainPoint2").global_position
 		player.global_position = game.get_node("Waypoints/PlayerIntroSpawn2").global_position
+	
+	elif global.stats.story_progress == 3:
+		game.get_node("ZMGHideoutCaptain").global_position = game.get_node("Waypoints/CaptainPoint2").global_position
+		player.global_position = game.get_node("Waypoints/PlayerIntroSpawn3").global_position
 
 func _handle_1():
 	var i = 0
@@ -369,6 +373,8 @@ func _interact(player: Node2D, area: Area2D):
 			
 		await game.dialogue("Take a pistol from that locker.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
 		
+		player.busy = false
+		
 		while global.stats.equipped_ground_gun != "pistol":
 			await get_tree().create_timer(0.2).timeout
 		
@@ -420,3 +426,54 @@ func _interact(player: Node2D, area: Area2D):
 		await game.dialogue("That pistol's yours now. Don't lose it.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
 		await game.dialogue("I've arranged you a room and ship. Follow.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		player.busy = false
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint9").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("RangeInternalLockDoor").set_open(true)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint10").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("RangeInternalLockDoor").set_open(false)
+			
+		game.get_node("RangeExternalLockDoor").set_open(true)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint11").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+			
+		game.get_node("RangeExternalLockDoor").set_open(false)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint12").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+			
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint13").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 200:
+			await get_tree().create_timer(0.2).timeout
+			
+		player.busy = true
+		
+		await game.dialogue("This is your room. You have a backpack in there with some gear in it.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("It should contain a phone, Swiss army knife, as well as a few notes from the rest of the crew.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("I will let you make yourself at home for a moment.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("You are to be at my desk within an hour from now.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("I'll be seeing you then.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		player.busy = false
+			
+		game.get_node("PlayerBedroomDoor").set_open(true)
+		
+		_handle_4()
+		
+		global.stats.story_progress = 3
+		game.save_game()
