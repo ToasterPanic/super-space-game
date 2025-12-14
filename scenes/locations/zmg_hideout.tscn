@@ -308,6 +308,18 @@ position = Vector2(2848, -736)
 [node name="CaptainPoint13" type="Node2D" parent="Waypoints"]
 position = Vector2(2272, -800)
 
+[node name="CaptainPoint14" type="Node2D" parent="Waypoints"]
+position = Vector2(928, 768)
+
+[node name="CaptainPoint15" type="Node2D" parent="Waypoints"]
+position = Vector2(928, 1440)
+
+[node name="CaptainPoint16" type="Node2D" parent="Waypoints"]
+position = Vector2(1568, 1440)
+
+[node name="CaptainPoint17" type="Node2D" parent="Waypoints"]
+position = Vector2(1632, 1120)
+
 [node name="DoctorPoint1" type="Node2D" parent="Waypoints"]
 position = Vector2(1912, -128)
 

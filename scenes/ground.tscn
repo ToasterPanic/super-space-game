@@ -247,6 +247,10 @@ position_smoothing_enabled = true
 position = Vector2(0, 40)
 shape = SubResource("CapsuleShape2D_176r3")
 
+[node name="Avoidance" type="NavigationAgent2D" parent="PlayerGround/CollisionShape"]
+avoidance_enabled = true
+radius = 50.0
+
 [node name="HeldItem" type="Node2D" parent="PlayerGround"]
 
 [node name="Cast" type="RayCast2D" parent="PlayerGround/HeldItem"]

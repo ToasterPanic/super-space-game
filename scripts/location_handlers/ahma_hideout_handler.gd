@@ -506,3 +506,67 @@ func _interact(player: Node2D, area: Area2D):
 		
 		global.stats.story_progress = 3
 		game.save_game()
+	elif area.get_name() == "Captain2DeskInteract":
+		player.busy = true 
+		
+		game.get_node("Triggers/Captain2DeskInteract").monitoring = false
+		
+		await game.dialogue("Are you settled in?", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		var option_0 = await game.make_choice({
+			"yes": "Yes",
+			"no": "Not yet"
+		})
+		
+		if option_0 == "no":
+			await game.dialogue("No, not yet.", "player", true, player)
+			
+			await game.dialogue("I suggest you come back soon when you're ready.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			
+			player.busy = false
+			game.get_node("Triggers/Captain2DeskInteract").monitoring = true
+			return
+			
+		await game.dialogue("Yes, I am.", "player", true, player)
+		
+		await game.dialogue("Good. I'm going to be giving you some basic spaceflight training.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			
+		await game.dialogue("Follow.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+		
+		player.busy = false
+		
+		game.get_node("ExitShip/InteractArea").monitoring = false
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint3").global_position)
+	
+		game.get_node("CaptainDoor1").set_open(true)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint14").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+	
+		game.get_node("CaptainDoor1").set_open(false)
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint15").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint16").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 128:
+			await get_tree().create_timer(0.2).timeout
+		
+		await game.get_node("ZMGHideoutCaptain").navigate_to(game.get_node("Waypoints/CaptainPoint17").global_position)
+		while (player.global_position - game.get_node("ZMGHideoutCaptain").global_position).length() > 200:
+			await get_tree().create_timer(0.2).timeout
+			
+		player.busy = true
+			
+		await game.dialogue("This is your ship. You should already have the keys from your room.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+			
+		await game.dialogue("I'll be radioing to you from in here.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
+		
+		await game.dialogue("Enter your ship.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
+			
+		player.busy = false
+		
+		game.get_node("ExitShip/InteractArea").monitoring = true

@@ -141,7 +141,10 @@ func _ready() -> void:
 		
 		i += 1
 		
-	if (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
+	if global.stats.story_progress == 3:
+		$Player.global_position = spawn_points[global.stats.location].global_position
+		global.stats.story_progress = 4
+	elif (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
 		$Player.global_position = spawn_points[global.stats.location].global_position
 		$Player.rotation = spawn_points[global.stats.location].rotation
 	elif global.stats.position:
