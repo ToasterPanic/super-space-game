@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://dynvndexonrt"]
+
+[ext_resource type="Texture2D" uid="uid://bu75lpol3sl6n" path="res://textures/game_thumbnail.png" id="1_hi2c0"]
+[ext_resource type="FontFile" uid="uid://donsvh2l775rb" path="res://fonts/Doto.ttf" id="2_vmqma"]
+[ext_resource type="Shader" uid="uid://bk7q00br1ms30" path="res://scripts/retro.gdshader" id="3_up2eu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_snyeq"]
+font = ExtResource("2_vmqma")
+font_size = 128
+outline_size = 64
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3qod5"]
+font_size = 72
+outline_size = 64
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhett"]
+shader = ExtResource("3_up2eu")
+shader_parameter/shake = 0.002000000095
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0010000000475
+shader_parameter/offsetIntensity = 0.0
+shader_parameter/colorOffsetIntensity = 0.10000000149012
+shader_parameter/pixelSize = 768.0000364325
+shader_parameter/grainIntensity = 0.04
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = true
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hi2c0")
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1454.0
+offset_bottom = 169.0
+text = "SUPER SPACE GAME"
+label_settings = SubResource("LabelSettings_snyeq")
+
+[node name="Label2" type="Label" parent="UI"]
+offset_left = 32.0
+offset_top = 160.0
+offset_right = 1454.0
+offset_bottom = 297.0
+text = "demo prototype"
+label_settings = SubResource("LabelSettings_3qod5")
+
+[node name="Shader" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_yhett")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
