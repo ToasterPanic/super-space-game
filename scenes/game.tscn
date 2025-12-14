@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=4 uid="uid://bauklhpieuivd"]
+[gd_scene load_steps=84 format=4 uid="uid://bauklhpieuivd"]
 
 [ext_resource type="Script" uid="uid://d0qswyhwbhdua" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://dtwo7g0ipc4k" path="res://textures/ship_1.png" id="1_uwrxv"]
@@ -61,6 +61,9 @@ size = Vector2(64.99997, 72)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ool0"]
 size = Vector2(64.99997, 33.63086)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0sl42"]
+size = Vector2(1014.5, 72)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4url"]
 size = Vector2(445.50006, 240)
@@ -393,9 +396,8 @@ position = Vector2(-687, -599111)
 scale = Vector2(1.9999999, 1.9999999)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Orbits/TrainingCourse/TutorialHitbox1"]
-position = Vector2(-4, 4)
-scale = Vector2(1.0000001, 1.0000001)
-shape = SubResource("RectangleShape2D_kvuet")
+position = Vector2(470.74997, 4)
+shape = SubResource("RectangleShape2D_0sl42")
 
 [node name="TutorialHitbox2" type="Area2D" parent="Orbits/TrainingCourse"]
 position = Vector2(905.9999, -599111)
