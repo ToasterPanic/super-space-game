@@ -12,10 +12,11 @@ scale = Vector2(8, 8)
 texture = ExtResource("1_hifyb")
 script = ExtResource("2_rc8d1")
 
-[node name="InteractArea" type="Area2D" parent="."]
+[node name="InteractArea" type="Area2D" parent="." node_paths=PackedStringArray("interact_node")]
 scale = Vector2(0.125, 0.125)
 script = ExtResource("3_jqc2j")
 interact_text = "LEAVE"
+interact_node = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="InteractArea"]
 scale = Vector2(8, 8)

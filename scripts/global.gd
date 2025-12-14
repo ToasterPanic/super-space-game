@@ -20,7 +20,11 @@ var orbit_zones = [
 			}
 		]
 	},
-	
+	{
+		"name": "Training Zone",
+		"distance": -550000.0,
+		"spawns": []
+	},
 ]
 
 var missions = {

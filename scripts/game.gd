@@ -93,6 +93,7 @@ func enter_physical(map):
 func _ready() -> void:
 	LimboConsole.register_command(ship_health, "ship_health", "Sets the ship's health.")
 	LimboConsole.register_command(summon_enemy, "summon_enemy", "Summons an enemy.")
+	LimboConsole.register_command(enter_physical, "go_to_ground", "Enters a ground room.")
 	
 	var events = InputMap.action_get_events("forward")
 		
@@ -142,7 +143,10 @@ func _ready() -> void:
 		i += 1
 		
 	if global.stats.story_progress == 3:
-		$Player.global_position = spawn_points[global.stats.location].global_position
+	
+		$Player.global_position = $Orbits/TrainingCourse/ExitPoint.global_position
+		$Player.rotation = $Orbits/TrainingCourse/ExitPoint.rotation
+		
 		global.stats.story_progress = 4
 	elif (global.stats.location != "space") and (spawn_points.has(global.stats.location)):
 		$Player.global_position = spawn_points[global.stats.location].global_position
@@ -375,6 +379,7 @@ func _input(event: InputEvent) -> void:
 func _on_tree_exiting() -> void:
 	LimboConsole.unregister_command(ship_health)
 	LimboConsole.unregister_command(summon_enemy)
+	LimboConsole.unregister_command(enter_physical)
 
 
 func _on_navigation_pressed() -> void:
