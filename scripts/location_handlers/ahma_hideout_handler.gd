@@ -236,6 +236,8 @@ func _ground_ready() -> void:
 			
 		player.busy = false
 		player.speed = 128
+		
+		return
 	else:
 		game.get_node("PlayerBedroomDoor").set_open(true)
 	
