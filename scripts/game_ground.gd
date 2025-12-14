@@ -77,6 +77,8 @@ func _ready() -> void:
 		global.stats.loaded = true
 
 func _process(delta: float) -> void:
+	$UI/DamageVignette.get_material().set("shader_parameter/MainAlpha", 1.0 - ($PlayerGround.health / 100.0))
+	
 	if current_interaction_area:
 		$UI/Control/Interact.visible = true
 		$UI/Control/Interact/End.text = "TO " + (current_interaction_area.interact_text)

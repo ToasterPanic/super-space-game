@@ -44,6 +44,8 @@ func _process(delta: float) -> void:
 		else:
 			$Death.play()
 		
+		get_parent().set_vignette_parameter("radius", 0)
+		
 		var i = 21
 		while i > -1:
 			await get_tree().create_timer(0.05).timeout
@@ -67,6 +69,7 @@ func _process(delta: float) -> void:
 		AudioServer.set_bus_effect_enabled(2, 0, false)
 		
 		get_parent().set_vignette_parameter("softness", 0)
+		get_parent().set_vignette_parameter("radius", 1)
 		
 		get_tree().change_scene_to_file("res://scenes/ground.tscn")
 	
