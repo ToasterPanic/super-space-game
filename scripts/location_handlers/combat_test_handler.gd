@@ -33,13 +33,14 @@ func _interact(player: CharacterBody2D, area: Node2D):
 			var enemy = preload("res://scenes/enemy_ground.tscn").instantiate()
 			enemy.always_sees_player = true
 			enemy.inaccuracy = 12
-			enemy.speed = 172
+			enemy.speed = 140
 			enemy.game = game
 			enemy.reaction_time = 0.75
 			
 			var random_point = game.get_node("Waypoints/" + combat_spawns[randi_range(0, combat_spawns.size() - 1)])
 			
 			enemy.global_position = random_point.global_position
+			enemy.global_position += Vector2(randf_range(-24, 24), randf_range(-24, 24))
 			
 			print(random_point)
 			

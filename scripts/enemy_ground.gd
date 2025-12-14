@@ -92,10 +92,6 @@ func _process(delta: float) -> void:
 		reloading = true
 	else:
 		reloading = false
-		
-	print(ai_mode)
-	print(ai_state)
-	print(reaction_timer)
 	
 	if ai_mode == AI_MODE_IDLE:
 		$LineOfSight.look_at(player.global_position)

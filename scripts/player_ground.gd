@@ -25,6 +25,8 @@ func _process(delta: float) -> void:
 		
 		last_health = health
 		
+	time_since_last_damage += delta
+		
 	if time_since_last_damage > 2:
 		health += delta * 15
 		

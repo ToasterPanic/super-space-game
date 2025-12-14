@@ -45,7 +45,6 @@ func _ready() -> void:
 	var player_spawn = location_scene.get_node("PlayerSpawn")
 	
 	if global.stats.position:
-		print("AAA ", global.stats.position)
 		$PlayerGround.global_position.x = global.stats.position.x
 		$PlayerGround.global_position.y = global.stats.position.y
 		
@@ -107,12 +106,13 @@ func _process(delta: float) -> void:
 	else:
 		$UI/Control/WeaponUI.visible = false
 		
+	combat = false
+		
 	if has_node("Enemies"):
 		for n in $Enemies.get_children():
 			if "ai_mode" in n:
 				if !n.dead and n.concious and (n.ai_mode == n.AI_MODE_ATTACK):
 					combat = true
-						
 		if combat:
 			if !combat_track:
 				var combat_tracks = $CombatMusic.get_children()
