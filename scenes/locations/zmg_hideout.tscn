@@ -325,11 +325,22 @@ shape = SubResource("RectangleShape2D_uguvc")
 
 [node name="Captain1DeskInteract" type="Area2D" parent="Triggers" node_paths=PackedStringArray("interact_node")]
 position = Vector2(416, 288)
+monitoring = false
 script = ExtResource("20_ia5tc")
 interact_text = "TALK"
 interact_node = NodePath("../../ZMGHideoutHandler")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Captain1DeskInteract"]
+shape = SubResource("CircleShape2D_ksyeb")
+
+[node name="Captain2DeskInteract" type="Area2D" parent="Triggers" node_paths=PackedStringArray("interact_node")]
+position = Vector2(416, 288)
+monitoring = false
+script = ExtResource("20_ia5tc")
+interact_text = "TALK"
+interact_node = NodePath("../../ZMGHideoutHandler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Triggers/Captain2DeskInteract"]
 shape = SubResource("CircleShape2D_ksyeb")
 
 [node name="ArmoryLockerInteract" type="Area2D" parent="Triggers" node_paths=PackedStringArray("interact_node")]
@@ -627,6 +638,8 @@ position = Vector2(2336, -1216)
 [connection signal="area_entered" from="Triggers/SpeedUp" to="ZMGHideoutHandler" method="_on_speed_up_area_entered"]
 [connection signal="body_entered" from="Triggers/Captain1DeskInteract" to="Triggers/Captain1DeskInteract" method="_on_body_entered"]
 [connection signal="body_exited" from="Triggers/Captain1DeskInteract" to="Triggers/Captain1DeskInteract" method="_on_body_exited"]
+[connection signal="body_entered" from="Triggers/Captain2DeskInteract" to="Triggers/Captain2DeskInteract" method="_on_body_entered"]
+[connection signal="body_exited" from="Triggers/Captain2DeskInteract" to="Triggers/Captain2DeskInteract" method="_on_body_exited"]
 [connection signal="area_entered" from="Triggers/ArmoryLockerInteract" to="Triggers/ArmoryLockerInteract" method="_on_body_entered"]
 [connection signal="area_exited" from="Triggers/ArmoryLockerInteract" to="Triggers/ArmoryLockerInteract" method="_on_body_exited"]
 [connection signal="body_entered" from="Triggers/ArmoryLockerInteract" to="Triggers/ArmoryLockerInteract" method="_on_body_entered"]

@@ -87,6 +87,11 @@ func _process(delta: float) -> void:
 		if active_alertness_marker:
 			active_alertness_marker.queue_free()
 			active_alertness_marker = null
+			
+	if ammo_in_mag == 0:
+		reloading = true
+	else:
+		reloading = false
 	
 	if ai_mode == AI_MODE_IDLE:
 		$LineOfSight.look_at(player.global_position)

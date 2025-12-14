@@ -74,7 +74,7 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("we found you on the ground, riddled with bullet holes.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		
-		await game.dialogue("The majority of them have healed.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		await game.dialogue("The majority of them have been repaired and healed.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
 		await game.dialogue("You've been out for... almost four earth days?", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
@@ -227,6 +227,8 @@ func _ground_ready() -> void:
 		await game.dialogue("He's at his desk in the Bridge, look for the purple floors.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
 		
 		await game.dialogue("Good luck out there.", "zmg_doctor_1", true, game.get_node("ZMGDoctor1"))
+		
+		game.get_node("Triggers/Captain1DeskInteract").monitoring = true
 			
 		global.stats.story_progress = 2
 		
@@ -234,15 +236,20 @@ func _ground_ready() -> void:
 			
 		player.busy = false
 		player.speed = 128
-		
+	else:
+		game.get_node("PlayerBedroomDoor").set_open(true)
 	
-	elif global.stats.story_progress == 2:
+	if global.stats.story_progress == 2:
 		game.get_node("ZMGHideoutCaptain").global_position = game.get_node("Waypoints/CaptainPoint2").global_position
 		player.global_position = game.get_node("Waypoints/PlayerIntroSpawn2").global_position
+		
+		game.get_node("Triggers/Captain1DeskInteract").monitoring = true
 	
 	elif global.stats.story_progress == 3:
 		game.get_node("ZMGHideoutCaptain").global_position = game.get_node("Waypoints/CaptainPoint2").global_position
 		player.global_position = game.get_node("Waypoints/PlayerIntroSpawn3").global_position
+		
+		game.get_node("Triggers/Captain2DeskInteract").monitoring = true
 
 func _handle_1():
 	var i = 0
@@ -494,6 +501,8 @@ func _interact(player: Node2D, area: Area2D):
 		game.get_node("PlayerBedroomDoor").set_open(true)
 		
 		_handle_4()
+		
+		game.get_node("Triggers/Captain2DeskInteract").monitoring = true
 		
 		global.stats.story_progress = 3
 		game.save_game()

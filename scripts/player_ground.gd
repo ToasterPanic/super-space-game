@@ -4,7 +4,7 @@ var last_aim_direction = Vector2(0, 0)
 var processing_death = false
 var camera_shake_power = 0
 
-var can_holster = false
+var can_holster = true
 
 func _ready() -> void:
 	super()
