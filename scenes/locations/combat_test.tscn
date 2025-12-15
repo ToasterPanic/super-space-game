@@ -203,7 +203,7 @@ offset_left = -512.0
 offset_top = -112.0
 offset_right = -245.0
 offset_bottom = -77.0
-text = "summon enemies"
+text = "summon 4 enemies"
 label_settings = SubResource("LabelSettings_0c6sd")
 horizontal_alignment = 1
 
@@ -212,7 +212,7 @@ offset_left = 336.0
 offset_top = -144.0
 offset_right = 720.0
 offset_bottom = -71.0
-text = "summon stealth enemies
+text = "summon 4 stealth enemies
 (EXPERIMENTAL!)"
 label_settings = SubResource("LabelSettings_0c6sd")
 horizontal_alignment = 1
