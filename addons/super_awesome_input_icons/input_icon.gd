@@ -20,7 +20,7 @@ static var button_dictionary = {
 	JOY_BUTTON_START: "start",
 	JOY_BUTTON_MISC1: "select",
 	JOY_BUTTON_LEFT_SHOULDER: "left_shoulder",
-	JOY_BUTTON_RIGHT_SHOULDER: "left_shoulder",
+	JOY_BUTTON_RIGHT_SHOULDER: "right_shoulder",
 	JOY_BUTTON_PADDLE1: "left_shoulder",
 	JOY_BUTTON_BACK: "back",
 	JOY_BUTTON_LEFT_STICK: "left_stick",
