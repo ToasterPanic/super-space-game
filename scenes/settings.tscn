@@ -203,12 +203,46 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_f4mfi")
-text = "CONTROLS"
+text = "GRAPHICS"
 label_settings = SubResource("LabelSettings_ssvqc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Flow6" type="HFlowContainer" parent="Scroll/Flow"]
+custom_minimum_size = Vector2(608, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow6"]
+layout_mode = 2
+text = "Camera Shake"
+
+[node name="CameraShake" type="HSlider" parent="Scroll/Flow/Flow6"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="Label" type="Label" parent="Scroll/Flow/Flow6/CameraShake"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -12.0
+offset_right = 115.5
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_6wm04")
+horizontal_alignment = 1
+
 [node name="Flow5" type="HFlowContainer" parent="Scroll/Flow"]
+visible = false
 custom_minimum_size = Vector2(608, 0)
 layout_mode = 2
 
@@ -225,3 +259,4 @@ text = "NO"
 [connection signal="value_changed" from="Scroll/Flow/Flow2/MasterVolume" to="." method="_on_master_volume_value_changed"]
 [connection signal="value_changed" from="Scroll/Flow/Flow3/MusicVolume" to="." method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Scroll/Flow/Flow4/SFXVolume" to="." method="_on_sfx_volume_value_changed"]
+[connection signal="value_changed" from="Scroll/Flow/Flow6/CameraShake" to="." method="_on_camera_shake_value_changed"]

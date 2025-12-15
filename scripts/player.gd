@@ -72,8 +72,8 @@ func _process(delta: float) -> void:
 			repair_timer = 1
 			repairing = true
 	
-	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
-	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
+	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power) * global.settings.camera_shake
+	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power) * global.settings.camera_shake
 	
 	# Don't understand why I need this but when you reload the current scene,
 	# get_viewport() likes to return null. I don't know why, I don't want to

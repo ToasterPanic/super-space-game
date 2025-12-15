@@ -44,8 +44,8 @@ func _process(delta: float) -> void:
 	if camera_shake_power < 0:
 		camera_shake_power = 0
 	
-	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power)
-	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power)
+	$Camera.offset.x = randi_range(-camera_shake_power, camera_shake_power) * global.settings.camera_shake
+	$Camera.offset.y = randi_range(-camera_shake_power, camera_shake_power) * global.settings.camera_shake
 	
 	if dead:
 		if processing_death: return

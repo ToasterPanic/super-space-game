@@ -214,10 +214,14 @@ var settings = {
 	"master_volume": 1.0,
 	"music_volume": 1.0,
 	"sfx_volume": 1.0,
+	"camera_shake": 1.0
 }
 
 func _ready() -> void:
 	load_settings()
+	
+	if !("camera_shake" in settings):
+		settings.camera_shake = 1.0
 	
 	LimboConsole.register_command(set_story_progress, "set_story_progress", "Sets the current story_progress variable")
 	LimboConsole.register_command(set_active_mission, "set_active_mission", "Sets the current active_mission variable")
