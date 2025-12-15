@@ -107,7 +107,7 @@ func _ground_ready() -> void:
 		
 		await game.dialogue("...", "doctor_1", true, game.get_node("Doctor1"))
 		
-		await game.dialogue("Sorry for that...", "doctor_1", true, game.get_node("Doctor1"))
+		await game.dialogue("Sorry for that.", "doctor_1", true, game.get_node("Doctor1"))
 	
 		var option_1 = await game.make_choice({
 			"where": "Where am I..?",
