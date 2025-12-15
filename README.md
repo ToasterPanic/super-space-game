@@ -13,8 +13,10 @@ Above all else: THIS IS A GAME THAT IS UNFINISHED. More importantly, it's a DEMO
 
 - I put it on the website multiple times, but if I do need to say it again: ***DO NOT USE THE WEB PORT.*** It is included only out of obligation and nothing else. This game uses things that may not work in the browser. Just download the game. It's not that hard.
 
-- You can press the SELECT/BACK/SHARE/- button to open your navpanel. Use the D-PAD, A/CROSS and B/CIRCLE buttons to select stuff.
-- Use the command `go_to_ground combat_test` ***while in space!*** to go to a combat testing zone. There's a bunch of buttons to fiddle around with.
+- Once you have reached the end of the spaceflight training tutorial, that is the end of the finished content. However, you can still leave via your ship, and use the unfinished features below:
+
+- In space, you can press the SELECT/BACK/SHARE/- button to open your navpanel. Use the D-PAD, A/CROSS and B/CIRCLE buttons to select stuff.
+- Use the command `go_to_ground combat_test` ***while in space!*** to go to a combat testing zone. You can test general combat, different weapons, as well as experimental stealth gameplay.
 - While in space, use the `summon_enemy` command to summon an enemy behind you. They probably won't work well with more than one, so try not to spawn more than one of them.
 
 - Try to avoid unfocusing the window. This game is currently prone to softlocking for unknown reasons that I'll figure out later.
