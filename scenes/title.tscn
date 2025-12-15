@@ -73,6 +73,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Version" type="Label" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "v25.111-demo"
+horizontal_alignment = 2
+
 [node name="ControllerInfo" type="HBoxContainer" parent="UI/Control"]
 visible = false
 layout_mode = 1
@@ -138,7 +150,6 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Title" type="VBoxContainer" parent="UI/Control"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

@@ -7,7 +7,7 @@ func _ready() -> void:
 	$UI/Control/ControllerInfo.visible = true
 	$UI/Control/ControllerInfo/Box/Flow/Continue.grab_focus()
 	
-
+	$UI/Control/Version.text = "v" + ProjectSettings.get_setting("application/config/version")
 
 func _on_continue_pressed() -> void:
 	if transitioning: return 
