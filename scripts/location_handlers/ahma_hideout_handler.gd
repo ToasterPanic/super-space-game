@@ -376,8 +376,12 @@ func _interact(player: Node2D, area: Area2D):
 		})
 		
 		if option_1 == "yes":
+			await game.dialogue("Yes, I do.", "player", true, player)
+			
 			await game.dialogue("Good, then this should just be review.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 		elif option_1 == "no":
+			await game.dialogue("Nope.", "player", true, player)
+			
 			await game.dialogue("Well, you're about to find out.", "zmg_hideout_captain", true, game.get_node("ZMGHideoutCaptain"))
 			
 		await game.dialogue("Take a pistol from that locker.", "zmg_hideout_captain", false, game.get_node("ZMGHideoutCaptain"))
