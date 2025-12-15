@@ -8,10 +8,14 @@
 
 config_version=5
 
+[addons]
+
+AutoExportVersion/version_config_file="res://addons/AutoExportVersion/auto_export_version_config_file.gd"
+
 [application]
 
 config/name="Super Space Game Demo"
-config/version="d0.1.0"
+config/version="2025.1214.-"
 run/main_scene="uid://b1x7evhkxm385"
 config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -36,7 +40,7 @@ movie_writer/fps=10
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/super_awesome_input_icons/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/super_awesome_input_icons/plugin.cfg")
 
 [gui]
 
