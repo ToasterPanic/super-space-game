@@ -15,7 +15,7 @@ AutoExportVersion/version_config_file="res://addons/AutoExportVersion/auto_expor
 [application]
 
 config/name="Super Space Game Demo"
-config/version="25.114-demo"
+config/version="25.116-demo"
 run/main_scene="uid://b1x7evhkxm385"
 config/features=PackedStringArray("4.5", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
