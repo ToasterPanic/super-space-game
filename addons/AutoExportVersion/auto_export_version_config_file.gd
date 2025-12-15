@@ -4,7 +4,7 @@ func get_version(features: PackedStringArray, is_debug: bool, path: String, flag
 	var version: String = ""
 	
 	var time = Time.get_datetime_dict_from_system()
-	version = str(time.year) + "." + str(time.month).pad_zeros(2) + str(time.day).pad_zeros(2) + "." + str(get_git_commit_count()) + "-" + get_git_branch_name()
+	version = str(time.year).substr(2) + "." + str(get_git_commit_count()) + "-" + get_git_branch_name()
 
 #	version += get_git_commit_count()
 #	version += get_git_branch_name()
